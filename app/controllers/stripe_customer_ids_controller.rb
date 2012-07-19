@@ -1,0 +1,2 @@
+class StripeCustomerIdsController < ApplicationController
+end

@@ -1,0 +1,17 @@
+%h1 Listing acceptances
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @acceptances.each do |acceptance|
+    %tr
+      %td= link_to 'Show', acceptance
+      %td= link_to 'Edit', edit_acceptance_path(acceptance)
+      %td= link_to 'Destroy', acceptance, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Acceptance', new_acceptance_path

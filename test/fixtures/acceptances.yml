@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_time: 2012-07-19 06:15:50
+  end_time: 2012-07-19 06:15:50
+  count: 1.5
+  status: MyString
+  buyer_id: 1
+  offer_id: 1
+
+two:
+  start_time: 2012-07-19 06:15:50
+  end_time: 2012-07-19 06:15:50
+  count: 1.5
+  status: MyString
+  buyer_id: 1
+  offer_id: 1

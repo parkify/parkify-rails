@@ -1,0 +1,10 @@
+= form_for @acceptance do |f|
+  -if @acceptance.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@acceptance.errors.count, "error")} prohibited this acceptance from being saved:"
+      %ul
+        - @acceptance.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

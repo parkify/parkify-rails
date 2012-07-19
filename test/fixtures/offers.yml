@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  offer_options_id: 1
+  capacity_list_id: 1
+  location_id: 1
+  price_plan_id: 1
+  capacity: 1.5
+  start_time: 2012-07-19 06:13:39
+  end_time: 2012-07-19 06:13:39
+
+two:
+  offer_options_id: 1
+  capacity_list_id: 1
+  location_id: 1
+  price_plan_id: 1
+  capacity: 1.5
+  start_time: 2012-07-19 06:13:39
+  end_time: 2012-07-19 06:13:39

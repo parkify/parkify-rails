@@ -1,0 +1,2 @@
+class CapacityListsController < ApplicationController
+end

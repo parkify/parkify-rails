@@ -1,0 +1,2 @@
+module CapacityListsHelper
+end

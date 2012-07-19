@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  stripe_customer_id_id: MyString
+  acceptance_id: 1
+  amount_charged: 1.5
+  stripe_charge_id: MyString
+
+two:
+  stripe_customer_id_id: MyString
+  acceptance_id: 1
+  amount_charged: 1.5
+  stripe_charge_id: MyString

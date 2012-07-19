@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_time: 2012-07-19 06:19:12
+  end_time: 2012-07-19 06:19:12
+  capacity: 1.5
+  capacity_list_id: 1
+
+two:
+  start_time: 2012-07-19 06:19:12
+  end_time: 2012-07-19 06:19:12
+  capacity: 1.5
+  capacity_list_id: 1

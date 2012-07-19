@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyText
+  location_id: 1
+  capacity: 1.5
+  price_plan_id: 1
+  vendor_id: 1
+
+two:
+  description: MyText
+  location_id: 1
+  capacity: 1.5
+  price_plan_id: 1
+  vendor_id: 1

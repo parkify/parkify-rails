@@ -1,4 +1,32 @@
 ParkifyRails::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  resources :price_plans
+
+  resources :images
+
+  resources :cars
+
+  resources :stripe_customer_ids
+
+  resources :payment_infos
+
+  resources :locations
+
+  resources :capacity_intervals
+
+  resources :capacity_lists
+
+  resources :acceptances
+
+  resources :offers
+
+  resources :resources
+
+  root :to => "home#index"
+
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

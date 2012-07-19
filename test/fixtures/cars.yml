@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  details: MyText
+  license_plate_number: MyString
+  user_id: 1
+
+two:
+  details: MyText
+  license_plate_number: MyString
+  user_id: 1

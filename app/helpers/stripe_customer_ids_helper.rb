@@ -1,0 +1,2 @@
+module StripeCustomerIdsHelper
+end

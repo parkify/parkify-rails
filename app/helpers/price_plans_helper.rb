@@ -1,0 +1,2 @@
+module PricePlansHelper
+end
