@@ -1,0 +1,13 @@
+%li
+  %table
+    %tr
+      %th
+      %th
+      %th
+    %tr
+      %td= link_to 'Show', price_plan
+      %td= link_to 'Edit', edit_price_plan_path(price_plan)
+      %td= link_to 'Destroy', price_plan, :confirm => 'Are you sure?', :method => :delete
+  
+  %p
+    ="Price Per Hour : #{price_plan.price_per_hour}"

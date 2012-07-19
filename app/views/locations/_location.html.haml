@@ -1,0 +1,22 @@
+%li
+  %table
+    %tr
+      %th
+      %th
+      %th
+    %tr
+      %td= link_to 'Show', location
+      %td= link_to 'Edit', edit_resource_path(location)
+      %td= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete
+  
+  %p
+    = "Name : #{location.location_name}"
+    %br
+    = "Directions : #{location.directions}"
+    %br
+    = "Latitude : #{location.latitude}"
+    %br
+    = "Longitude : #{location.longitude}"
+    %br
+    = "Address : #{location.location_address}"
+    %br
