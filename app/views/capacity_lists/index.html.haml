@@ -1,0 +1,17 @@
+%h1 Listing capacity_lists
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @capacity_lists.each do |capacity_list|
+    %tr
+      %td= link_to 'Show', capacity_list
+      %td= link_to 'Edit', edit_capacity_list_path(capacity_list)
+      %td= link_to 'Destroy', capacity_list, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Capacity list', new_capacity_list_path

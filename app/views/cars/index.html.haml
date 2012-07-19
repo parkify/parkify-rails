@@ -1,0 +1,17 @@
+%h1 Listing cars
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @cars.each do |car|
+    %tr
+      %td= link_to 'Show', car
+      %td= link_to 'Edit', edit_car_path(car)
+      %td= link_to 'Destroy', car, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Car', new_car_path

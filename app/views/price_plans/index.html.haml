@@ -1,0 +1,17 @@
+%h1 Listing price_plans
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @price_plans.each do |price_plan|
+    %tr
+      %td= link_to 'Show', price_plan
+      %td= link_to 'Edit', edit_price_plan_path(price_plan)
+      %td= link_to 'Destroy', price_plan, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Price plan', new_price_plan_path

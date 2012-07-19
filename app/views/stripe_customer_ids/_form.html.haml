@@ -1,0 +1,10 @@
+= form_for @stripe_customer_id do |f|
+  -if @stripe_customer_id.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@stripe_customer_id.errors.count, "error")} prohibited this stripe_customer_id from being saved:"
+      %ul
+        - @stripe_customer_id.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

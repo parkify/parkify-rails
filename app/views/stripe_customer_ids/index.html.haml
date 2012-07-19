@@ -1,0 +1,17 @@
+%h1 Listing stripe_customer_ids
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @stripe_customer_ids.each do |stripe_customer_id|
+    %tr
+      %td= link_to 'Show', stripe_customer_id
+      %td= link_to 'Edit', edit_stripe_customer_id_path(stripe_customer_id)
+      %td= link_to 'Destroy', stripe_customer_id, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Stripe customer', new_stripe_customer_id_path

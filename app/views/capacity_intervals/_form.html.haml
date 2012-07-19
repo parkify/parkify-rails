@@ -1,0 +1,10 @@
+= form_for @capacity_interval do |f|
+  -if @capacity_interval.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@capacity_interval.errors.count, "error")} prohibited this capacity_interval from being saved:"
+      %ul
+        - @capacity_interval.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

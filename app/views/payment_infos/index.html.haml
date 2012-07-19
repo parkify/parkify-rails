@@ -1,0 +1,17 @@
+%h1 Listing payment_infos
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @payment_infos.each do |payment_info|
+    %tr
+      %td= link_to 'Show', payment_info
+      %td= link_to 'Edit', edit_payment_info_path(payment_info)
+      %td= link_to 'Destroy', payment_info, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Payment info', new_payment_info_path

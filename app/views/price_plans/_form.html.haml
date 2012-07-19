@@ -1,0 +1,10 @@
+= form_for @price_plan do |f|
+  -if @price_plan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@price_plan.errors.count, "error")} prohibited this price_plan from being saved:"
+      %ul
+        - @price_plan.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

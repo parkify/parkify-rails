@@ -1,0 +1,17 @@
+%h1 Listing capacity_intervals
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @capacity_intervals.each do |capacity_interval|
+    %tr
+      %td= link_to 'Show', capacity_interval
+      %td= link_to 'Edit', edit_capacity_interval_path(capacity_interval)
+      %td= link_to 'Destroy', capacity_interval, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Capacity interval', new_capacity_interval_path
