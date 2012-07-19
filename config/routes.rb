@@ -26,6 +26,13 @@ ParkifyRails::Application.routes.draw do
   root :to => "home#index"
 
   devise_for :users
+  
+  namespace :api do
+      namespace :v1 do
+        devise_for :users
+      end
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

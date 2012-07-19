@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20120719163336_add_activecar_to_cars.rb
