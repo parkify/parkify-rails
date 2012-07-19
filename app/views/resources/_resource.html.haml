@@ -14,10 +14,6 @@
     %br
     = "Capacity: #{resource.capacity}"
     %br
-    = "Price Plan: #{resource.price_plan}"
+    = "Price Plan: #{render resource.price_plan}"
     %br
-    = "Company Name: #{user.company_name}"
-    %br
-    = "Billing Address: #{user.billing_address}"
-    %br
-    = "Phone #: #{user.company_phone_number}"
+    = "Location: #{render resource.location}"
