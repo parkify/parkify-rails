@@ -9,6 +9,7 @@ class ParkingSpotsController < ApplicationController
     @user = User.find_by_email(params[:user][:email])
     
     @resource.user_id = @user.id
+    @resource.capacity = 1.0
     
     respond_to do |format|
       if @resource.save
