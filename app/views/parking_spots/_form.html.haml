@@ -1,0 +1,29 @@
+
+=form_tag({:controller => "parking_spots", :action => "create"}, :method => "post")
+  
+  ="Latitude "
+  =text_field(:location, :latitude)
+  %br
+  
+  ="Longitude "
+  =text_field(:location, :longitude)
+  %br
+  
+  ="Local ID "
+  =text_field(:location, :location_name)
+  %br
+  
+  ="Price Per Hour "
+  =text_field(:price_plan, :price_per_hour)
+  %br
+  
+  ="Description "
+  =text_field(:resource, :description)
+  %br
+  
+  ="Vendor's Email "
+  =text_field(:user, :email)
+  %br
+
+  = submit_tag( 'Subscribe', :class => 'button ok' )
+  

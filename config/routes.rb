@@ -1,4 +1,10 @@
 ParkifyRails::Application.routes.draw do
+  get "parking_spots/create"
+
+  get "parking_spots/new"
+
+  post "parking_spots/create"
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   resources :users
