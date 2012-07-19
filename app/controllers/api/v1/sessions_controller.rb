@@ -1,4 +1,4 @@
-class Api::SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
   #before_filter :authenticate_user!, :except => [:create, :destroy]
   before_filter :ensure_params_exist
   respond_to :json
