@@ -1,8 +1,8 @@
 %p#notice= notice
 
-%p= "Email : {@user.email}"
-%p= "First Name: {@user.first_name}"
-%p= "Last Name: {@user.last_name}"
+%p= "Email : #{@user.email}"
+%p= "First Name: #{@user.first_name}"
+%p= "Last Name: #{@user.last_name}"
 
 = link_to 'Edit', edit_user_path(@user)
 \|
