@@ -1,8 +1,8 @@
 class Acceptance < ActiveRecord::Base
-  attr_accessible :buyer_id, :count, :end_time, :offer_id, :start_time, :status
+  attr_accessible :user_id, :count, :end_time, :offer_id, :start_time, :status
   
   belongs_to :offer
-  belongs_to :user, :foreign_key => :buyer_id
+  belongs_to :user
   
   has_one :payment_info
   
