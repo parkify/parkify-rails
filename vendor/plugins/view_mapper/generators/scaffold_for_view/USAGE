@@ -1,1 +1,0 @@
-script/generate scaffold_for_view model [ --view view:view_parameter ]
