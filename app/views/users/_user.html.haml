@@ -1,4 +1,21 @@
 %li
+  %table
+    %tr
+      %th
+      %th
+      %th
+    %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)
+        %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+  
   %p= "Email : #{user.email}"
-  %p= "First Name: #{user.first_name}"
-  %p= "Last Name: #{user.last_name}"
+    %br
+    = "First Name: #{user.first_name}"
+    %br
+    = "Last Name: #{user.last_name}"
+    %br
+    = "Company Name: #{user.company_name}"
+    %br
+    = "Billing Address: #{user.billing_address}"
+    %br
+    = "Phone #: #{user.company_phone_number}"
