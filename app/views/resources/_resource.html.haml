@@ -9,11 +9,12 @@
       %td= link_to 'Edit', edit_resource_path(resource)
       %td= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
   
-  %p= "Email : #{user.email}"
+  %p
+    ="Description : #{resource.description}"
     %br
-    = "First Name: #{user.first_name}"
+    = "Capacity: #{resource.capacity}"
     %br
-    = "Last Name: #{user.last_name}"
+    = "Price Plan: #{resource.price_plan}"
     %br
     = "Company Name: #{user.company_name}"
     %br
