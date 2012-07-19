@@ -5,17 +5,15 @@ class ParkingSpotsController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @location = Location.new(params[:location])
-    @price_plan = PricePlan.new(params[:price_plan])
-    @resource = Resource.new(params[:price_plan])
+    @resource = Resource.new(params[:resource])
     @user = User.find_by_email(params[:user][:email])
     
     @resource.user_id = @user.id
     
     respond_to do |format|
       if @resource.save
-        @location.resource_id = @resource.id
-        @price_plan.resource_id = @resource.id
+        @location = @resource.build_location(params[:location])
+        @price_plan = @resource.build_price_plan(params[:price_plan])
         if @location.save and @price_plan.save
           format.html { redirect_to @resource, notice: 'Parking Spot was successfully created.' }
           format.json { render json: @resource, status: :created, location: @resource }
