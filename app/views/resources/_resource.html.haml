@@ -14,6 +14,6 @@
     %br
     = "Capacity: #{resource.capacity}"
     %br
-    = "Price Plan: #{render resource.price_plan}"
+    = "Price Plan: #{render resource.price_plan unless !resource.price_plan}"
     %br
-    = "Location: #{render resource.location}"
+    = "Location: #{render resource.location unless resource.location}"
