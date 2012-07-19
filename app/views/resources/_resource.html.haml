@@ -5,9 +5,9 @@
       %th
       %th
     %tr
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', resource
+      %td= link_to 'Edit', edit_resource_path(resource)
+      %td= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
   
   %p= "Email : #{user.email}"
     %br
