@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :stripe_customer_ids, :dependent => :destroy
   has_many :resources, :dependent => :destroy
   
-  def save_with_card_and_car!(stripe_token_id)
+  def save_with_card_and_car!(stripe_token_id, license_plate)
     if(stripe_token_id) #TODO: Maybe check actual validity of token
     
       logger.info "err3..."
@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
         :card => stripe_token_id,
         :description => email
       )
-      
-      self.stripe_customer_ids.create(:customer_id => customer.id, :stripe_token_id => stripe_token_id, :active_customer => true)
+      self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true)
+      self.cars.create(:license_plate_number => license_plate, :active_customer => true)
       
     else
       self.errors.add(:card, "Invalid Card")

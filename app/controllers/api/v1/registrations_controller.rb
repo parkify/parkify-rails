@@ -7,7 +7,7 @@ class Api::V1::RegistrationsController < ApplicationController
     @user = User.new(JSON.parse(params[:user]))
     logger.info "Beginning registration..."
     
-    if @user.save_with_card_and_car!(params[:stripe_token_id])
+    if @user.save_with_card_and_car!(params[:stripe_token_id], params[:license_plate_number])
       logger.info "err1..."
       #Return the results
       render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>@user.authentication_token}, :status=>201
