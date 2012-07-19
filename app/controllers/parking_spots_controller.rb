@@ -6,8 +6,8 @@ class ParkingSpotsController < ApplicationController
   # POST /users.json
   def create
     @location = Location.new(params[:location])
-    @price_plan = Location.new(params[:price_plan])
-    @resource = Location.new(params[:price_plan])
+    @price_plan = PricePlan.new(params[:price_plan])
+    @resource = Resource.new(params[:price_plan])
     @user = User.find_by_email(params[:user][:email])
     
     @resource.user_id = @user.id
