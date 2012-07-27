@@ -1,6 +1,9 @@
 ParkifyRails::Application.routes.draw do
-
+  root :to => "home#index"
+  
   devise_for :users
+  
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
   get "parking_spots/create"
 
@@ -8,7 +11,6 @@ ParkifyRails::Application.routes.draw do
 
   post "parking_spots/create"
 
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   #resources :users
   
@@ -33,8 +35,6 @@ ParkifyRails::Application.routes.draw do
   resources :offers
 
   resources :resources
-
-  root :to => "home#index"
 
   
   namespace :api do
