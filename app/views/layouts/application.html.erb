@@ -8,7 +8,11 @@
 </head>
 <body>
 
-<%= yield %>
+  <% if user_signed_in? %>
+    <div>Signed in as... <%= current_user.email %></div>
+  <% end %>
+  
+  <%= yield %>
 
 </body>
 </html>
