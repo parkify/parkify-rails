@@ -1,4 +1,7 @@
 class ParkingSpotsController < ApplicationController
+
+  before_filter :authenticate_user!
+
   def new
   end
 
@@ -6,9 +9,9 @@ class ParkingSpotsController < ApplicationController
   # POST /users.json
   def create
     @resource = Resource.new(params[:resource])
-    @user = User.find_by_email(params[:user][:email])
+    #@user = User.find_by_email(params[:user][:email])
     
-    @resource.user_id = @user.id
+    @resource.user_id = current_user.id
     @resource.capacity = 1.0
     
     respond_to do |format|
