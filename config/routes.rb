@@ -1,7 +1,9 @@
 ParkifyRails::Application.routes.draw do
   root :to => "home#index"
   
-  devise_for :users
+  devise_for :users, :path_prefix => 'my'
+  
+  resources :users
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
