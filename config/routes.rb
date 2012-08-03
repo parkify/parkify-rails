@@ -10,7 +10,8 @@ ParkifyRails::Application.routes.draw do
   get "parking_spots/new"
 
   post "parking_spots/create"
-
+  
+  map.resource :profile, :controller => "users"
 
   #resources :users
   
