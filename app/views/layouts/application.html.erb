@@ -11,9 +11,13 @@
   <% if user_signed_in? %>
     <div>Signed in as... <%= current_user.email %></div>
     <br/>
-    <div><%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+    <div><%= link_to "Log out", destroy_user_session_path, :method => :delete %></div>
+  <% else %>
+    <div><%= link_to "Log in", new_user_session_path, :method => :get %></div>
+    <br/>
+    <div><%= link_to "Register", new_user_registration_path, :method => :get %></div>
   <% end %>
-  
+  <hr/>
   <%= yield %>
 
 </body>
