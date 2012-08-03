@@ -1,5 +1,5 @@
 class Resource < ActiveRecord::Base
-  attr_accessible :capacity, :description, :user_id
+  attr_accessible :capacity, :description, :user_id, :title
   
   has_many :offers
   has_many :images, :as => :imageable
