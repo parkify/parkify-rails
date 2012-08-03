@@ -69,6 +69,12 @@ class UsersController < ApplicationController
     else
       @user = current_user
     end
+    
+    # Do this so devise can validate correctly
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

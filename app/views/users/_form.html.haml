@@ -5,6 +5,29 @@
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-
+          
+  %p
+    = f.label :email
+    = f.text_field :email
+  %p
+    = f.label :first_name
+    = f.text_field :first_name
+  %p
+    = f.label :last_name
+    = f.text_field :last_name
+  %p
+    = f.label :comapany_name
+    = f.text_field :comapany_name
+    
+  %p
+    = f.label :billing_address
+    = f.text_field :billing_address
+    
+  %p
+    = f.label :company_phone_number
+    = f.text_field :company_phone_number
+    
+  
   .actions
     = f.submit 'Save'
+  

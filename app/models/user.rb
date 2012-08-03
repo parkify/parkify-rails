@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number
   # attr_accessible :title, :body
   
   has_many :cars, :dependent => :destroy
