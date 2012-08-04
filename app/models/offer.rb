@@ -8,5 +8,4 @@ class Offer < ActiveRecord::Base
   has_one :location, :as => :locationable
   has_one :capacity_list
   
-  
 end

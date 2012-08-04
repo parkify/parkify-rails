@@ -40,7 +40,8 @@ class OffersController < ApplicationController
   # POST /offers
   # POST /offers.json
   def create
-    @offer = Offer.new(params[:offer])
+    @resource = Resources.find(params[:resource_id])
+    @offer = @resource.resources.new(params[:offer])
 
     respond_to do |format|
       if @offer.save

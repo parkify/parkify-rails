@@ -3,4 +3,7 @@ class CapacityInterval < ActiveRecord::Base
   
   belongs_to :capacity_list
   
+  def contains(time)
+    return time >= start_time && time <= end_time
+  end
 end

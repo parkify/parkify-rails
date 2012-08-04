@@ -35,9 +35,11 @@ ParkifyRails::Application.routes.draw do
 
   resources :acceptances
 
-  resources :offers
+  
 
-  resources :resources
+  resources :resources do
+    resources :offers
+  end
 
   
   namespace :api do
