@@ -13,8 +13,8 @@ class CapacityInterval < ActiveRecord::Base
   end
 
   # Return a scope for all interval overlapping the given interval, including the given interval itself
-  scope :overlapping, lambda { |interval| {
-    :conditions => ["( start_time < ? AND ? < end_time ) OR  ( start_time < ? AND ? < end_time )", interval.start_time, interval.start_time, interval.end_time, interval.end_time]
+  named_scope :overlapping, lambda { |interval| {
+    #:conditions => ["(DATEDIFF(start_time, ?) * DATEDIFF(?, end_date)) >= 0", interval.end_date, interval.start_date]
+    :conditions => ["((start_time, end_time)OVERLAPS(?,?) AND NOT(start_time >= ? OR end_time <= ?)", interval.start_date, interval.end_date, interval.end_time, interval.start_time]
   }}
 end
- 
