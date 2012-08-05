@@ -35,11 +35,11 @@ class User < ActiveRecord::Base
     end
   end
   def method_missing(meth, *args, &block)
-        puts meth, args, block
-      super # You *must* call super if you don't handle the
+    puts meth, args, block
+    super # You *must* call super if you don't handle the
                 # method, otherwise you'll mess up Ruby's method
                 # lookup.
-    end
+    
   end
   
 end
