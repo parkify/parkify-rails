@@ -6,4 +6,10 @@ class CapacityInterval < ActiveRecord::Base
   def contains(time)
     return time >= start_time && time <= end_time
   end
+  
+  # not (|--interval--| |--self--| or |--self--| |--interval--|)
+  def overlaps_with_interval(interval)
+    return not(interval.start_time >= end_time or interval.end_time <= start_time)
+  end
+  
 end
