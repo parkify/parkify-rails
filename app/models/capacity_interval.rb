@@ -6,10 +6,14 @@ class CapacityInterval < ActiveRecord::Base
   def contains(time)
     return time >= start_time && time <= end_time
   end
-  
-  # not (|--interval--| |--self--| or |--self--| |--interval--|)
-  def overlaps_with_interval(interval)
-    return not(interval.start_time >= end_time or interval.end_time <= start_time)
+
+  # Check if a given interval overlaps this interval    
+  def overlaps?(other)
+    (start_date - other.end_date) * (other.start_date - end_date) >= 0
   end
-  
+
+  # Return a scope for all interval overlapping the given interval, including the given interval itself
+  named_scope :overlapping, lambda { |interval| {
+    :conditions => ["(TIMEDIFF(start_time, ?) * TIMEDIFF(?, end_time)) > 0", interval.end_time, interval.start_time]
+  }}
 end
