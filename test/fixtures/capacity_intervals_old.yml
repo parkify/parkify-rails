@@ -1,0 +1,182 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+#|--a1--|
+#        |--a2--|
+overlap_1_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_1_A2:
+  start_time: <%= Time.at(8) %>
+  end_time: Time.at(15)
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|--a1--|
+#       |--a2--|
+overlap_2_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_2_A2:
+  start_time: <%= Time.at(7) %>
+  end_time: <%= Time.at(14) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|--a1--|
+#      |--a2--|
+overlap_3_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_3_A2:
+  start_time: <%= Time.at(6) %>
+  end_time: <%= Time.at(13) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|--a1--|
+#|--a2--|
+overlap_4_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_4_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#      |--a1--|
+#|--a2--|
+overlap_5_A1:
+  start_time: <%= Time.at(6) %>
+  end_time: <%= Time.at(13) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_5_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#       |--a1--|
+#|--a2--|
+overlap_6_A1:
+  start_time: <%= Time.at(7) %>
+  end_time: <%= Time.at(14) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_6_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#        |--a1--|
+#|--a2--|
+overlap_7_A1:
+  start_time: <%= Time.at(8) %>
+  end_time: <%= Time.at(15) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_7_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|---a1---|
+#  |--a2--|
+overlap_8_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_8_A2:
+  start_time: <%= Time.at(2) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|---a1---|
+# |--a2--|
+overlap_9_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_9_A2:
+  start_time: <%= Time.at(1) %>
+  end_time: <%= Time.at(8) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|---a1---|
+#|--a2--|
+overlap_10_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_10_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#  |--a1--|
+#|---a2---|
+overlap_11_A1:
+  start_time: <%= Time.at(2) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_11_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+# |--a1--|
+#|---a2---|
+overlap_12_A1:
+  start_time: <%= Time.at(1) %>
+  end_time: <%= Time.at(8) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_12_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil
+
+#|--a1--|
+#|---a2---|
+overlap_13_A1:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(7) %>
+  capacity: 1.5
+  capacity_list_id: nil
+  
+overlap_13_A2:
+  start_time: <%= Time.at(0) %>
+  end_time: <%= Time.at(9) %>
+  capacity: 1.5
+  capacity_list_id: nil

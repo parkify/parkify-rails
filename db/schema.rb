@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719175256) do
+ActiveRecord::Schema.define(:version => 20120803151759) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
     t.float    "count",      :default => 0.0
     t.string   "status",     :default => "pre_pending"
-    t.integer  "buyer_id"
+    t.integer  "user_id"
     t.integer  "offer_id"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -114,9 +114,10 @@ ActiveRecord::Schema.define(:version => 20120719175256) do
     t.integer  "location_id"
     t.float    "capacity",      :default => 0.0
     t.integer  "price_plan_id"
-    t.integer  "vendor_id"
+    t.integer  "user_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.string   "title"
   end
 
   create_table "stripe_customer_ids", :force => true do |t|
