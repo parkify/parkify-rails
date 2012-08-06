@@ -19,7 +19,7 @@ class CapacityInterval < ActiveRecord::Base
   #}}
   
   scope :overlapping, lambda { |interval|
-  where(["((CAST(start_time AS DATETIME), CAST(end_time AS DATETIME))OVERLAPS(CAST(? AS DATETIME),CAST(? AS DATETIME)) AND NOT(CAST(start_time AS DATETIME) >= CAST(? AS DATETIME) OR CAST(end_time AS DATETIME) <= CAST(? AS DATETIME)))", interval.start_time, interval.end_time, interval.end_time, interval.start_time])
+  where(["((CAST(start_time AS TIMESTAMP), CAST(end_time AS TIMESTAMP))OVERLAPS(CAST(? AS TIMESTAMP),CAST(? AS TIMESTAMP)) AND NOT(CAST(start_time AS TIMESTAMP) >= CAST(? AS TIMESTAMP) OR CAST(end_time AS TIMESTAMP) <= CAST(? AS TIMESTAMP)))", interval.start_time, interval.end_time, interval.end_time, interval.start_time])
   }
 
 end
