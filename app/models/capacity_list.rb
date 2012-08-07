@@ -91,8 +91,72 @@ class CapacityList < ActiveRecord::Base
     
     a1.add_if_can!(b3)
     
-    
-    
   end
+    
+  def self.test2()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    
+    b3 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(0), :end_time=>Time.at(7)})
+    
+    a1.add_if_can!(b3)
+  end
+  
+  def self.test3()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    
+    b3 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(10)})
+    
+    a1.add_if_can!(b3)
+  end
+  def self.test4()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(12)})
+    
+    a1.add_if_can!(b3)
+  end
+  def self.test5()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(10)})
+    
+    a1.add_if_can!(b3)
+  end
+  def self.test2()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>10, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    
+    b3 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(5), :end_time=>Time.at(7)})
+    
+    a1.add_if_can!(b3)
+  end
+  
+  
   
 end
