@@ -5,11 +5,13 @@ class CapacityList < ActiveRecord::Base
   
   belongs_to :offer
   
+
+  
   
   #Note: ti contains quantity as capacity
   def add_if_can!(ti)
     
-    intervals = capacity_intervals.overlapping(ti)#.order('start_time')
+    intervals = capacity_intervals.overlapping(ti).order('start_time')
  
     toAdd = []
     if(intervals.size == 0) #no matches
@@ -30,12 +32,12 @@ class CapacityList < ActiveRecord::Base
       #split  interval[0] into 3
     else  #both in their own interval
     
-      p "------------------------------\n"
-      p intervals.first
-      p " "
-      p intervals.last
-      p " "
-      p "------------------------------\n"
+      puts "------------------------------\n"
+      puts intervals.first
+      puts " "
+      puts intervals.last
+      puts " "
+      puts "------------------------------\n"
     
     
       #Left and Right
@@ -60,12 +62,18 @@ class CapacityList < ActiveRecord::Base
       
     end
     
+    puts "------------------------------\n"
+    puts "------------------------------\n"
     toAdd.each do |i|
+      puts i
       i.save!
     end
+    puts "------------------------------\n"
     intervals.each do |i|
+      puts i
       i.delete
     end
+    puts "------------------------------\n"
     
     return true
   end
