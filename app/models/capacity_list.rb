@@ -32,7 +32,7 @@ class CapacityList < ActiveRecord::Base
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
       end
       
-      puts "Middle"a
+      puts "Middle"
       toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>ti.end_time})
       
       if(intervals[0].end_time != ti.end_time)
