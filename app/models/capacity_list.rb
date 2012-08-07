@@ -32,16 +32,21 @@ class CapacityList < ActiveRecord::Base
     
       #Left and Right
       if(intervals.first.start_time != ti.start_time)
+        puts "[Left"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity, :start_time=>intervals.first.start_time, :end_time=>ti.start_time})
       end
+        puts "LMiddle]"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>intervals.first.end_time})
+        puts "[RMiddle"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>intervals.last.start_time, :end_time=>ti.end_time})
       if(intervals.last.end_time != ti.end_time)
+        puts "Right]"
         toAdd << capacity_intervals.new({:capacity=>intervals.last.capacity, :start_time=>ti.end_time, :end_time=>intervals.last.end_time})
       end
       
       #Middle
       if (intervals.size > 2)
+        puts "[MMiddle]"
         intervals[1..-2].each{|i| toAdd << capacity_intervals.new({:capacity=>i.capacity - ti.capacity, :start_time=>i.start_time, :end_time=>i.end_time})}
       end
       
@@ -69,6 +74,8 @@ class CapacityList < ActiveRecord::Base
     b3 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(7)})
     
     a1.add_if_can!(b3)
+    
+    
     
   end
   
