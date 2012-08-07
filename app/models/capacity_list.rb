@@ -42,8 +42,12 @@ class CapacityList < ActiveRecord::Base
         intervals[1..-2].each{|i| toAdd << capacity_intervals.new({:capacity=>i.capacity - ti.capacity, :start_time=>i.start_time, :end_time=>i.end_time})}
       end
       
-      toAdd.each{|i| i.save}
-      intervals.each{|i| i.delete}
+      toAdd.each do |i|
+        i.save!
+      end
+      intervals.each do |i|
+        i.delete
+      end
     end
   end
   

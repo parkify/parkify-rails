@@ -9,7 +9,7 @@ group :development, :test do
   gem 'haml-rails'
   gem 'hpricot'
   gem 'ruby_parser'
-  gem 'factory_girl_rails'
+  gem "factory_girl_rails", "~> 4.0"
   #gem 'web-app-theme'
 end
 
