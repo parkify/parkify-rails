@@ -129,7 +129,7 @@ class CapacityList < ActiveRecord::Base
     
     b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(12)})
     
-    a1.add_if_can!(b3)
+    a1.add_if_can!(b4)
   end
   def self.test5()
     CapacityList.destroy_all
@@ -142,7 +142,7 @@ class CapacityList < ActiveRecord::Base
     
     b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(3), :end_time=>Time.at(10)})
     
-    a1.add_if_can!(b3)
+    a1.add_if_can!(b4)
   end
   
   
