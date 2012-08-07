@@ -16,11 +16,9 @@ class CapacityList < ActiveRecord::Base
     toAdd = []
     if(intervals.size == 0) #no matches
       return false
-    if(ti.start_time < intervals.first.start_time or ti.end_time > intervals.first.end_time) 
+    elsif(ti.start_time < intervals.first.start_time or ti.end_time > intervals.last.end_time) 
       return false
-    end
-    
-    elsif(intervals.size == 1) #both in one interval
+    elsif(intervals.size == 1) #both in one interval    
       if(intervals[0].start_time != ti.start_time)
         puts "Left"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
@@ -190,6 +188,6 @@ class CapacityList < ActiveRecord::Base
     
     a1.add_if_can!(b4)
   end
-  
+ 
   
 end
