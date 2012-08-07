@@ -12,11 +12,19 @@ class CapacityList < ActiveRecord::Base
   def add_if_can!(ti)
     
     intervals = capacity_intervals.overlapping(ti).order('start_time')
+    
+    does_not_fit = false
+    intervals.each do |i|
+      does_not_fit &= (i.capacity-ti.capacity < 0)
+    end
+   
  
     toAdd = []
-    if(intervals.size == 0) #no matches
+    if(intervals.size == 0)
       return false
     elsif(ti.start_time < intervals.first.start_time or ti.end_time > intervals.last.end_time) 
+      return false
+    elsif(does_not_fit)
       return false
     elsif(intervals.size == 1) #both in one interval    
       if(intervals[0].start_time != ti.start_time)
@@ -202,6 +210,35 @@ class CapacityList < ActiveRecord::Base
     
     a1.add_if_can!(b4)
   end
+  
+  def self.test10()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>17, :start_time=>Time.at(3), :end_time=>Time.at(7)})
+    
+    a1.add_if_can!(b4)
+  end
+  
+  def self.test11()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>1, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>13, :start_time=>Time.at(3), :end_time=>Time.at(7)})
+    
+    a1.add_if_can!(b4)
+  end
+  
  
   
 end
