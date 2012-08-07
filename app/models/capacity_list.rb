@@ -64,14 +64,14 @@ class CapacityList < ActiveRecord::Base
     
     puts "------------------------------\n"
     puts "------------------------------\n"
-    toAdd.each do |i|
-      puts i
-      i.save!
-    end
-    puts "------------------------------\n"
     intervals.each do |i|
       puts i
       i.delete
+    end
+    puts "------------------------------\n"
+    toAdd.each do |i|
+      puts i
+      i.save!
     end
     puts "------------------------------\n"
     
