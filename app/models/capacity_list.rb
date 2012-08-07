@@ -16,12 +16,15 @@ class CapacityList < ActiveRecord::Base
       return false
     elsif(intervals.size == 1) #both in one interval
       if(intervals[0].start_time != ti.start_time)
+        puts "Left"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
       end
-       
+      
+      puts "Middle"
       toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>ti.end_time})
       
       if(intervals[0].end_time != ti.end_time)
+        puts "Right"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>ti.end_time, :end_time=>intervals[0].end_time})
       end
       #split  interval[0] into 3
