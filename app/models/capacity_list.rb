@@ -15,7 +15,7 @@ class CapacityList < ActiveRecord::Base
     
     does_not_fit = false
     intervals.each do |i|
-      does_not_fit = does_not_fit or (i.capacity-ti.capacity < 0)
+      does_not_fit = does_not_fit || (i.capacity-ti.capacity < 0)
     end
    
  
