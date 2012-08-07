@@ -30,6 +30,14 @@ class CapacityList < ActiveRecord::Base
       #split  interval[0] into 3
     else  #both in their own interval
     
+      p "------------------------------\n"
+      p intervals.first
+      p " "
+      p intervals.last
+      p " "
+      p "------------------------------\n"
+    
+    
       #Left and Right
       if(intervals.first.start_time != ti.start_time)
         puts "[Left"
