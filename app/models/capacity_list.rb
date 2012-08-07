@@ -189,7 +189,7 @@ class CapacityList < ActiveRecord::Base
     a1.add_if_can!(b4)
   end
   
-  def self.test9)
+  def self.test9()
     CapacityList.destroy_all
     CapacityInterval.destroy_all
     
