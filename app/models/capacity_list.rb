@@ -16,6 +16,10 @@ class CapacityList < ActiveRecord::Base
     toAdd = []
     if(intervals.size == 0) #no matches
       return false
+    if(ti.start_time < intervals.first.start_time or ti.end_time > intervals.first.end_time) 
+      return false
+    end
+    
     elsif(intervals.size == 1) #both in one interval
       if(intervals[0].start_time != ti.start_time)
         puts "Left"
@@ -145,6 +149,47 @@ class CapacityList < ActiveRecord::Base
     a1.add_if_can!(b4)
   end
   
+  def self.test6()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(0), :end_time=>Time.at(15)})
+    
+    a1.add_if_can!(b4)
+  end
+  
+  def self.test7()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(0), :end_time=>Time.at(17)})
+    
+    a1.add_if_can!(b4)
+  end
+  
+  def self.test8()
+    CapacityList.destroy_all
+    CapacityInterval.destroy_all
+    
+    a1 = CapacityList.create()
+    b1 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(0), :end_time=>Time.at(5)})
+    b2 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(5), :end_time=>Time.at(10)})
+    b3 = a1.capacity_intervals.create({:capacity=>15, :start_time=>Time.at(10), :end_time=>Time.at(15)})
+    
+    b4 = CapacityInterval.new({:capacity=>1, :start_time=>Time.at(-2), :end_time=>Time.at(15)})
+    
+    a1.add_if_can!(b4)
+  end
   
   
 end
