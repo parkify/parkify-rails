@@ -17,7 +17,6 @@ class CapacityList < ActiveRecord::Base
     intervals.each do |i|
       does_not_fit = does_not_fit || (i.capacity-ti.capacity < 0)
     end
-   
  
     toAdd = []
     if(intervals.size == 0)

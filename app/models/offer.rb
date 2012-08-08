@@ -1,5 +1,5 @@
 class Offer < ActiveRecord::Base
-  attr_accessible :capacity, :end_time, :start_time, :resource_id
+  attr_accessible :capacity, :end_time, :start_time, :resource_id, :location, :capacity_list, :price_plan
 
   belongs_to :resource
   
