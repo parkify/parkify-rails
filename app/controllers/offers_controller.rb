@@ -3,7 +3,7 @@ class OffersController < ApplicationController
   # GET /offers.json
   def index
     @resource = Resource.find(params[:resource_id])
-    @offers = @resource.offers.all
+    @offers = @resource.offers
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,7 +46,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.save
-        @capacity_list = offer.capacity_list_build({:start_time=>params[:c
+        #@capacity_list = offer.capacity_list_build({:start_time=>params[:c
         format.html { redirect_to @offer, notice: 'Offer was successfully created.' }
         format.json { render json: @offer, status: :created, location: @offer }
       else
