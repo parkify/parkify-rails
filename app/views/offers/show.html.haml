@@ -1,6 +1,6 @@
 %p#notice= notice
 
 
-= link_to 'Edit', edit_resource_offer_path(@resource, @offer)
+= link_to 'Edit', edit_resource_offer_path(@resource.id, @offer.id)
 \|
 = link_to 'Back', resource_offers_path(@resource)
