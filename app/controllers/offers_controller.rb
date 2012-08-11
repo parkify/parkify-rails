@@ -14,6 +14,7 @@ class OffersController < ApplicationController
   # GET /offers/1
   # GET /offers/1.json
   def show
+    @resource = Resource.find(params[:resource_id])
     @offer = Offer.find(params[:id])
 
     respond_to do |format|
@@ -60,6 +61,7 @@ class OffersController < ApplicationController
   # PUT /offers/1
   # PUT /offers/1.json
   def update
+    @resource = Resource.find(params[:resource_id])
     @offer = Offer.find(params[:id])
 
     respond_to do |format|
@@ -76,6 +78,7 @@ class OffersController < ApplicationController
   # DELETE /offers/1
   # DELETE /offers/1.json
   def destroy
+    @resource = Resource.find(params[:resource_id])
     @offer = Offer.find(params[:id])
     @offer.destroy
 
