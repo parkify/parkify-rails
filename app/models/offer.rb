@@ -20,7 +20,7 @@ class Offer < ActiveRecord::Base
     end
     if capacity_list == nil
       #TODO: move this logic into constructor for capacity_list
-      capacity_list = CapacityList.new()
+      capacity_list = CapacityList.create()
       capacity_list.capacity_intervals.create({:start_time => start_time, :end_time => end_time, :capacity => capacity})
     end
     if capacity_list.capacity_intervals = []
