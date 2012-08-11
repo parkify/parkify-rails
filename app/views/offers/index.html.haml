@@ -1,9 +1,14 @@
-%h1 Listing offers
+%h1 Listing offers for
+\|
+= render @resource
+%hr
 
 
 %ul
   = render @offers
 
+  
+%hr
 %br
 
 = link_to 'New Offer', new_resource_offer_path(@resource)
