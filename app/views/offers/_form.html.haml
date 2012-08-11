@@ -1,4 +1,4 @@
-=form_tag({:controller => "offers", :action => "create"}, :method => "post") do
+=form_tag({:controller => "offers", :action => "create". :resource_id => @resource.id}, :method => "post") do
   
   ="Start Time "
   =datetime_select(:offer, :start_time, :ampm => true)
