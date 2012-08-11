@@ -48,8 +48,8 @@ class OffersController < ApplicationController
     respond_to do |format|
       if @offer.save
         #@capacity_list = offer.capacity_list_build({:start_time=>params[:c
-        format.html { redirect_to @offer, notice: 'Offer was successfully created.' }
-        format.json { render json: @offer, status: :created, location: @offer }
+        format.html { redirect_to [@resource, @offer], notice: 'Offer was successfully created.' }
+        format.json { render json: [@resource, @offer], status: :created, location: @offer }
       else
         format.html { render action: "new" }
         format.json { render json: @offer.errors, status: :unprocessable_entity }
