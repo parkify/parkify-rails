@@ -2,7 +2,8 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @offers = Offer.all
+    @resource = Resources.find(params[:resource_id])
+    @offers = @resource.offers.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,7 +42,7 @@ class OffersController < ApplicationController
   # POST /offers.json
   def create
     @resource = Resources.find(params[:resource_id])
-    @offer = @resource.resources.new(params[:offer])
+    @offer = @resource.offers.new(params[:offer])
 
     respond_to do |format|
       if @offer.save

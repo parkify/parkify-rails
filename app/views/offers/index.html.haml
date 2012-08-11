@@ -1,17 +1,9 @@
 %h1 Listing offers
 
-%table
-  %tr
-    %th
-    %th
-    %th
 
-  - @offers.each do |offer|
-    %tr
-      %td= link_to 'Show', offer
-      %td= link_to 'Edit', edit_offer_path(offer)
-      %td= link_to 'Destroy', offer, :confirm => 'Are you sure?', :method => :delete
+%ul
+  = render @offers
 
 %br
 
-= link_to 'New Offer', new_offer_path
+= link_to 'New Offer', new_offer_path(@resource)
