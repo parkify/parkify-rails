@@ -2,7 +2,7 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @resource = Resources.find(params[:resource_id])
+    @resource = Resource.find(params[:resource_id])
     @offers = @resource.offers.all
 
     respond_to do |format|
@@ -41,11 +41,12 @@ class OffersController < ApplicationController
   # POST /offers
   # POST /offers.json
   def create
-    @resource = Resources.find(params[:resource_id])
+    @resource = Resource.find(params[:resource_id])
     @offer = @resource.offers.new(params[:offer])
 
     respond_to do |format|
       if @offer.save
+        @capacity_list = offer.capacity_list_build({:start_time=>params[:c
         format.html { redirect_to @offer, notice: 'Offer was successfully created.' }
         format.json { render json: @offer, status: :created, location: @offer }
       else
