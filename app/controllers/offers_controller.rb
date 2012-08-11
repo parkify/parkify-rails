@@ -37,6 +37,7 @@ class OffersController < ApplicationController
 
   # GET /offers/1/edit
   def edit
+    @resource = Resource.find(params[:resource_id])
     @offer = Offer.find(params[:id])
   end
 
