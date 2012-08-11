@@ -9,6 +9,8 @@ class Offer < ActiveRecord::Base
   has_one :capacity_list
   
   def updateWithParent!
+  
+    puts "WORK WORK WORK WORK ;("
     capacity = resource.capacity
     
     
