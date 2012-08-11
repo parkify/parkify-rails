@@ -11,12 +11,7 @@ class ParkingSpotsController < ApplicationController
   def create
     @resource = Resource.new(params[:resource])
     #@user = User.find_by_email(params[:user][:email])
-    
-    @resource.quick_properties.create({:key => "spot_layout", :value => params[:quick_property][:spot_layout]});
-    @resource.quick_properties.create({:key => "spot_difficulty", :value => params[:quick_property][:spot_difficulty]});
-    @resource.quick_properties.create({:key => "spot_coverage", :value => params[:quick_property][:spot_coverage]});
-    @resource.quick_properties.create({:key => "spot_signage", :value => params[:quick_property][:spot_signage]});
-    
+
     @resource.user_id = current_user.id
     @resource.capacity = 1.0
     
@@ -24,6 +19,12 @@ class ParkingSpotsController < ApplicationController
       if @resource.save
         @location = @resource.build_location(params[:location])
         @price_plan = @resource.build_price_plan(params[:price_plan])
+            
+        @resource.quick_properties.create({:key => "spot_layout", :value => params[:quick_property][:spot_layout]});
+        @resource.quick_properties.create({:key => "spot_difficulty", :value => params[:quick_property][:spot_difficulty]});
+        @resource.quick_properties.create({:key => "spot_coverage", :value => params[:quick_property][:spot_coverage]});
+        @resource.quick_properties.create({:key => "spot_signage", :value => params[:quick_property][:spot_signage]});
+        
         if @location.save and @price_plan.save
           format.html { redirect_to @resource, notice: 'Parking Spot was successfully created.' }
           format.json { render json: @resource, status: :created, location: @resource }
