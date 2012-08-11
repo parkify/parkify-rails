@@ -10,25 +10,23 @@ class Offer < ActiveRecord::Base
   
   def updateWithParent!
   
-    puts "WORK WORK WORK WORK ;("
-    capacity = resource.capacity
+    puts "----------------------------------------------------WORK WORK WORK WORK ;("
+    self.capacity = resource.capacity
     
     
-    location = resource.location
+    self.location = resource.location
     
     
-    price_plan = resource.price_plan
+    self.price_plan = resource.price_plan
     
     
       #TODO: move this logic into constructor for capacity_list
-    capacity_list = CapacityList.create()
-    capacity_list.capacity_intervals.create({:start_time => start_time, :end_time => end_time, :capacity => capacity})
+    self.capacity_list = CapacityList.create()
+    self.capacity_list.capacity_intervals.create({:start_time => start_time, :end_time => end_time, :capacity => capacity})
     
     
-    capacity_list.capacity_intervals.create({:start_time => start_time, :end_time => end_time, :capacity => capacity})
     
-    
-    save!
+    self.save!
   end
   
   
