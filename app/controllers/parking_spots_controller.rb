@@ -2,6 +2,7 @@ class ParkingSpotsController < ApplicationController
 
   before_filter :authenticate_user!
 
+  
   def new
   end
 
@@ -10,6 +11,11 @@ class ParkingSpotsController < ApplicationController
   def create
     @resource = Resource.new(params[:resource])
     #@user = User.find_by_email(params[:user][:email])
+    
+    @resource.quick_properties.create({:key => "spot_layout", :value => params[:quick_property][:spot_layout]});
+    @resource.quick_properties.create({:key => "spot_difficulty", :value => params[:quick_property][:spot_difficulty]});
+    @resource.quick_properties.create({:key => "spot_coverage", :value => params[:quick_property][:spot_coverage]});
+    @resource.quick_properties.create({:key => "spot_signage", :value => params[:quick_property][:spot_signage]});
     
     @resource.user_id = current_user.id
     @resource.capacity = 1.0

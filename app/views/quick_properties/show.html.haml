@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Key:
+  = @quick_property.key
+%p
+  %b Value:
+  = @quick_property.value
+
+= link_to 'Edit', edit_quick_property_path(@quick_property)
+\|
+= link_to 'Back', quick_properties_path

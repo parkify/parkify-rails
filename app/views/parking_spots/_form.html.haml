@@ -25,6 +25,36 @@
   =text_field(:resource, :description)
   %br
   
+  ="--------------------------------------"
+  %br
+  
+  
+    @resource.quick_properties.create({:key => "spot_layout", :value => params[:quick_property][:spot_layout]});
+    @resource.quick_properties.create({:key => "spot_difficulty", :value => params[:quick_property][:spot_difficulty]});
+    @resource.quick_properties.create({:key => "spot_coverage", :value => params[:quick_property][:spot_coverage]});
+    @resource.quick_properties.create({:key => "spot_signage", :value => params[:quick_property][:spot_signage]});
+    
+  
+  ="Spot Layout"
+  =radio_button(:quick_property, :spot_layout, "parallel")
+  =radio_button(:quick_property, :spot_layout, "regular")
+  %br
+  
+  ="Spot Difficulty"
+  =radio_button(:quick_property, :spot_difficulty, "easy")
+  =radio_button(:quick_property, :spot_difficulty, "hard")
+  %br
+  
+  ="Spot Coverage"
+  =radio_button(:quick_property, :spot_coverage, "covered")
+  =radio_button(:quick_property, :spot_coverage, "open_air")
+  %br
+  
+  ="Spot Signage"
+  =radio_button(:quick_property, :spot_signage, "sticker")
+  =radio_button(:quick_property, :spot_signage, "sign")
+  =radio_button(:quick_property, :spot_signage, "custom_install")
+  %br
   
 
   = submit_tag( 'Subscribe' )

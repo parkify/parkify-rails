@@ -6,6 +6,8 @@ class Resource < ActiveRecord::Base
   has_one :location, :as => :locationable
   has_one :price_plan, :as => :price_planable
   
+  has_many :quick_properties
+  
   belongs_to :user
   
 end

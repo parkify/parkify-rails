@@ -1,0 +1,21 @@
+%h1 Listing quick_properties
+
+%table
+  %tr
+    %th Key
+    %th Value
+    %th
+    %th
+    %th
+
+  - @quick_properties.each do |quick_property|
+    %tr
+      %td= quick_property.key
+      %td= quick_property.value
+      %td= link_to 'Show', quick_property
+      %td= link_to 'Edit', edit_quick_property_path(quick_property)
+      %td= link_to 'Destroy', quick_property, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Quick property', new_quick_property_path
