@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @offer
+= link_to 'Show', [@resource, @offer]
 \|
-= link_to 'Back', offers_path
+= link_to 'Back', resource_offers_path(@resource)
