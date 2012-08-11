@@ -49,6 +49,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.save
+        @offer.updateWithParent!
         #@capacity_list = offer.capacity_list_build({:start_time=>params[:c
         format.html { redirect_to [@resource, @offer], notice: 'Offer was successfully created.' }
         format.json { render json: [@resource, @offer], status: :created, location: @offer }
@@ -67,6 +68,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.update_attributes(params[:offer])
+        @offer.updateWithParent!
         format.html { redirect_to @offer, notice: 'Offer was successfully updated.' }
         format.json { head :no_content }
       else
