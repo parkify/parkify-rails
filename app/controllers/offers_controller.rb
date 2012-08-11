@@ -25,7 +25,8 @@ class OffersController < ApplicationController
   # GET /offers/new
   # GET /offers/new.json
   def new
-    @offer = Offer.new
+    @resource = Resource.find(params[:resource_id])
+    @offer = @resource.offers.new(params[:offer])
 
     respond_to do |format|
       format.html # new.html.erb
