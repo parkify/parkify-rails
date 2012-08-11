@@ -48,14 +48,16 @@ class OffersController < ApplicationController
     @offer = @resource.offers.new(params[:offer])
 
     respond_to do |format|
-      if @offer.save
-        @offer.updateWithParent!
-        #@capacity_list = offer.capacity_list_build({:start_time=>params[:c
-        format.html { redirect_to [@resource, @offer], notice: 'Offer was successfully created.' }
-        format.json { render json: [@resource, @offer], status: :created, location: @offer }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+    if @resource.save
+        if @offer.save
+          @offer.updateWithParent!
+          #@capacity_list = offer.capacity_list_build({:start_time=>params[:c
+          format.html { redirect_to [@resource, @offer], notice: 'Offer was successfully created.' }
+          format.json { render json: [@resource, @offer], status: :created, location: @offer }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @offer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
