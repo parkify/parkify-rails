@@ -7,6 +7,7 @@ class Acceptance < ActiveRecord::Base
   has_one :payment_info
   
   def self.build_and_charge_from_api(params)
+    params = JSON.parse(params)
     logger.info "TEST: #{params}"
     user = User.find_by_authentication_token(params["authentication_token"])
     puts "--------------------------------"
