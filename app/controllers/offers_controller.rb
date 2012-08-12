@@ -1,6 +1,5 @@
 
 class OffersController < ApplicationController
-  include ActiveSupport
   # GET /offers
   # GET /offers.json
   def index
@@ -48,8 +47,8 @@ class OffersController < ApplicationController
   def create
     @resource = Resource.find(params[:resource_id])
     "Pacific Time (US & Canada)"
-    params[:offer][:start_time].zone = 'PST'
-    params[:offer][:end_time].zone = 'PST'
+    params[:offer][:start_time] += Time.zone_offset(params[:helper][:time_zone])
+    params[:offer][:end_time] += Time.zone_offset(params[:helper][:time_zone])
     puts params[:offer][:start_time]
     puts params[:offer][:end_time]
     @offer = @resource.offers.new(params[:offer])
