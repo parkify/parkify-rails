@@ -1,4 +1,4 @@
-class v1::Api::ParkingSpotsController < ApplicationController
+class V1::Api::ParkingSpotsController < ApplicationController
   # GET /parking_spots
   # GET /parking_spots.json
   
