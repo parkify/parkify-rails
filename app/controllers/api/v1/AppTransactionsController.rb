@@ -55,7 +55,7 @@ class Api::V1::AppTransactionsController < ApplicationController
         @payment_info.acceptance_id = @acceptance.id
         if @payment_info != nil and @payment_info.save
           format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
-          format.json { render json: {:acceptance => @acceptance :success=>true}, status: :created, location: @acceptance, }
+          format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
         else
           format.html { render action: "new" }
           format.json { render json: @payment_info.errors, status: :unprocessable_entity }
