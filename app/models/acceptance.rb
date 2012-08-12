@@ -9,6 +9,10 @@ class Acceptance < ActiveRecord::Base
   def self.build_and_charge_from_api(params)
     logger.info "TEST: #{params}"
     user = User.find_by_authentication_token(params["authentication_token"])
+    puts "--------------------------------"
+    puts user
+    puts params["authentication_token"]
+    puts "--------------------------------"
     spot = Resource.find_by_id(params["parking_spot_id"].to_i)
     offer = Offer.find_by_id(params["offer_id"].to_i)
     customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
@@ -20,7 +24,6 @@ class Acceptance < ActiveRecord::Base
     #check if this is a valid request
     interval = CapacityInterval.new({:start_time => start_time, :end_time => end_time, :capacity => 1})
     if(offer.capacity_list.add_if_can!(interval))
-      
       
       toRtn = new()
       toRtn.user_id = user.id
