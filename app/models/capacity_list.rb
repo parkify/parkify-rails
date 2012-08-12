@@ -5,7 +5,70 @@ class CapacityList < ActiveRecord::Base
   
   belongs_to :offer
   
-
+  def can_add?(ti)
+    intervals = capacity_intervals.overlapping(ti).order('start_time')
+    
+    does_not_fit = false
+    intervals.each do |i|
+      does_not_fit = does_not_fit || (i.capacity-ti.capacity < 0)
+    end
+ 
+    toAdd = []
+    if(intervals.size == 0)
+      return false
+    elsif(ti.start_time < intervals.first.start_time or ti.end_time > intervals.last.end_time) 
+      return false
+    elsif(does_not_fit)
+      return false
+    elsif(intervals.size == 1) #both in one interval    
+      if(intervals[0].start_time != ti.start_time)
+        puts "Left"
+        toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
+      end
+      
+      puts "Middle"
+      toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>ti.end_time})
+      
+      if(intervals[0].end_time != ti.end_time)
+        puts "Right"
+        toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>ti.end_time, :end_time=>intervals[0].end_time})
+      end
+      #split  interval[0] into 3
+    else  #both in their own interval
+    
+      puts "------------------------------\n"
+      puts intervals.first
+      puts " "
+      puts intervals.last
+      puts " "
+      puts "------------------------------\n"
+    
+    
+      #Left and Right
+      if(intervals.first.start_time != ti.start_time)
+        puts "[Left"
+        toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity, :start_time=>intervals.first.start_time, :end_time=>ti.start_time})
+      end
+        puts "LMiddle]"
+        toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>intervals.first.end_time})
+        puts "[RMiddle"
+        toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>intervals.last.start_time, :end_time=>ti.end_time})
+      if(intervals.last.end_time != ti.end_time)
+        puts "Right]"
+        toAdd << capacity_intervals.new({:capacity=>intervals.last.capacity, :start_time=>ti.end_time, :end_time=>intervals.last.end_time})
+      end
+      
+      #Middle
+      if (intervals.size > 2)
+        puts "[MMiddle]"
+        intervals[1..-2].each{|i| toAdd << capacity_intervals.new({:capacity=>i.capacity - ti.capacity, :start_time=>i.start_time, :end_time=>i.end_time})}
+      end
+      
+    end
+    
+    return true
+  end
+  
   
   #Note: ti contains quantity as capacity
   def add_if_can!(ti)
