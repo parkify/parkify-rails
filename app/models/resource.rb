@@ -36,7 +36,10 @@ class Resource < ActiveRecord::Base
       
       
     self.quick_properties.each do |p|
-      puts p
+      puts "-------------------------------"
+      puts p.key
+      puts p.value
+      puts "-------------------------------"
       result["quick_properties"]["#{p.key}"] = p.value
     end
     
