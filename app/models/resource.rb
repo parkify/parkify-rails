@@ -9,5 +9,12 @@ class Resource < ActiveRecord::Base
   has_many :quick_properties
   
   belongs_to :user
-  
+  def as_json(options={})
+    result = super()
+    #result["parking_spot"]["location"] = self.location.as_json
+    
+    #result["parking_spot"]["
+    #result["user"]["name"] = name.capitalize
+    result
+  end
 end
