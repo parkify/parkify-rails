@@ -23,7 +23,7 @@ class Acceptance < ActiveRecord::Base
     amountToCharge = amountToCharge.floor
     start_time = Time.at(start_time)
     end_time = Time.at(end_time)
-    #check if this is a valid request
+    #check if this is a valid request.
     interval = CapacityInterval.new({:start_time => start_time, :end_time => end_time, :capacity => 1})
     puts interval
     puts offer
