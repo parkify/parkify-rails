@@ -28,10 +28,12 @@ class Resource < ActiveRecord::Base
       result["free"] = "false"
       result["end_time"] = ""
       result["price_plan"] = ""
+      result["offer_id"] = active_offer.id.to_s
     else
       result["free"] = "true"
       result["end_time"] = "#{active_offer.end_time.to_f}"
       result["price_plan"] = active_offer.price_plan.as_json
+      result["offer_id"] = ""
     end
       
     result["quick_properties"] = {}
@@ -41,12 +43,9 @@ class Resource < ActiveRecord::Base
       end
       key = p.key.to_s
       value = p.value.to_s
-      puts "-------------------------------"
-      puts p.key
-      puts p.value
-      puts "-------------------------------"
       result["quick_properties"][key] = value
     end
+    
     
     
     result
