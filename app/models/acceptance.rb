@@ -28,7 +28,7 @@ class Acceptance < ActiveRecord::Base
     puts interval
     puts offer
     if(offer.capacity_list.add_if_can!(interval))
-      
+      puts "Got here"
       toRtn = new()
       toRtn.user_id = user.id
       
@@ -47,9 +47,9 @@ class Acceptance < ActiveRecord::Base
       charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
 
       if(charge.failure_message.nil?)
-        acceptance.status = "successfully_paid"
+        toRtn.status = "successfully_paid"
       else
-        acceptance.status = "not_successfully_paid"
+        toRtn.status = "not_successfully_paid"
         interval.capacity = -interval.capacity
         offer.capacity_list.add_if_can!(interval)
       end
