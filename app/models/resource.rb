@@ -30,12 +30,14 @@ class Resource < ActiveRecord::Base
       result["price_plan"] = ""
     else
       result["free"] = "true"
-      result["end_time"] = "#{active_offer.end_time}"
+      result["end_time"] = "#{active_offer.end_time.to_f}"
       result["price_plan"] = active_offer.price_plan.as_json
     end
       
       
-    
+    self.quick_properties.each do |p|
+      result["quick_properties"][p.key] = p.value
+    end
     
     #result["parking_spot"]["location"] = self.location.as_json
         

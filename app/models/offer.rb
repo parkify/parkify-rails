@@ -12,7 +12,6 @@ class Offer < ActiveRecord::Base
     return (self.start_time <= Time.now) && (Time.now <= self.end_time)
   end
   
-  
   def updateWithParent!
   
     puts "----------------------------------------------------WORK WORK WORK WORK ;("
