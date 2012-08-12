@@ -34,7 +34,7 @@ class Resource < ActiveRecord::Base
       result["price_plan"] = active_offer.price_plan.as_json
     end
       
-      
+    result["quick_properties"] = {}
     self.quick_properties.each do |p|
       if(p.key == nil) or (p.value == nil)
         continue
