@@ -7,7 +7,7 @@ class CapacityList < ActiveRecord::Base
   
   def can_add?(ti)
     puts ti
-    intervals = capacity_intervals.overlapping(ti).order('start_time')
+    intervals = self.capacity_intervals.overlapping(ti).order('start_time')
     
     does_not_fit = false
     intervals.each do |i|
@@ -79,7 +79,7 @@ class CapacityList < ActiveRecord::Base
   #Note: ti contains quantity as capacity
   def add_if_can!(ti)
     
-    intervals = capacity_intervals.overlapping(ti).order('start_time')
+    intervals = self.capacity_intervals.overlapping(ti).order('start_time')
     
     does_not_fit = false
     intervals.each do |i|
