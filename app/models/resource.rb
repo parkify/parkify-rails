@@ -28,7 +28,7 @@ class Resource < ActiveRecord::Base
       result["free"] = "false"
       result["end_time"] = ""
       result["price_plan"] = ""
-      result["offer_id"] = active_offer.id.to_s
+      result["offer_id"] = "#{active_offer.id}"
     else
       result["free"] = "true"
       result["end_time"] = "#{active_offer.end_time.to_f}"
