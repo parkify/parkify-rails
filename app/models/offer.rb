@@ -11,14 +11,17 @@ class Offer < ActiveRecord::Base
   def updateWithParent!
   
     puts "----------------------------------------------------WORK WORK WORK WORK ;("
+    
     self.capacity = resource.capacity
     
+    location = resource.location.dup
+    location.locationable = self
+    self.location = location
     
-    self.location = resource.location
     
-    
-    self.price_plan = resource.price_plan
-    
+    price_plan = resource.price_plan.dup
+    price_plan.price_plannable = self
+    self.price_plan = price_plan
     
       #TODO: move this logic into constructor for capacity_list
     self.capacity_list = CapacityList.create()
