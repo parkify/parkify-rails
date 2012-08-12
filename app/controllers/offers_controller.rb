@@ -47,8 +47,8 @@ class OffersController < ApplicationController
   def create
     @resource = Resource.find(params[:resource_id])
     "Pacific Time (US & Canada)"
-    params[:offer][:start_time] += Time.zone_offset(params[:helper][:time_zone])
-    params[:offer][:end_time] += Time.zone_offset(params[:helper][:time_zone])
+    params[:offer][:start_time] += params[:helper][:time_zone].utc_offset
+    params[:offer][:end_time] += params[:helper][:time_zone].utc_offset
     puts params[:offer][:start_time]
     puts params[:offer][:end_time]
     @offer = @resource.offers.new(params[:offer])
