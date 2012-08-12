@@ -11,8 +11,34 @@ class Resource < ActiveRecord::Base
   belongs_to :user
   def as_json(options={})
     result = super()
-    #result["parking_spot"]["location"] = self.location.as_json
     
+    result["location"] = self.location.as_json
+    
+    
+    #so im a resource, i know what offers I am yielding, and they have a capacitylist that knows if its overlapping currenttime.
+    active_offer = nil
+    self.offers.each do |offer|
+      if(offer.is_current)
+        active_offer = offer
+        break
+      end
+    end
+    
+    if(active_offer == nil)
+      result["free"] = "false"
+      result["end_time"] = ""
+      result["price_plan"] = ""
+    else
+      result["free"] = "true"
+      result["end_time"] = "#{active_offer.end_time}"
+      result["price_plan"] = active_offer.price_plan.as_json
+    end
+      
+      
+    
+    
+    #result["parking_spot"]["location"] = self.location.as_json
+        
     #result["parking_spot"]["
     #result["user"]["name"] = name.capitalize
     result
