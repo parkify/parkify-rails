@@ -24,7 +24,7 @@ class v1::Api::ParkingSpotsController < ApplicationController
   # GET /parking_spots/1.json
   def show
     :authenticate_user!
-    @parking_spot = ParkingSpot.find(params[:id])
+    @parking_spot = Resource.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,6 +32,17 @@ class v1::Api::ParkingSpotsController < ApplicationController
     end
   end
 
+  
+  
+  
+  
+  
+  
+  #TODO: SUPPORT BELOW
+  
+  
+  
+  
   # GET /parking_spots/new
   # GET /parking_spots/new.json
   def new
