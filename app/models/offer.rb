@@ -8,6 +8,11 @@ class Offer < ActiveRecord::Base
   has_one :location, :as => :locationable
   has_one :capacity_list
   
+  def is_active
+    return self.start_time <= Time.now <= self.end_time
+  end
+  
+  
   def updateWithParent!
   
     puts "----------------------------------------------------WORK WORK WORK WORK ;("
