@@ -15,10 +15,13 @@ class CapacityList < ActiveRecord::Base
  
     toAdd = []
     if(intervals.size == 0)
+      puts "case1"
       return false
     elsif(ti.start_time < intervals.first.start_time or ti.end_time > intervals.last.end_time) 
+      puts "case2"
       return false
     elsif(does_not_fit)
+      puts "case3"
       return false
     elsif(intervals.size == 1) #both in one interval    
       if(intervals[0].start_time != ti.start_time)
@@ -65,6 +68,8 @@ class CapacityList < ActiveRecord::Base
       end
       
     end
+    
+    puts "case4"
     
     return true
   end
