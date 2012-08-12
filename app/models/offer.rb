@@ -9,7 +9,7 @@ class Offer < ActiveRecord::Base
   has_one :capacity_list
   
   def is_current
-    return self.start_time <= Time.now <= self.end_time
+    return (self.start_time <= Time.now) and (self.start_time <= self.end_time)
   end
   
   
