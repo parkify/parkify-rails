@@ -5,14 +5,14 @@ class v1::Api::ParkingSpotsController < ApplicationController
   #before_filter :authenticate_user!
   
   def index
-  /*
-    start_time = Time.now
-    end_time = start_time + (12*3600)
-    quantity = 1
-    
-    CapacityInterval.overlapping
-    Offer.
-  */
+  
+  #  start_time = Time.now
+  #  end_time = start_time + (12*3600)
+  #  quantity = 1
+  #  
+  #  CapacityInterval.overlapping
+  #  Offer.
+  
     @parking_spots = Resource.all
     respond_to do |format|
       format.html # index.html.erb
@@ -23,7 +23,6 @@ class v1::Api::ParkingSpotsController < ApplicationController
   # GET /parking_spots/1
   # GET /parking_spots/1.json
   def show
-    :authenticate_user!
     @parking_spot = Resource.find(params[:id])
 
     respond_to do |format|
