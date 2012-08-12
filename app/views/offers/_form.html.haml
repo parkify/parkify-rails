@@ -1,5 +1,9 @@
 =form_tag({:controller => "offers", :action => "create", :resource_id => params[:resource_id]}, :method => "post") do
   
+  ="TIME ZONE "
+  =time_zone_select( :helper, :time_zone, nil, :default => "Pacific Time (US & Canada)" )
+  %br
+  
   ="Start Time "
   =datetime_select(:offer, :start_time, :ampm => true)
   %br
