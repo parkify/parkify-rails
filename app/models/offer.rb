@@ -20,7 +20,7 @@ class Offer < ActiveRecord::Base
     
     
     price_plan = resource.price_plan.dup
-    price_plan.price_plannable = self
+    price_plan.price_planable = self
     self.price_plan = price_plan
     
       #TODO: move this logic into constructor for capacity_list
