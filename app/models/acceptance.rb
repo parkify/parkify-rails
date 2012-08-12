@@ -19,7 +19,7 @@ class Acceptance < ActiveRecord::Base
     customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
     start_time = params["start_time"].to_f()
     end_time = params["end_time"].to_f()
-    amountToCharge = spot.mPrice * (end_time - start_time) / 36 #convert to cents
+    amountToCharge = spot.price_plan.price_per_hour * (end_time - start_time) / 36 #convert to cents
     amountToCharge = amountToCharge.floor
     
     #check if this is a valid request
