@@ -8,7 +8,7 @@ class Offer < ActiveRecord::Base
   has_one :location, :as => :locationable
   has_one :capacity_list
   
-  def is_active
+  def is_current
     return self.start_time <= Time.now <= self.end_time
   end
   
