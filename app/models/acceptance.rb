@@ -43,7 +43,7 @@ class Acceptance < ActiveRecord::Base
       #do charging
       
       charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
-      toRtn.successfully_paid = charge.failure_message.nil?
+
       if(charge.failure_message.nil?)
         acceptance.status = "successfully_paid"
       else
