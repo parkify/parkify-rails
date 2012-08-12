@@ -36,11 +36,16 @@ class Resource < ActiveRecord::Base
       
       
     self.quick_properties.each do |p|
+      if(p.key == nil) or (p.value == nil)
+        continue
+      end
+      key = p.key.to_s
+      value = p.value.to_s
       puts "-------------------------------"
       puts p.key
       puts p.value
       puts "-------------------------------"
-      result["quick_properties"]["#{p.key}"] = p.value
+      result["quick_properties"][key] = val
     end
     
     
