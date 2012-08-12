@@ -51,9 +51,9 @@ class Api::V1::AppTransactionsController < ApplicationController
     @acceptance = vals[0]
     @payment_info = vals[1]
     respond_to do |format|
-      if @acceptance.save
+      if @acceptance != nil and @acceptance.save
         @payment_info.acceptance_id = @acceptance.id
-        if @payment_info.save
+        if @payment_info != nil and @payment_info.save
           format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
           format.json { render json: @acceptance, status: :created, location: @acceptance }
         else
