@@ -36,13 +36,10 @@ class Resource < ActiveRecord::Base
       
       
     self.quick_properties.each do |p|
-      result["quick_properties"][p.key] = p.value
+      result["quick_properties"]["#{p.key}"] = p.value
     end
     
-    #result["parking_spot"]["location"] = self.location.as_json
-        
-    #result["parking_spot"]["
-    #result["user"]["name"] = name.capitalize
+    
     result
   end
 end
