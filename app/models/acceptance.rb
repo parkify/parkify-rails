@@ -25,6 +25,8 @@ class Acceptance < ActiveRecord::Base
     end_time = Time.at(end_time)
     #check if this is a valid request
     interval = CapacityInterval.new({:start_time => start_time, :end_time => end_time, :capacity => 1})
+    puts interval
+    puts offer
     if(offer.capacity_list.add_if_can!(interval))
       
       toRtn = new()
