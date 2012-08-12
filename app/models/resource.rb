@@ -45,7 +45,7 @@ class Resource < ActiveRecord::Base
       puts p.key
       puts p.value
       puts "-------------------------------"
-      result["quick_properties"][key] = val
+      result["quick_properties"][key] = value
     end
     
     
