@@ -28,12 +28,12 @@ class Resource < ActiveRecord::Base
       result["free"] = "false"
       result["end_time"] = ""
       result["price_plan"] = ""
-      result["offer_id"] = "#{active_offer.id}"
+      result["offer_id"] = ""
     else
       result["free"] = "true"
       result["end_time"] = "#{active_offer.end_time.to_f}"
       result["price_plan"] = active_offer.price_plan.as_json
-      result["offer_id"] = ""
+      result["offer_id"] = "#{active_offer.id}"
     end
       
     result["quick_properties"] = {}
