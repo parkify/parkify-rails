@@ -6,7 +6,7 @@ class CapacityList < ActiveRecord::Base
   belongs_to :offer
   
   def can_add?(ti)
-    puts ti
+    #puts ti
     intervals = self.capacity_intervals.overlapping(ti).order('start_time')
     
     does_not_fit = false
@@ -145,7 +145,7 @@ class CapacityList < ActiveRecord::Base
       #puts i
       i.delete
     end
-    puts "------------------------------\n"
+    #puts "------------------------------\n"
     toAdd.each do |i|
       #puts i
       i.save!
