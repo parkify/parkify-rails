@@ -48,8 +48,10 @@ class OffersController < ApplicationController
     @resource = Resource.find(params[:resource_id])
     "Pacific Time (US & Canada)"
     puts params[:helper][:time_zone]
-    params[:offer][:start_time] += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
-    params[:offer][:end_time] += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    puts ActiveSupport::TimeZone.new(params[:helper][:time_zone])
+    puts ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    params[:offer][:start_time] = params[:offer][:start_time] + ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    params[:offer][:end_time] = params[:offer][:end_time] ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     puts params[:offer][:start_time]
     puts params[:offer][:end_time]
     @offer = @resource.offers.new(params[:offer])
