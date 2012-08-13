@@ -63,9 +63,10 @@ class OffersController < ApplicationController
     #params[:offer][:start_time] = params[:offer][:start_time] + ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     #params[:offer][:end_time] = params[:offer][:end_time] + ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     
+    #TODO: fix DST
     @offer = @resource.offers.new(params[:offer])
-    @offer.start_time -= ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
-    @offer.end_time -= ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    @offer.start_time -= ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset-3600
+    @offer.end_time -= ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset-3600
 
     respond_to do |format|
     if @resource.save
