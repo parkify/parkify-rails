@@ -10,6 +10,7 @@ class Api::V1::SessionsController < ApplicationController
 
     if resource.valid_password?(user_login["password"])
       sign_in(:user, resource)
+      @user = resource
       resource.ensure_authentication_token!
       lpn = @user.cars.first.license_plate_number
       last_four_digits = Stripe::Customer.retrieve(@user.stripe_customer_ids[0].customer_id).active_card.last4
