@@ -12,7 +12,8 @@ class Api::V1::SessionsController < ApplicationController
       sign_in(:user, resource)
       resource.ensure_authentication_token!
       lpn = @user.cars.first.license_plate_number
-      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => "4444" }
+      last_four_digits = Stripe::Customer.retrieve(@user.stripe_customer_ids[0].customer_id).active_card.last4
+      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }
       return
     end
     invalid_login_attempt
