@@ -11,7 +11,8 @@ class Api::V1::SessionsController < ApplicationController
     if resource.valid_password?(user_login["password"])
       sign_in(:user, resource)
       resource.ensure_authentication_token!
-      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>resource.authentication_token}
+      lpn = @user.cars.first.license_plate_number
+      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => "4444" }
       return
     end
     invalid_login_attempt

@@ -54,16 +54,18 @@ class OffersController < ApplicationController
     puts params[:offer][:start_time]
     puts params[:offer][:end_time]
     
-    start_time = params[:offer][:start_time]
-    start_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
-    end_time = params[:offer][:end_time]
-    end_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    #start_time = params[:offer][:start_time]
+    #start_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    #end_time = params[:offer][:end_time]
+    #end_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     
     
     #params[:offer][:start_time] = params[:offer][:start_time] + ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     #params[:offer][:end_time] = params[:offer][:end_time] + ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
     
-    @offer = @resource.offers.new({:start_time => start_time, :end_time => end_time})
+    @offer = @resource.offers.new(params[:offer])
+    @offer.start_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
+    @offer.end_time += ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
 
     respond_to do |format|
     if @resource.save

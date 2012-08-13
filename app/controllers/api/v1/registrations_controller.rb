@@ -10,7 +10,8 @@ class Api::V1::RegistrationsController < ApplicationController
     if @user.save_with_card_and_car!(params[:stripe_token_id], params[:license_plate_number])
       logger.info "err1..."
       #Return the results
-      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>@user.authentication_token}, :status=>201
+      lpn = @user.cars.first.license_plate_number
+      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>@user.authentication_token, :license_plate_number => lpn, :last_four_digits => "4444" }, :status=>201
       #render :json=>{:success=>true, :auth_token=>@user.authentication_token, :user=>@user.email}
       return
     else
