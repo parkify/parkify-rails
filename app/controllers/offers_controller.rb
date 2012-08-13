@@ -46,7 +46,7 @@ class OffersController < ApplicationController
   # POST /offers.json
   def create
     @resource = Resource.find(params[:resource_id])
-    
+    puts params
     puts params[:helper][:time_zone]
     puts ActiveSupport::TimeZone.new(params[:helper][:time_zone])
     puts ActiveSupport::TimeZone.new(params[:helper][:time_zone]).utc_offset
