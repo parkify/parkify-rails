@@ -2,7 +2,7 @@ class Api::V1::RegistrationsController < ApplicationController
   
   respond_to :json
   
-  #create a new user through json (with credit card info)
+  #create a new user through json (with credit card info)s
   def create
     @user = User.new(JSON.parse(params[:user]))
     logger.info "Beginning registration..."
