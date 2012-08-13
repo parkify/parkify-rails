@@ -16,61 +16,61 @@ class CapacityList < ActiveRecord::Base
  
     toAdd = []
     if(intervals.size == 0)
-      puts "case1"
+      #puts "case1"
       return false
     elsif(ti.start_time < intervals.first.start_time or ti.end_time > intervals.last.end_time) 
-      puts "case2"
+      #puts "case2"
       return false
     elsif(does_not_fit)
-      puts "case3"
+      #puts "case3"
       return false
     elsif(intervals.size == 1) #both in one interval    
       if(intervals[0].start_time != ti.start_time)
-        puts "Left"
+        #puts "Left"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
       end
       
-      puts "Middle"
+      #puts "Middle"
       toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>ti.end_time})
       
       if(intervals[0].end_time != ti.end_time)
-        puts "Right"
+        #puts "Right"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>ti.end_time, :end_time=>intervals[0].end_time})
       end
       #split  interval[0] into 3
     else  #both in their own interval
     
-      puts "------------------------------\n"
-      puts intervals.first
-      puts " "
-      puts intervals.last
-      puts " "
-      puts "------------------------------\n"
+      #puts "------------------------------\n"
+      #puts intervals.first
+      #puts " "
+      #puts intervals.last
+      #puts " "
+      #puts "------------------------------\n"
     
     
       #Left and Right
       if(intervals.first.start_time != ti.start_time)
-        puts "[Left"
+        #puts "[Left"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity, :start_time=>intervals.first.start_time, :end_time=>ti.start_time})
       end
-        puts "LMiddle]"
+        #puts "LMiddle]"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>intervals.first.end_time})
-        puts "[RMiddle"
+        #puts "[RMiddle"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>intervals.last.start_time, :end_time=>ti.end_time})
       if(intervals.last.end_time != ti.end_time)
-        puts "Right]"
+        #puts "Right]"
         toAdd << capacity_intervals.new({:capacity=>intervals.last.capacity, :start_time=>ti.end_time, :end_time=>intervals.last.end_time})
       end
       
       #Middle
       if (intervals.size > 2)
-        puts "[MMiddle]"
+        #puts "[MMiddle]"
         intervals[1..-2].each{|i| toAdd << capacity_intervals.new({:capacity=>i.capacity - ti.capacity, :start_time=>i.start_time, :end_time=>i.end_time})}
       end
       
     end
     
-    puts "case4"
+    #puts "case4"
     
     return true
   end
@@ -95,62 +95,62 @@ class CapacityList < ActiveRecord::Base
       return false
     elsif(intervals.size == 1) #both in one interval    
       if(intervals[0].start_time != ti.start_time)
-        puts "Left"
+        #puts "Left"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>intervals[0].start_time, :end_time=>ti.start_time})
       end
       
-      puts "Middle"
+      #puts "Middle"
       toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>ti.end_time})
       
       if(intervals[0].end_time != ti.end_time)
-        puts "Right"
+        #puts "Right"
         toAdd << capacity_intervals.new({:capacity=>intervals[0].capacity, :start_time=>ti.end_time, :end_time=>intervals[0].end_time})
       end
       #split  interval[0] into 3
     else  #both in their own interval
     
-      puts "------------------------------\n"
-      puts intervals.first
-      puts " "
-      puts intervals.last
-      puts " "
-      puts "------------------------------\n"
+      #puts "------------------------------\n"
+      #puts intervals.first
+      #puts " "
+      #puts intervals.last
+      #puts " "
+      #puts "------------------------------\n"
     
     
       #Left and Right
       if(intervals.first.start_time != ti.start_time)
-        puts "[Left"
+        #puts "[Left"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity, :start_time=>intervals.first.start_time, :end_time=>ti.start_time})
       end
-        puts "LMiddle]"
+        #puts "LMiddle]"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>ti.start_time, :end_time=>intervals.first.end_time})
-        puts "[RMiddle"
+        #puts "[RMiddle"
         toAdd << capacity_intervals.new({:capacity=>intervals.first.capacity-ti.capacity, :start_time=>intervals.last.start_time, :end_time=>ti.end_time})
       if(intervals.last.end_time != ti.end_time)
-        puts "Right]"
+        #puts "Right]"
         toAdd << capacity_intervals.new({:capacity=>intervals.last.capacity, :start_time=>ti.end_time, :end_time=>intervals.last.end_time})
       end
       
       #Middle
       if (intervals.size > 2)
-        puts "[MMiddle]"
+        #puts "[MMiddle]"
         intervals[1..-2].each{|i| toAdd << capacity_intervals.new({:capacity=>i.capacity - ti.capacity, :start_time=>i.start_time, :end_time=>i.end_time})}
       end
       
     end
     
-    puts "------------------------------\n"
-    puts "------------------------------\n"
+    #puts "------------------------------\n"
+    #puts "------------------------------\n"
     intervals.each do |i|
-      puts i
+      #puts i
       i.delete
     end
     puts "------------------------------\n"
     toAdd.each do |i|
-      puts i
+      #puts i
       i.save!
     end
-    puts "------------------------------\n"
+    #puts "------------------------------\n"
     
     return true
   end
