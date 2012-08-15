@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Offer:
+  = @agreement.offer_id
+%p
+  %b Acceptance:
+  = @agreement.acceptance_id
+
+= link_to 'Edit', edit_agreement_path(@agreement)
+\|
+= link_to 'Back', agreements_path

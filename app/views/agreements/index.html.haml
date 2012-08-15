@@ -1,0 +1,21 @@
+%h1 Listing agreements
+
+%table
+  %tr
+    %th Offer
+    %th Acceptance
+    %th
+    %th
+    %th
+
+  - @agreements.each do |agreement|
+    %tr
+      %td= agreement.offer_id
+      %td= agreement.acceptance_id
+      %td= link_to 'Show', agreement
+      %td= link_to 'Edit', edit_agreement_path(agreement)
+      %td= link_to 'Destroy', agreement, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Agreement', new_agreement_path

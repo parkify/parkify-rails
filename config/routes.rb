@@ -1,4 +1,6 @@
 ParkifyRails::Application.routes.draw do
+  resources :agreements
+
   resources :quick_properties
 
   root :to => "home#index"

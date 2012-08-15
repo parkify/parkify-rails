@@ -6,6 +6,9 @@ class Acceptance < ActiveRecord::Base
   
   has_one :payment_info
   
+  has_many :agreements
+  has_many :offers, :through => :agreements
+  
   def self.build_and_charge_from_api(params)
     params = JSON.parse(params)
     logger.info "TEST: #{params}"

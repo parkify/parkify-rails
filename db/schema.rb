@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811034848) do
+ActiveRecord::Schema.define(:version => 20120815134706) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
@@ -19,9 +19,15 @@ ActiveRecord::Schema.define(:version => 20120811034848) do
     t.float    "count",      :default => 0.0
     t.string   "status",     :default => "pre_pending"
     t.integer  "user_id"
-    t.integer  "offer_id"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
+  end
+
+  create_table "agreements", :force => true do |t|
+    t.integer  "offer_id"
+    t.integer  "acceptance_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "capacity_intervals", :force => true do |t|

@@ -3,7 +3,8 @@ class Offer < ActiveRecord::Base
 
   belongs_to :resource
   
-  has_many :acceptances
+  has_many :agreements
+  has_many :acceptances, :through => :agreements
   has_one :price_plan, :as => :price_planable
   has_one :location, :as => :locationable
   has_one :capacity_list
