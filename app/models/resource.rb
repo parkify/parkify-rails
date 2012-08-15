@@ -16,24 +16,30 @@ class Resource < ActiveRecord::Base
     
     activeInterval = CapacityInterval.new({:capacity => 1, :start_time => Time.now, :end_time => Time.now + (1.5*3600)})
     #so im a resource, i know what offers I am yielding, and they have a capacitylist that knows if its overlapping currenttime.
-    active_offer = nil
-    self.offers.each do |offer|
-      if(offer.capacity_list.can_add?(activeInterval))
-        active_offer = offer
-        break
+    open_consecutive_offers = []
+    self.offers.order('start_time').each do |offer|
+      if(open_consecutive_offers == [])
+        if(offer.capacity_list.can_add?(activeInterval))
+          open_consecutive_offers << offer
+        end
+      else
+        if (offer.start_time == open_consecutive_offers.last.end_time)
+          open_consecutive_offers << offer
+            if (offer.end_time - Time.now) >= MAX_TIMEFRAME_VIEW_SIZE
+              break
+            end
+        else
+          break
+        end
       end
     end
     
-    if(active_offer == nil)
+    if(active_offer == [])
       result["free"] = "false"
-      result["end_time"] = ""
-      result["price_plan"] = ""
-      result["offer_id"] = ""
+      result["offers"] = ""
     else
       result["free"] = "true"
-      result["end_time"] = "#{active_offer.end_time.to_f}"
-      result["price_plan"] = active_offer.price_plan.as_json
-      result["offer_id"] = "#{active_offer.id}"
+      result["offers"] = open_consecutive_offers.as_json
     end
       
     result["quick_properties"] = {}

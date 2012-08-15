@@ -38,6 +38,15 @@ class Offer < ActiveRecord::Base
   end
   
   
+  def as_json(options={})
+    result = super()
+    
+    result["price_plan"] = price_plan.as_json
+    
+    result
+  end
+  
+  
   #def updateWithParent!
   #  if capacity == nil
   #    capacity = resource.capacity
