@@ -34,7 +34,7 @@ class Resource < ActiveRecord::Base
       end
     end
     
-    if(active_offer == [])
+    if(open_consecutive_offers == [])
       result["free"] = "false"
       result["offers"] = ""
     else
