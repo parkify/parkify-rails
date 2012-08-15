@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Start time:
+  = @price_interval.start_time
+%p
+  %b End time:
+  = @price_interval.end_time
+%p
+  %b Price per hour:
+  = @price_interval.price_per_hour
+%p
+  %b Price plan:
+  = @price_interval.price_plan_id
+
+= link_to 'Edit', edit_price_interval_path(@price_interval)
+\|
+= link_to 'Back', price_intervals_path

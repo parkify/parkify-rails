@@ -1,4 +1,6 @@
 ParkifyRails::Application.routes.draw do
+  resources :price_intervals
+
   resources :agreements
 
   resources :quick_properties

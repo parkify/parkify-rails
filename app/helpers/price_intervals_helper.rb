@@ -1,0 +1,2 @@
+module PriceIntervalsHelper
+end

@@ -1,0 +1,25 @@
+%h1 Listing price_intervals
+
+%table
+  %tr
+    %th Start time
+    %th End time
+    %th Price per hour
+    %th Price plan
+    %th
+    %th
+    %th
+
+  - @price_intervals.each do |price_interval|
+    %tr
+      %td= price_interval.start_time
+      %td= price_interval.end_time
+      %td= price_interval.price_per_hour
+      %td= price_interval.price_plan_id
+      %td= link_to 'Show', price_interval
+      %td= link_to 'Edit', edit_price_interval_path(price_interval)
+      %td= link_to 'Destroy', price_interval, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Price interval', new_price_interval_path

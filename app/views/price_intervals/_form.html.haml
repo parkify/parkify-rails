@@ -1,0 +1,22 @@
+= form_for @price_interval do |f|
+  -if @price_interval.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@price_interval.errors.count, "error")} prohibited this price_interval from being saved:"
+      %ul
+        - @price_interval.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :start_time
+    = f.datetime_select :start_time
+  .field
+    = f.label :end_time
+    = f.datetime_select :end_time
+  .field
+    = f.label :price_per_hour
+    = f.text_field :price_per_hour
+  .field
+    = f.label :price_plan_id
+    = f.text_field :price_plan_id
+  .actions
+    = f.submit 'Save'
