@@ -10,9 +10,11 @@ class Resource < ActiveRecord::Base
   
   belongs_to :user
   def as_json(options={})
-    result = super()
+    result = super(:only => [:id, :title])
     
     result["location"] = self.location.as_json
+    
+    result["num_images"] = self.images.count
     
     activeInterval = CapacityInterval.new({:capacity => 1, :start_time => Time.now, :end_time => Time.now + (1.5*3600)})
     #so im a resource, i know what offers I am yielding, and they have a capacitylist that knows if its overlapping currenttime.
@@ -36,10 +38,14 @@ class Resource < ActiveRecord::Base
     
     if(open_consecutive_offers == [])
       result["free"] = "false"
-      result["offers"] = ""
+      if(options[:amount_of_info] == "all")
+        result["offers"] = ""
+      end
     else
       result["free"] = "true"
-      result["offers"] = open_consecutive_offers.as_json
+      if(options[:amount_of_info] == "all")
+        result["offers"] = open_consecutive_offers.as_json
+      end
     end
       
     result["quick_properties"] = {}
@@ -52,8 +58,9 @@ class Resource < ActiveRecord::Base
       result["quick_properties"][key] = value
     end
     
-    
-    
+    if(options[:amount_of_info] == "all")
+      result["description"] = self.description
+    end
     result
   end
 end
