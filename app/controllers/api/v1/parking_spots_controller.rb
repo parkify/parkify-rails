@@ -11,7 +11,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
   #  quantity = 1
   #  
   #  CapacityInterval.overlapping
-  #  Offer.
+  #   Offer.
   
     @parking_spots = Resource.all
     respond_to do |format|
