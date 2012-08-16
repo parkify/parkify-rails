@@ -16,7 +16,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     @parking_spots = Resource.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => @parking_spots.as_json(:level_of_deail => params[:level_of_detail], :count => "all", :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:spots => @parking_spots.as_json(:level_of_deail => params[:level_of_detail]), :count => "all", :level_of_detail => params[:level_of_detail]} }
     end
   end
 
