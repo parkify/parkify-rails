@@ -38,12 +38,12 @@ class Resource < ActiveRecord::Base
     
     if(open_consecutive_offers == [])
       result["free"] = "false"
-      if(options[:amount_of_info] == "all")
+      if(options[:level_of_detail] == "all")
         result["offers"] = ""
       end
     else
       result["free"] = "true"
-      if(options[:amount_of_info] == "all")
+      if(options[:level_of_detail] == "all")
         result["offers"] = open_consecutive_offers.as_json
       end
     end
@@ -58,7 +58,7 @@ class Resource < ActiveRecord::Base
       result["quick_properties"][key] = value
     end
     
-    if(options[:amount_of_info] == "all")
+    if(options[:level_of_detail] == "all")
       result["description"] = self.description
     end
     result
