@@ -4,7 +4,7 @@ class CreatePriceIntervals < ActiveRecord::Migration
       t.datetime :start_time
       t.datetime :end_time
       t.float :price_per_hour
-      t.int :price_plan_id
+      t.integer :price_plan_id
 
       t.timestamps
     end
