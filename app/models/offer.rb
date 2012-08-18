@@ -41,6 +41,9 @@ class Offer < ActiveRecord::Base
   def as_json(options={})
     result = super()
     
+    result[:start_time] = "#{self.start_time.to_f}"
+    result[:end_time] = "#{self.end_time.to_f}"
+    
     result["price_plan"] = price_plan.as_json
     
     result
