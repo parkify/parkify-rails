@@ -28,6 +28,9 @@ class Offer < ActiveRecord::Base
     price_plan.price_planable = self
     self.price_plan = price_plan
     
+    
+    self.price_plan.generate_price_interval(start_time, end_time)
+    
       #TODO: move this logic into constructor for capacity_list
     self.capacity_list = CapacityList.create()
     self.capacity_list.capacity_intervals.create({:start_time => start_time, :end_time => end_time, :capacity => capacity})
