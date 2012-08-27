@@ -9,6 +9,11 @@ class Resource < ActiveRecord::Base
   has_many :quick_properties
   
   belongs_to :user
+  
+  def MAX_TIMEFRAME_VIEW_SIZE 
+    return 10*3600
+  end
+  
   def as_json(options={})
     result = super(:only => [:id, :title])
     
@@ -27,7 +32,7 @@ class Resource < ActiveRecord::Base
       else
         if (offer.start_time == open_consecutive_offers.last.end_time)
           open_consecutive_offers << offer
-            if (offer.end_time - Time.now) >= MAX_TIMEFRAME_VIEW_SIZE
+            if (offer.end_time - Time.now) >= self.MAX_TIMEFRAME_VIEW_SIZE
               break
             end
         else
