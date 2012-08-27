@@ -7,4 +7,10 @@ class HomeController < ApplicationController
   end
   def about
   end
+  def contact
+  end
+  def tos
+  end
+  def privacy
+  end
 end

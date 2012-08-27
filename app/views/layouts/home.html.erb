@@ -28,9 +28,10 @@
   <div class="nav-r">
   
   	<ul class="nav">
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Contact Us</a></li>
+      <li><%= link_to("Home", url_for(:action => 'index')) %> </li>
+      <li><%= link_to("About Us", url_for(:action => 'about')) %></li>
+      <li><%= link_to("Blog", url_for(:action => 'blog')) %></li>
+      <li><%= link_to("Contact Us", url_for(:action => 'contact')) %></li>
     </ul>
   
   
@@ -63,7 +64,7 @@
     <!-- end .content -->
   </div>
   <div class="footer">
-     <%= image_tag("/assets/blue_ribbon_bottom.png", :width=>"100%", :height=>"90px", :style=>"display:block;") %>
+     <%= image_tag("/assets/blue_ribbon_bottom.png", :width=>"100%", :height=>"105px", :style=>"display:block;") %>
 
     <!-- end .footer -->
   </div>
