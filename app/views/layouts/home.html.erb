@@ -19,40 +19,23 @@
  
   <div class="content">
   
-  
-  <div class="download-free-app-container">
-  <%= image_tag("/assets/download_free_app.png", :width=>"313px", :height=>"91px", :style=>"display:block;") %>
-  
-  </div>
-  
   <div class="nav-r">
-  
   	<ul class="nav">
       <li><%= link_to("Home", url_for(:action => 'index')) %> </li>
       <li><%= link_to("About Us", url_for(:action => 'about')) %></li>
       <li><%= link_to("Blog", "http:/wordpress.org//") %></li>
       <li><%= link_to("Contact Us", url_for(:action => 'contact')) %></li>
     </ul>
-  
-  
-  
   </div>
-  <div class="logo-container">
-  <%= image_tag("/assets/logo.png", :width=>"385px", :height=>"161px", :style=>"display:block;" )%>
+
+  <%= yield %>
   
-  </div>
-  
-    <div class="demo-container">
-     <%= image_tag("/assets/app_demo_1.png", :width=>"270px", :height=>"480px", :style=>"display:block;") %>
-    </div>
     
-    
-    <div class="cc-container">C 2012 Parkify Inc
-</div>
+  <div class="cc-container">C 2012 Parkify Inc</div>
 
 <div class="other-links-container">
-<a href="javascript:alert('broken-link! :3');">Terms of Service</a><br/>
-<a href="javascript:alert('broken-link! :3');">Privacy Policy</a>
+<%= link_to("Terms of Service", url_for(:action => 'tos')) %><br/>
+<%= link_to("Privacy Policy", url_for(:action => 'privacy')) %>
 </div>
 	
 
