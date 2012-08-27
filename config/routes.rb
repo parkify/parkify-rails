@@ -10,6 +10,9 @@ ParkifyRails::Application.routes.draw do
   match "/cindex" => "home#core_index"
   match "/faq" => "home#faq"
   match "/about" => "home#about"
+  match "/contact" => "home#contact"
+  match "/tos" => "home#tos"
+  match "/privacy" => "home#privacy"
   
   devise_for :users, :path_prefix => 'my'
   
