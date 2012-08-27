@@ -5,9 +5,11 @@ ParkifyRails::Application.routes.draw do
 
   resources :quick_properties
 
-  #oot :to => "home#index"
+  root :to => "home#index"
   
-  
+  match "/cindex" => "home#core_index"
+  match "/faq" => "home#faq"
+  match "/about" => "home#about"
   
   devise_for :users, :path_prefix => 'my'
   
