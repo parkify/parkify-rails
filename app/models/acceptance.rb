@@ -31,9 +31,9 @@ class Acceptance < ActiveRecord::Base
       self.offers << offer
       
       # check if there is space
-      eff_start_time = MAX(start_time, 
-      interval = CapacityInterval.new({:start_time => eff_start_time, :eff_end_time => end_time, :capacity => 1})
-      offer.capacity_list.add_if_can!(interval)
+      #eff_start_time = MAX(start_time, 
+      #interval = CapacityInterval.new({:start_time => eff_start_time, :eff_end_time => end_time, :capacity => 1})
+      #offer.capacity_list.add_if_can!(interval)
       
       # find cost
       amountToCharge += offer.find_cost(start_time, end_time)
