@@ -77,9 +77,13 @@ class Acceptance < ActiveRecord::Base
       return false
     else
       offers_to_add.each do |offer|
-        self.offers << offer
+        Agreement.create({:acceptance_id => self.id, :offer_id => offer.id})
+        
+       # self.offers << offer
       end
     end
+    
+    toRtn.status = "payment pending"
   
     #now focus on payment
     amountToCharge = (amountToCharge * 100).floor #need value in cents
