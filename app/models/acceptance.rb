@@ -88,14 +88,14 @@ class Acceptance < ActiveRecord::Base
     #now focus on payment
     amountToCharge = (amountToCharge * 100).floor #need value in cents
     customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
-    paymentInfo = self.build_payment_info()
+    paymentInfo = self.create_payment_info()
     paymentInfo.stripe_customer_id_id = customer.id
-    paymentInfo.amount_charged = amountToCharge
     
     charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
 
     if(charge.failure_message.nil?)
       self.status = "successfully_paid"
+      paymentInfo.amount_charged = amountToCharge
       return true
     else
       self.status = "not_successfully_paid"
