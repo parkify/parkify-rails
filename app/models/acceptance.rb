@@ -48,8 +48,8 @@ class Acceptance < ActiveRecord::Base
       offers_to_add << offer
       
       #check if there is space
-      eff_start_time = MAX(self.start_time, offer.start_time)
-      eff_end_time = MIN(self.end_time, offer.end_time)
+      eff_start_time = [self.start_time, offer.start_time].max
+      eff_end_time = [self.end_time, offer.end_time].min
       if(eff_end_time < start_time)
         b_undo = true
         self.status = "invalid timing"
@@ -69,8 +69,8 @@ class Acceptance < ActiveRecord::Base
     #uh oh, we failed somewhere. Time to clean up our mess.
     if(b_undo)
       offers_to_add[0...-1].each do |offer|
-        eff_start_time = MAX(self.start_time, offer.start_time)
-        eff_end_time = MIN(self.end_time, offer.end_time)
+        eff_start_time = [self.start_time, offer.start_time].max
+        eff_end_time = [self.end_time, offer.end_time].min
         interval = CapacityInterval.new({:start_time => eff_start_time, :end_time => eff_end_time, :capacity => -1})
         offer.capacity_list.add_if_can!(interval)
       end
