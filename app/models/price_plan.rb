@@ -15,7 +15,7 @@ class PricePlan < ActiveRecord::Base
       effectiveStartTime = [interval.start_time, start_time].max
       effectiveEndTime = [interval.end_time, end_time].min
       if (effectiveEndTime > effectiveStartTime)
-        toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.pricePerHour/3600;
+        toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price_per_hour/3600;
       end
     end
     return self.price_plan.find_cost(eff_start_time, eff_end_time)
