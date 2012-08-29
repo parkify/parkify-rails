@@ -9,6 +9,10 @@ class Offer < ActiveRecord::Base
   has_one :location, :as => :locationable
   has_one :capacity_list
   
+  def find_cost(eff_start_time, eff_end_time)
+    return self.price_plan.find_cost(eff_start_time, eff_end_time)
+  end
+  
   def is_current
     return (self.start_time <= Time.now) && (Time.now <= self.end_time)
   end

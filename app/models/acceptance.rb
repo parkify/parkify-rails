@@ -82,6 +82,7 @@ class Acceptance < ActiveRecord::Base
     end
   
     #now focus on payment
+    amountToCharge = (amountToCharge * 100).floor #need value in cents
     customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
     paymentInfo = self.payment_info_build()
     paymentInfo.stripe_customer_id_id = customer.id
