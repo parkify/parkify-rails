@@ -83,7 +83,7 @@ class Acceptance < ActiveRecord::Base
       end
     end
     
-    toRtn.status = "payment pending"
+    self.status = "payment pending"
   
     #now focus on payment
     amountToCharge = (amountToCharge * 100).floor #need value in cents
@@ -95,9 +95,9 @@ class Acceptance < ActiveRecord::Base
     charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
 
     if(charge.failure_message.nil?)
-      toRtn.status = "successfully_paid"
+      self.status = "successfully_paid"
     else
-      toRtn.status = "not_successfully_paid"
+      self.status = "not_successfully_paid"
       interval.capacity = -interval.capacity
       offer.capacity_list.add_if_can!(interval)
     end
