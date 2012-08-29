@@ -96,6 +96,7 @@ class Acceptance < ActiveRecord::Base
 
     if(charge.failure_message.nil?)
       self.status = "successfully_paid"
+      return true
     else
       self.status = "not_successfully_paid"
       interval.capacity = -interval.capacity
