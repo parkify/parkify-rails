@@ -88,7 +88,7 @@ class Acceptance < ActiveRecord::Base
     #now focus on payment
     amountToCharge = (amountToCharge * 100).floor #need value in cents
     customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
-    paymentInfo = self.payment_info_build()
+    paymentInfo = self.build_payment_info()
     paymentInfo.stripe_customer_id_id = customer.id
     paymentInfo.amount_charged = amountToCharge
     
@@ -100,7 +100,22 @@ class Acceptance < ActiveRecord::Base
       self.status = "not_successfully_paid"
       interval.capacity = -interval.capacity
       offer.capacity_list.add_if_can!(interval)
+      b_undo = true
     end
+    
+    
+    #uh oh, we failed somewhere. Time to clean up our mess.
+    if(b_undo)
+      offers_to_add[0...-1].each do |offer|
+        eff_start_time = [self.start_time, offer.start_time].max
+        eff_end_time = [self.end_time, offer.end_time].min
+        interval = CapacityInterval.new({:start_time => eff_start_time, :end_time => eff_end_time, :capacity => -1})
+        offer.capacity_list.add_if_can!(interval)
+      end
+      return false
+    end
+    
+    
   end
 
 
