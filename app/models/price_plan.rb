@@ -18,7 +18,7 @@ class PricePlan < ActiveRecord::Base
         toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price_per_hour/3600;
       end
     end
-    return self.price_plan.find_cost(eff_start_time, eff_end_time)
+    return toRtn
   end
   
   def as_json(options={})
