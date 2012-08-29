@@ -17,8 +17,8 @@ class Acceptance < ActiveRecord::Base
     toRtn = new()
     toRtn.status = "pending"
     toRtn.user = User.find_by_authentication_token(params["authentication_token"])
-    toRtn.start_time = params["start_time"].to_f()
-    toRtn.end_time = params["end_time"].to_f()
+    toRtn.start_time = Time.at(params["start_time"].to_f())
+    toRtn.end_time = Time.at(params["end_time"].to_f())
     
     if(toRtn.end_time <= toRtn.start_time)
       return nil
