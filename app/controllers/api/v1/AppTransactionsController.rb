@@ -55,10 +55,12 @@ class Api::V1::AppTransactionsController < ApplicationController
           format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
         else
           format.html { render action: "new" }
-          format.json { render json: @payment_info.errors, status: :unprocessable_entity }
+          puts @acceptance.status
+          format.json { render json: @acceptance.errors, status: :unprocessable_entity }
         end
       else
         format.html { render action: "new" }
+        puts @acceptance.status
         format.json { render json: @acceptance.errors, status: :unprocessable_entity }
       end
     end
