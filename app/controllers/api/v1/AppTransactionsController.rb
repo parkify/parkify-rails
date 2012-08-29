@@ -47,13 +47,10 @@ class Api::V1::AppTransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    vals = Acceptance.build_and_charge_from_api(params[:transaction])
-    @acceptance = vals[0]
-    @payment_info = vals[1]
+    @acceptance = Acceptance.build_from_api(params[:transaction])
     respond_to do |format|
       if @acceptance != nil and @acceptance.save
-        @payment_info.acceptance_id = @acceptance.id
-        if @payment_info != nil and @payment_info.save
+        if(@acceptance.add_offers_and_charge_from_api(params[:transaction]))
           format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
           format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
         else
