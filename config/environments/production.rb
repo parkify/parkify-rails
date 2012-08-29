@@ -70,8 +70,8 @@ ParkifyRails::Application.configure do
   config.action_mailer.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => 'google.com',
-  :user_name            => 'dylan.r.jackson@gmail.com',
+  :domain               => 'www.parkify.me',
+  :user_name            => 'dylan.r.jackson@parkify.me',
   :password             => 'downlo4d',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
