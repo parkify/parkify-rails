@@ -1,0 +1,305 @@
+html
+{
+	background: #7F7F7F url("../images/background.jpg") repeat left top scroll;
+}
+
+#page
+{
+	z-index: 1;
+	width: 960px;
+	min-height: 859px;
+	-pie-box-shadow: 6px 6px 8px #808080;
+	-moz-box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 6px 6px 8px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #FFFFFF;
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	border-radius: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -1px;
+}
+
+.Style
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #FFFFFF;
+}
+
+#u208
+{
+	z-index: 2;
+	width: 961px;
+	position: relative;
+	margin-right: -961px;
+}
+
+#u217
+{
+	z-index: 4;
+	width: 991px;
+	position: relative;
+	margin-right: -991px;
+	margin-top: -8px;
+	left: -4px;
+}
+
+#u210-5
+{
+	z-index: 6;
+	width: 298px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -298px;
+	margin-top: 20px;
+	left: 611px;
+}
+
+#pu210-4
+{
+	width: 290px;
+	color: #D3F4FF;
+	font-weight: bold;
+	position: relative;
+	margin-right: -290px;
+	margin-top: 8px;
+	left: 8px;
+}
+
+#u210
+{
+	text-decoration: none;
+	color: #D3F4FF;
+}
+
+#pu771
+{
+	width: 0.01px;
+	position: relative;
+	margin-right: -1px;
+}
+
+#u771
+{
+	z-index: 33;
+	width: 57px;
+	height: 22px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 4px;
+}
+
+#u772
+{
+	z-index: 34;
+	width: 84px;
+	height: 22px;
+	position: relative;
+	margin-right: -84px;
+	margin-top: 4px;
+	left: 75px;
+}
+
+#u773
+{
+	z-index: 35;
+	width: 47px;
+	height: 22px;
+	position: relative;
+	margin-right: -47px;
+	margin-top: 4px;
+	left: 180px;
+}
+
+#u774
+{
+	z-index: 36;
+	width: 47px;
+	height: 25px;
+	position: relative;
+	margin-right: -47px;
+	left: 247px;
+}
+
+#u213
+{
+	z-index: 11;
+	width: 93px;
+	position: relative;
+	margin-right: -93px;
+	margin-top: 20px;
+	left: 17px;
+}
+
+#u215
+{
+	z-index: 13;
+	width: 851px;
+	position: relative;
+	margin-right: -851px;
+	margin-top: 657px;
+	left: 54px;
+}
+
+#u211-4
+{
+	z-index: 15;
+	width: 138px;
+	min-height: 24px;
+	color: #D3F4FF;
+	font-size: 12px;
+	position: relative;
+	margin-right: -138px;
+	margin-top: 758px;
+	left: 84px;
+}
+
+#u206
+{
+	z-index: 19;
+	width: 57px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 750px;
+	left: 619px;
+}
+
+#u212-4
+{
+	z-index: 21;
+	width: 135px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 750px;
+	left: 715px;
+}
+
+#pu212-3
+{
+	width: 135px;
+	color: #D3F4FF;
+	font-size: 12px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 6px;
+}
+
+#u782
+{
+	z-index: 40;
+	width: 82px;
+	height: 24px;
+	position: relative;
+	margin-right: -82px;
+	left: 51px;
+}
+
+#u256
+{
+	z-index: 25;
+	width: 858px;
+	position: relative;
+	margin-right: -858px;
+	margin-top: 144px;
+	left: 63px;
+}
+
+#u276
+{
+	z-index: 27;
+	width: 690px;
+	position: relative;
+	margin-right: -690px;
+	margin-top: 214px;
+	left: 146px;
+}
+
+#u208_img,#u217_img,#u213_img,#u215_img,#u206_img,#u256_img,#u276_img
+{
+	vertical-align: top;
+}
+
+#u281-4
+{
+	z-index: 29;
+	width: 741px;
+	color: #D3F4FF;
+	font-weight: bold;
+	position: relative;
+	margin-right: -741px;
+	margin-top: 575px;
+	left: 129px;
+}
+
+#u779
+{
+	z-index: 37;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 745px;
+	left: 608px;
+}
+
+#u780
+{
+	z-index: 38;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 651px;
+}
+
+#u781
+{
+	z-index: 39;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 712px;
+}
+
+.ie #u771,.ie #u772,.ie #u773,.ie #u774,.ie #u782,.ie #u779,.ie #u780,.ie #u781
+{
+	background-color: #FFFFFF;
+	opacity: 0.01;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+	filter: alpha(opacity=1);
+}
+
+#u819-4
+{
+	z-index: 41;
+	width: 274px;
+	min-height: 43px;
+	color: #D3F4FF;
+	font-size: 60px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -274px;
+	margin-top: 100px;
+	left: 343px;
+}
+
+body
+{
+	padding-bottom: 37px;
+}
+

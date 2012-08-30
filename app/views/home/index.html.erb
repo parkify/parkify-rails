@@ -1,14 +1,109 @@
+<!DOCTYPE html>
+<html>
+ <head>
 
-  <div class="download-free-app-container">
-  <%= image_tag("/assets/download_free_app.png", :width=>"313px", :height=>"91px", :style=>"display:block;") %>
-  </div>
-  
-  
-  <div class="logo-container">
-  <%= image_tag("/assets/logo.png", :width=>"385px", :height=>"161px", :style=>"display:block;" )%>
-  </div>
-  
-  <div class="demo-container">
-   <%= image_tag("/assets/app_demo_1.png", :width=>"270px", :height=>"480px", :style=>"display:block;") %>
-  </div>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+  <meta name="generator" content="2.0.945.165"/>
+  <title>Parkify</title>
+  <!-- CSS -->
+  <%= stylesheet_link_tag ("assets/css/site_global.css?4003109849", :type => "text/css") =>
+  <%= stylesheet_link_tag ("assets/css/index.css?378679106", :type => "text/css") =>
+  <!-- Other scripts -->
+  <script type="text/javascript">
+   document.documentElement.className = 'js';
+</script>
+
+   <%= csrf_meta_tags %>
+
+   </head>
+ <body>
+
+  <div class="Style shadow clearfix" id="page"><!-- group -->
+   <div class="grpelem" id="u162"><!-- image -->
+    <%= image_tag("assets/background2.jpg", :id=>"u162_img", :alt=>"", :width=>"961", :height=>"860") %>
+   </div>
+   <div class="grpelem" id="u156"><!-- image -->
+    <%= image_tag("assets/navbar.png", :id=>"u156_img", :alt=>"", :width=>"991", :height=>"88") %>
     
+   </div>
+   <div class="clearfix grpelem" id="u155-5"><!-- group -->
+    <div class="grpelem" id="pu155-4"><!-- content -->
+     <p><span id="u155">Home</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; About&nbsp; Us&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Blog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Help</p>
+    </div>
+    <div class="clearfix grpelem" id="pu752"><!-- group -->
+     <%= link_to(url_for(:action => 'index'), {:title=>"Parkify.me", :id=>"u752"}) %>
+     <%= link_to(url_for(:action => 'about'), {:title=>"About us", :id=>"u753"}) %>
+     <%= link_to("http://parkify.blogspot.com/", {:title=>"Visit our Blog!", :id=>"u760"}) %>
+     <%= link_to(url_for(:action => 'contact'), {:title=>"Need help?", :id=>"u760"}) %>
+     
+     <!--
+     <a class="nonblock nontext grpelem" id="u752" href="http://www.parkify.me" title="Parkify.me"><!-- simple frame --></a>
+     <a class="nonblock nontext grpelem" id="u753" href="http://www.parkify.me/about_us" title="About us"><!-- simple frame --></a>
+     <a class="nonblock nontext grpelem" id="u760" href="http://parkify.blogspot.com/" target="_blank" title="Visit our Blog!"><!-- simple frame --></a>
+     <a class="nonblock nontext grpelem" id="u761" href="http://www.parkify.me/contact" title="Need help?"><!-- simple frame --></a>
+      -->
+      
+    </div>
+   </div>
+   <%= link_to({url_for(:action => 'index', :id=>"u760")) do
+      image_tag("assets/small_logo.png", :id=>"u153_img", :alt=>"", :width=>"93", :height=>"39")
+    end
+    %>
+    
+    <!--
+   <a class="nonblock nontext grpelem" id="u153" href="http://www.parkify.me">
+   
+   --><!-- image -->
+   <div class="grpelem" id="u158"><!-- image -->
+    
+    <%= image_tag("assets/main_logo_homepage.png", :id=>"u158_img", :alt=>"", :width=>"960", :height=>"600") %>
+    
+   </div>
+   <div class="grpelem" id="u164"><!-- image -->
+    <%= image_tag("assets/free_button.png", :id=>"u164_img", :alt=>"", :width=>"132", :height=>"52") %>
+    
+   </div>
+   <div class="grpelem" id="u160"><!-- image -->
+       <%= image_tag("assets/navbar_bottom.png", :id=>"u160_img", :alt=>"", :width=>"851", :height=>"150") %>
+
+   </div>
+   <div class="clearfix grpelem" id="u185-4"><!-- content -->
+    <p>© Parkify inc.</p>
+   </div>
+   <div class="grpelem" id="u198"><!-- image -->
+          <%= image_tag("assets/fb_twiter.png", :id=>"u198_img", :alt=>"", :width=>"57", :height=>"25") %>
+
+   </div>
+   <div class="clearfix grpelem" id="u203-4"><!-- group -->
+    <div class="grpelem" id="pu203-3"><!-- content -->
+     <p>TOS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Privicy Policy</p>
+    </div>
+    <%= link_to(url_for(:action => 'index'), {:title=>"Privicy Policy", :id=>"u767", :class=>"nonblock nontext grpelem"}) %>
+   </div>
+    <%= link_to(url_for(:action => 'about'), {:id=>"u757", :class=>"nonblock nontext grpelem"}) %>
+    <%= link_to("http://www.twitter.com/parkifyme", {:id=>"u763", :class=>"nonblock nontext grpelem", :target=>"_blank", :title=>"Our Twitter Page."}) %>
+    <%= link_to("http://www.facebook.com/Parkify", {:id=>"u764", :class=>"nonblock nontext grpelem", :target=>"_blank", :title=>"Join our Facebook page!"}) %>
+    <%= link_to(url_for(:action => 'tos'), {:id=>"u766", :class=>"nonblock nontext grpelem", :target=>"_blank", :title=>"Join our Facebook page!"}) %>
+
+  </div>
+  
+  
+  
+  <!-- JS includes -->
+  <script type="text/javascript">
+   if (document.location.protocol != 'https:') document.write('\x3Cscript src="http://musecdn.businesscatalyst.com/scripts/1.1/jquery-1.7.min.js" type="text/javascript">\x3C/script>');
+</script>
+  <script type="text/javascript">
+   window.jQuery || document.write('\x3Cscript src="scripts/1.1/jquery-1.7.min.js" type="text/javascript">\x3C/script>');
+</script>
+  <script src="scripts/1.1/museutils.js?184648559" type="text/javascript"></script>
+  <!-- Other scripts -->
+  <script type="text/javascript">
+   Muse.Utils.addSelectorFn('body', Muse.Utils.transformMarkupToFixBrowserProblemsPreInit);/* body */
+Muse.Utils.addSelectorFn('a.nonblock', Muse.Utils.addHyperlinkAnchor); /* a.nonblock */
+Muse.Utils.addSelectorFn('body', Muse.Utils.showWidgetsWhenReady);/* body */
+Muse.Utils.addSelectorFn('body', Muse.Utils.transformMarkupToFixBrowserProblems);/* body */
+
+</script>
+   </body>
+</html>
