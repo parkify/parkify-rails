@@ -17,7 +17,7 @@ class ImagesController < ApplicationController
     
     
     if params[:image_attachment]
-      render :file => @image.image_attachment.path(parmas[:style]))
+      render :file => @image.image_attachment.path(params[:style])
     else
       respond_to do |format|
         format.html # show.html.erb
