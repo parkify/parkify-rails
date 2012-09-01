@@ -14,10 +14,15 @@ class ImagesController < ApplicationController
   # GET /images/1.json
   def show
     @image = Image.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @image }
+    
+    
+    if params[:image_attachment]
+      render :file => @image.image_attachment.path(parmas[:style]))
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @image }
+      end
     end
   end
 
