@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :imageable, :polymorphic => true
-  :has_attached_file :image_attachment, :style => {:spot_view_small => "118x96"},
+  has_attached_file :image_attachment, :style => {:spot_view_small => "118x96"},
     :url  => "/assets/image_attachments/:id/:style/:basename.:extension",
     :path => ":rails_root/public/assets/image_attachments/:id/:style/:basename.:extension"
 
