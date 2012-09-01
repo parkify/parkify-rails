@@ -17,7 +17,7 @@ class Resource < ActiveRecord::Base
   def as_json(options={})
     result = super(:only => [:id, :title])
     
-    result["location"] = self.location.as_json
+    result["location"] = self.location.as_json(options)
     
     result["num_images"] = self.images.count
     
