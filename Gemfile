@@ -28,8 +28,10 @@ gem 'devise'
 gem 'haml'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+gem "paperclip", "~> 3.0"
 gem 'rails_admin'
 
 group :production do
   gem 'pg', '0.12.2'
+  gem "rmagick", "2.12.0", :require => 'RMagick'
 end

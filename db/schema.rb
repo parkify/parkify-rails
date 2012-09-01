@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815161110) do
+ActiveRecord::Schema.define(:version => 20120901023101) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
@@ -55,13 +55,17 @@ ActiveRecord::Schema.define(:version => 20120815161110) do
   end
 
   create_table "images", :force => true do |t|
-    t.string   "name",           :default => "", :null => false
-    t.string   "path",           :default => "", :null => false
-    t.string   "description",    :default => "", :null => false
+    t.string   "name",                          :default => "", :null => false
+    t.string   "path",                          :default => "", :null => false
+    t.string   "description",                   :default => "", :null => false
     t.integer  "imageable_id"
     t.string   "imageable_type"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.string   "image_attachment_file_name"
+    t.string   "image_attachment_content_type"
+    t.integer  "image_attachment_file_size"
+    t.datetime "image_attachment_updated_at"
   end
 
   create_table "locations", :force => true do |t|
