@@ -34,5 +34,5 @@ gem 'rails_admin'
 group :production do
   gem 'pg', '0.12.2'
   gem "rmagick", "2.12.0", :require => 'RMagick'
-  gem 'aws-s3', '~> 1.3.4'
+  gem 'aws-s3'
 end
