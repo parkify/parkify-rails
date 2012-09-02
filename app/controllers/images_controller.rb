@@ -21,7 +21,7 @@ class ImagesController < ApplicationController
       if(params[:style])
         style = params[:style]
       end
-      send_file @image.image_attachment.url(params[:style])
+      redirect_to @image.image_attachment.url(params[:style])
       #send_data(
       #  @image.file_data, 
       #  :type => @image.content_type,
