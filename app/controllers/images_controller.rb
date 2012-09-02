@@ -15,9 +15,9 @@ class ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
     
-    
+    p params
     if params[:image_attachment]
-      send_file image.image_attachment.url(:spot_view_small)
+      send_file @image.image_attachment.url(:spot_view_small)
       #send_data(
       #  @image.file_data, 
       #  :type => @image.content_type,
