@@ -17,7 +17,11 @@ class ImagesController < ApplicationController
     
     p params
     if params[:image_attachment]
-      send_file @image.image_attachment.url(:spot_view_small)
+      style = "original"
+      if(params[:style])
+        style = params[:style]
+      end
+      send_file @image.image_attachment.url(params[:style])
       #send_data(
       #  @image.file_data, 
       #  :type => @image.content_type,
