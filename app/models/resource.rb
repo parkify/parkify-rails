@@ -20,6 +20,7 @@ class Resource < ActiveRecord::Base
     result["location"] = self.location.as_json(options)
     
     imageIDs = []
+    p self.images
     self.images.each do |i|
       imageIDs << i.id
     end
