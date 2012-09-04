@@ -19,7 +19,11 @@ class Resource < ActiveRecord::Base
     
     result["location"] = self.location.as_json(options)
     
-    result["num_images"] = self.images.count
+    imageIDs = []
+    self.images.each do |i|
+      imageIDs << i.id
+    end
+    result["imageIDs"] = imageIDs.as_json
     
     activeInterval = CapacityInterval.new({:capacity => 1, :start_time => Time.now, :end_time => Time.now + (1.5*3600)})
     #so im a resource, i know what offers I am yielding, and they have a capacitylist that knows if its overlapping currenttime.
