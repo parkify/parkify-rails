@@ -13,9 +13,9 @@ class Image < ActiveRecord::Base
   validates_attachment_size :image_attachment, :less_than => 5.megabytes
   validates_attachment_content_type :image_attachment, :content_type => ['image/jpeg', 'image/png']
   
-  attr_accessible :description, :name, :path, :image_attachment, :imageable
-  
   attr_accessor :copy_of
+  attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
+  
   
   def image_attachment_url
     if copy_of
