@@ -18,12 +18,17 @@ class Offer < ActiveRecord::Base
   end
   
   def location
+    p "A"
     if(read_attribute(:location))
+      p "B"
       return read_attribute(:location)
     else
+      p "C"
       if(read_attribute(:resource))
+        p "D"
         return read_attribute(:resource).location
       else
+        p "E"
         return nil
       end
     end
