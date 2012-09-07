@@ -16,6 +16,9 @@ class Api::V1::RegistrationsController < ApplicationController
       #render :json=>{:success=>true, :auth_token=>@user.authentication_token, :user=>@user.email}
       return
     else
+      if(@user.id)
+        @user.destroy
+      end
       logger.info "err2..."
       warden.custom_failure!
       render :json=>{:success=>false, :error=>@user.errors}, :status=>422

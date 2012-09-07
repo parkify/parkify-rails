@@ -80,15 +80,7 @@ ParkifyRails::Application.configure do
   config.action_mailer.default :charset => "utf-8"
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :domain               => 'parkify.me',
-  :user_name            => 'dylan.r.jackson@parkify.me',
-  :password             => 'downlo4d',
-  :authentication       => 'plain',
-  :enable_starttls_auto => true  }
-  
+
   
  
   
