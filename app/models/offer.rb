@@ -17,14 +17,26 @@ class Offer < ActiveRecord::Base
     return (self.start_time <= Time.now) && (Time.now <= self.end_time)
   end
   
+  def location
+    if(read_attribute(:location))
+      return read_attribute(:location)
+    else
+      if(read_attribute(:resource))
+        return read_attribute(:resource).location
+      else
+        return nil
+      end
+    end
+  end
+  
   def updateWithParent!
   
     puts "----------------------------------------------------WORK WORK WORK WORK ;("
     
     self.capacity = resource.capacity
     
-    location = resource.location.dup
-    location.locationable = self
+    #location = resource.location.dup
+    #location.locationable = self
     self.location = location
     
     
