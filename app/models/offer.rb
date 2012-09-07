@@ -42,14 +42,12 @@ class Offer < ActiveRecord::Base
     
     #location = resource.location.dup
     #location.locationable = self
-    self.location = location
+    #self.location = location
     
     
     price_plan = resource.price_plan.dup
     price_plan.price_planable = self
     self.price_plan = price_plan
-    
-    
     self.price_plan.generate_price_interval(start_time, end_time)
     
       #TODO: move this logic into constructor for capacity_list

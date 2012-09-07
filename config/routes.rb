@@ -14,6 +14,9 @@ ParkifyRails::Application.routes.draw do
   match "/tos" => "home#tos"
   match "/privacy" => "home#privacy"
   
+  #fix for first iphone release
+  match "/users/sign_in" => redirect("http://http://parkify-rails.herokuapp.com/my/users/sign_in")
+  
   devise_for :users, :path_prefix => 'my'
   
   resources :users
