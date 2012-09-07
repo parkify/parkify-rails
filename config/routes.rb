@@ -15,7 +15,7 @@ ParkifyRails::Application.routes.draw do
   match "/privacy" => "home#privacy"
   
   #fix for first iphone release
-  match "/users/sign_in" => redirect("http://http://parkify-rails.herokuapp.com/my/users/sign_in")
+  match "/users/sign_in" => redirect("http://parkify-rails.herokuapp.com/my/users/sign_in")
   
   devise_for :users, :path_prefix => 'my'
   
@@ -66,6 +66,9 @@ ParkifyRails::Application.routes.draw do
       end
   end
 
+  
+  # in case a user tries to go to somewhere they shouldn't
+  matches '*any_path' => redirect('http://www.parkify.me')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
