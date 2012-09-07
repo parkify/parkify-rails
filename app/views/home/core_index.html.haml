@@ -9,5 +9,10 @@
   #{ link_to 'Admin Panel', 'http://parkify-rails.herokuapp.com/admin' }
   
 %hr
-
+#{ current_user.send_welcome_email unless !user_signed_in? }
 #{ image_tag '/assets/index_big_illustration.jpg' }
+
+<% if user_signed_in? %>
+    <div>Signed in as... <%= current_user.email %></div> 
+    <div><%= link_to "Log out", destroy_user_session_path, :method => :delete %></div>
+  <% else %>
