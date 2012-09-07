@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true)
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
-      #UserMailer.welcome_email(self).deliver
+      UserMailer.welcome_email(self).deliver
       
     else
       self.errors.add(:card, "Invalid Card")
