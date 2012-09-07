@@ -17,16 +17,16 @@ class Offer < ActiveRecord::Base
     return (self.start_time <= Time.now) && (Time.now <= self.end_time)
   end
   
-  def location
+  def eff_location
     p "A"
-    if(read_attribute(:location))
+    if(self.location)
       p "B"
-      return read_attribute(:location)
+      return self.location
     else
       p "C"
-      if(read_attribute(:resource))
+      if(self.resource)
         p "D"
-        return read_attribute(:resource).location
+        return self.resource.location
       else
         p "E"
         return nil
