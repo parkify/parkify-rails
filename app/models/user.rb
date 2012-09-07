@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
         :description => email
       )
       self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true)
-      self.cars.create(:license_plate_number => license_plate, :active_customer => true)
+      self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
       #UserMailer.welcome_email(self).deliver
       
