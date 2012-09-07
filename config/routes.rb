@@ -68,7 +68,7 @@ ParkifyRails::Application.routes.draw do
 
   
   # in case a user tries to go to somewhere they shouldn't
-  matches '*any_path' => redirect('http://www.parkify.me')
+  match '*' => redirect('http://www.parkify.me')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
