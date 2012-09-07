@@ -32,6 +32,8 @@ ParkifyRails::Application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
+  
+  
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
@@ -67,17 +69,28 @@ ParkifyRails::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
+ 
+ 
+ 
+  config.action_mailer.default_url_options = { :host => 'parkify.me' }
+  # ActionMailer Config
+  # Setup for production - deliveries, no errors raised
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => 'www.parkify.me',
+  :domain               => 'parkify.me',
   :user_name            => 'dylan.r.jackson@parkify.me',
   :password             => 'downlo4d',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
+  
+  
+ 
   
   
 end

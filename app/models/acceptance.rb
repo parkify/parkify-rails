@@ -91,19 +91,29 @@ class Acceptance < ActiveRecord::Base
     paymentInfo = self.create_payment_info()
     paymentInfo.stripe_customer_id_id = customer.id
     
-    charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
-
-    if(charge.failure_message.nil?)
-      self.status = "successfully_paid"
-      paymentInfo.amount_charged = amountToCharge
-      return true
-    else
-      self.status = "not_successfully_paid"
-      interval.capacity = -interval.capacity
-      offer.capacity_list.add_if_can!(interval)
-      b_undo = true
-    end
+    if(amountToCharge >= 50)
+      charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
     
+      if(charge.failure_message.nil?)
+        self.status = "successfully_paid"
+        paymentInfo.amount_charged = amountToCharge
+        return true
+      else
+        self.status = "not_successfully_paid"
+        interval.capacity = -interval.capacity
+        offer.capacity_list.add_if_can!(interval)
+        b_undo = true
+      end
+    else
+      if(amountToCharge < 0)
+        b_undo = true
+        self.status = "error: negative charge"
+      else
+        paymentInfo.amount_charged = 0
+        self.status = "didn't need to pay"
+      end
+    
+    end
     
     #uh oh, we failed somewhere. Time to clean up our mess.
     if(b_undo)
