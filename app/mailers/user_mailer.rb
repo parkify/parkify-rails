@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "dylan.r.jackson@parkify.me"
+  default from: "you-are-a-valued-customer@parkify.me"
 
   def welcome_email(user)
     @user = user
