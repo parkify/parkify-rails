@@ -5,4 +5,14 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(:to => user.email, :subject => "Welcome to Parkify!")
   end
+  
+  def payment_succeeded_email(user, acceptance, charge)
+    @user = user
+    @acceptance = acceptance
+    #make the assumption that all offers are for the same resource
+    @spot = acceptance.offers[0].resource
+    
+    @card = charge.card
+    mail(:to => user.email, :subject => "Successful Purchase of Spot")
+  end
 end

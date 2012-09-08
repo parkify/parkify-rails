@@ -4,4 +4,8 @@ class PaymentInfo < ActiveRecord::Base
   belongs_to :acceptance
   belongs_to :stripe_customer_id
   
+  def card
+    ch = Stripe::Charge.retrieve(self.stripe_charge_id)
+    return ch.card
+  end
 end

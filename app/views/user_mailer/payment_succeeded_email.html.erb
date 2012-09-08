@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <title>Successful Purchase of Spot</title>
+    
+    <style>
+      .body {
+        background-color:"#E0FFFF";
+        color:"404040";
+      }
+      .highlight-1 {
+        color:"#008080";
+      }
+      .highlight-2 {
+        color:"#004040";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dear, <%= @user.first_name %> <%= @user.last_name %> </h1>
+    <p>
+      This email confirms that you have successfully reserved spot <span class="highlight-1"><%= @spot.title %></span> at <span class="highlight-1"><%= @spot.title %></span>. What follows is more information about the reservation.
+    </p>
+    <hr/>
+    <p>
+        <span class="highlight-2"><%= @spot.location.location_address %></span><br/>
+        <%= @spot.location.directions %>
+    </p>
+    <hr/>
+    <p>
+        <span class="highlight-2">Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").to_s %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").to_s %><br/>
+        <%= "$%0.2f" % @acceptance.payment_info.amount_charged %> Charged to ************<%= @card.last4 %>
+        </span>
+    </p>
+    <hr/>
+    <p>Need Help? Call 1-855-Parkify or visit our site, <a href="http://www.parkify.me">parkify.me</a>.</p>
+    <br/>
+    <br/>
+    <p>Thanks for reserving with us and have a great day!</p>
+    <p>Respectfully,<br/>-- The Parkify Team</p>
+  </body>
+</html>

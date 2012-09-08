@@ -11,6 +11,9 @@ class Acceptance < ActiveRecord::Base
   
   # Just builds a blank acceptance, since acceptances need to be saved first before
   #   we can add member entities.
+  
+  
+  
   def self.build_from_api(params)
     params = JSON.parse(params)
     
@@ -97,6 +100,8 @@ class Acceptance < ActiveRecord::Base
       if(charge.failure_message.nil?)
         self.status = "successfully_paid"
         paymentInfo.amount_charged = amountToCharge
+        #def send_conf_email
+        UserMailer.payment_succeeded_email(self.user, self, charge)
         return true
       else
         self.status = "not_successfully_paid"
