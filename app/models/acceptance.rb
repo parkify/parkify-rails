@@ -101,7 +101,7 @@ class Acceptance < ActiveRecord::Base
         self.status = "successfully_paid"
         paymentInfo.amount_charged = amountToCharge
         #def send_conf_email
-        UserMailer.payment_succeeded_email(self.user, self, charge)
+        UserMailer.payment_succeeded_email(self.user, self, charge).deliver
         return true
       else
         self.status = "not_successfully_paid"
