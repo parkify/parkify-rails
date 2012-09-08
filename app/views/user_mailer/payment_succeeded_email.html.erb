@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <!--<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />-->
     <title>Successful Purchase of Spot</title>
     
     <style>
       .body {
-        background-color:"#E0FFFF";
-        color:"404040";
+        background-color:#DDEBEE;
+        color:#424242;
       }
       .highlight-1 {
-        color:"#008080";
+        color:#008080;
+        font-weight:bold
       }
       .highlight-2 {
-        color:"#004040";
+        color:#004040;
+        font-weight:bold
       }
     </style>
   </head>
   <body>
-    <h1>Dear, <%= @user.first_name %> <%= @user.last_name %> </h1>
-    <p>
-      This email confirms that you have successfully reserved spot <span class="highlight-1"><%= @spot.title %></span> at <span class="highlight-1"><%= @spot.title %></span>. What follows is more information about the reservation.
+    <h1>Dear <%= @user.first_name %> <%= @user.last_name %>, </h1>
+    <p> 
+      This email confirms that you have successfully reserved spot <span class="highlight-1"><%= @spot.pretty_id %></span> at <span class="highlight-1"><%= @spot.location.location_name %></span>. What follows is more information about the reservation.
     </p>
     <hr/>
     <p>
@@ -30,7 +32,7 @@
     <hr/>
     <p>
         <span class="highlight-2">Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").to_s %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").to_s %><br/>
-        <%= "$%0.2f" % @acceptance.payment_info.amount_charged %> Charged to ************<%= @card.last4 %>
+        <%= "$%0.2f" % (@acceptance.payment_info.amount_charged / 100.0) %> Charged to ************<%= @card.last4 %>
         </span>
     </p>
     <hr/>

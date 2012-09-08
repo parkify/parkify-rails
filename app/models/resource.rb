@@ -10,6 +10,10 @@ class Resource < ActiveRecord::Base
   
   belongs_to :user
   
+  def pretty_id
+    return "%d" % (10000 + self.id)
+  end
+  
   def MAX_TIMEFRAME_VIEW_SIZE 
     return 10*3600
   end

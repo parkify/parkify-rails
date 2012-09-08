@@ -1,13 +1,13 @@
-Dear, <%= @user.first_name %> <%= @user.last_name %>
+Dear <%= @user.first_name %> <%= @user.last_name %>,
 
-This email confirms that you have successfully reserved spot <%= @spot.title %> at <%= @spot.title %>. What follows is more information about the reservation.
+This email confirms that you have successfully reserved spot <%= @spot.pretty_id %> at <%= @spot.location.location_name %>. What follows is more information about the reservation.
 ===============================================
 <%= @spot.location.location_address %>
 
 <%= @spot.location.directions %>
 ===============================================
 Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").to_s %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").to_s %>
-<%= "$%0.2f" % @acceptance.payment_info.amount_charged %> Charged to ************<%= @card.last4 %>
+<%= "$%0.2f" % (@acceptance.payment_info.amount_charged / 100.0) %> Charged to ************<%= @card.last4 %>
 
 
 Need Help? Call 1-855-Parkify or visit our site, parkify.me
