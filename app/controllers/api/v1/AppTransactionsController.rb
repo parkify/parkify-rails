@@ -51,7 +51,7 @@ class Api::V1::AppTransactionsController < ApplicationController
     respond_to do |format|
       if @acceptance != nil and @acceptance.save
         p "yes1!----------------------------"
-        if(@acceptance.add_offers_and_charge_from_api(params[:transaction]) and acceptance.save!)
+        if(@acceptance.add_offers_and_charge_from_api(params[:transaction]) and @acceptance.save!)
           p "yes2!----------------------------" 
           format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
           format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
