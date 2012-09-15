@@ -22,7 +22,7 @@
   <body>
     <h1>Dear <%= @user.first_name %> <%= @user.last_name %>, </h1>
     <p> 
-      This email confirms that you have successfully reserved spot <span class="highlight-1"><%= @spot.pretty_id %></span> at <span class="highlight-1"><%= @spot.location.location_name %></span>. What follows is more information about the reservation.
+      This email confirms that you have successfully reserved spot #<span class="highlight-1"><%= @spot.pretty_id %></span> at <span class="highlight-1"><%= @spot.location.location_name %></span>. What follows is more information about the reservation.
     </p>
     <hr/>
     <p>

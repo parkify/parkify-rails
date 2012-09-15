@@ -1,6 +1,6 @@
 Dear <%= @user.first_name %> <%= @user.last_name %>,
 
-This email confirms that you have successfully reserved spot <%= @spot.pretty_id %> at <%= @spot.location.location_name %>. What follows is more information about the reservation.
+This email confirms that you have successfully reserved spot #<%= @spot.pretty_id %> at <%= @spot.location.location_name %>. What follows is more information about the reservation.
 ===============================================
 <%= @spot.location.location_address %>
 
