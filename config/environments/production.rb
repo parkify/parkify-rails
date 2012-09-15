@@ -72,7 +72,8 @@ ParkifyRails::Application.configure do
  
  
  
-  config.action_mailer.default_url_options = { :host => 'parkify.me' }
+  config.action_mailer.default_url_options = { :host => 'api.parkify.me', :protocol => 
+'https'}
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.perform_deliveries = true
