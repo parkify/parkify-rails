@@ -13,18 +13,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = current_user
-    if(@user.email == "dylan.r.jackson@gmail.com")
+    
+    if params[:id]
       @user = User.find(params[:id])
     else
       @user = current_user
     end
-  
-    #if params[:id]
-    #  @user = User.find(params[:id])
-    #else
-    #  @user = current_user
-    #end
     
     respond_to do |format|
       format.html # show.html.erb
