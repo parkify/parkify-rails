@@ -5,6 +5,7 @@ class Acceptance < ActiveRecord::Base
   belongs_to :user
   
   has_one :payment_info
+  has_one :car
   
   has_many :agreements
   has_many :offers, :through => :agreements

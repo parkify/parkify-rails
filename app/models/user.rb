@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :cars, :dependent => :destroy
   has_many :stripe_customer_ids, :dependent => :destroy
   has_many :resources, :dependent => :destroy
+  has_many :acceptances
   
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
