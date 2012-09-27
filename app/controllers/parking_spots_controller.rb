@@ -24,6 +24,7 @@ class ParkingSpotsController < ApplicationController
         @resource.quick_properties.create({:key => "spot_difficulty", :value => params[:quick_property][:spot_difficulty]});
         @resource.quick_properties.create({:key => "spot_coverage", :value => params[:quick_property][:spot_coverage]});
         @resource.quick_properties.create({:key => "spot_signage", :value => params[:quick_property][:spot_signage]});
+        @resource.quick_properties.create({:key => "spot_type", :value => "Shared"});
         
         if @location.save and @price_plan.save
           format.html { redirect_to @resource, notice: 'Parking Spot was successfully created.' }
@@ -38,4 +39,6 @@ class ParkingSpotsController < ApplicationController
       end
     end
   end
+  
+  
 end
