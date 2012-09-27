@@ -9,7 +9,7 @@ class ParkingSpotsController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @count = params[:extra][:count]
+    @count = Integer(params[:extra][:count])
     
     if !@count 
       format.html { render action: "new" }
