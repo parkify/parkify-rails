@@ -24,6 +24,8 @@ class Api::V1::ParkingSpotsController < ApplicationController
     params[:id] = Integer(params[:id]) - 90000
     #end fix
     @parking_spot = Resource.find(params[:id])
+    p "HA :3"
+    p @parking_spot.id
 
     respond_to do |format|
       format.html # show.html.erb
