@@ -13,7 +13,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => @parking_spots.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "all", :level_of_detail => params[:level_of_detail])} }
+      format.json { render json: {:spots => @parking_spots.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "all"), :level_of_detail => params[:level_of_detail]} }
     end
   end
 
@@ -24,12 +24,10 @@ class Api::V1::ParkingSpotsController < ApplicationController
     params[:id] = Integer(params[:id]) - 90000
     #end fix
     @parking_spot = Resource.find(params[:id])
-    p "HA :3"
-    p @parking_spot.id
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: {:spot => @parking_spot.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "one", :level_of_detail => params[:level_of_detail])} }
+      format.json { render json: {:spot => @parking_spot.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true), :count => "one", :level_of_detail => params[:level_of_detail]} }
     end
   end
 
