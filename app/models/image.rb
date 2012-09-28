@@ -16,12 +16,24 @@ class Image < ActiveRecord::Base
   attr_accessor :copy_of
   attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
   
-  
+  # Deprecated
   def image_attachment_url
     if copy_of
       copy_of.url
     else
       image.url
+    end
+  end
+  
+  
+  def duplicateAndAttachTo(ids)
+    ids.each do |resource_id|
+      r = Resource.find_by_id(resource_id)
+      b = self.dup!
+      b.image_attachment = self.image_attachment
+      b.save
+      r.images << b
+      r.save
     end
   end
 end
