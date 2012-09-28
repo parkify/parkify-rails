@@ -21,7 +21,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
   # GET /parking_spots/1.json
   def show
     #Fix id_numbering for (< v1.2)
-    params[:id] = params[:id] - 90000
+    params[:id] = Integer(params[:id]) - 90000
     #end fix
     @parking_spot = Resource.find(params[:id])
 
