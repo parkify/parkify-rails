@@ -26,10 +26,10 @@ class Image < ActiveRecord::Base
   end
   
   
-  def duplicateAndAttachTo(ids)
+  def duplicate_and_attach_to(ids)
     ids.each do |resource_id|
       r = Resource.find_by_id(resource_id)
-      b = self.dup!
+      b = self.dup
       b.image_attachment = self.image_attachment
       b.save
       r.images << b
