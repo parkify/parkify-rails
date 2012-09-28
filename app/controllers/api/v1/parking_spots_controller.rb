@@ -6,17 +6,14 @@ class Api::V1::ParkingSpotsController < ApplicationController
   
   def index
   
-  #  start_time = Time.now
-  #  end_time = start_time + (12*3600)
-  #  quantity = 1
-  #  
-  #  CapacityInterval.overlapping
-  #   Offer.
   
     @parking_spots = Resource.all
+    
+    
+    
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => @parking_spots.as_json(:level_of_detail => params[:level_of_detail]), :count => "all", :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:spots => @parking_spots.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "all", :level_of_detail => params[:level_of_detail])} }
     end
   end
 
@@ -27,7 +24,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: {:spot => @parking_spot.as_json(:level_of_detail => params[:level_of_detail]), :count => "one", :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:spot => @parking_spot.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "one", :level_of_detail => params[:level_of_detail])} }
     end
   end
 

@@ -45,6 +45,11 @@ class OffersController < ApplicationController
   # POST /offers
   # POST /offers.json
   def create
+  
+    #if params[:helper][:weekly_business_1]
+    #  create_weekly_business_1(params)
+    #end
+  
     @resource = Resource.find(params[:resource_id])
     puts params
     puts params[:helper][:time_zone]

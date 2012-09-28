@@ -11,7 +11,7 @@ class Resource < ActiveRecord::Base
   belongs_to :user
   
   def pretty_id
-    return "%d" % (10000 + self.id)
+    return "%d" % (100000 + self.id)
   end
   
   def MAX_TIMEFRAME_VIEW_SIZE 
@@ -20,6 +20,10 @@ class Resource < ActiveRecord::Base
   
   def as_json(options={})
     result = super(:only => [:id, :title])
+    
+    if(options[:id_fix])
+      result["id"] = result["id"]+90000
+    end
     
     result["location"] = self.location.as_json(options)
     
