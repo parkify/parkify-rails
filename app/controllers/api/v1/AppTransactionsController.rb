@@ -47,6 +47,7 @@ class Api::V1::AppTransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
+    
     @acceptance = Acceptance.build_from_api(params[:transaction])
     respond_to do |format|
       if @acceptance != nil and @acceptance.save

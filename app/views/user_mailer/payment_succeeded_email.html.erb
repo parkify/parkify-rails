@@ -22,18 +22,23 @@
   <body>
     <h1>Dear <%= @user.first_name %> <%= @user.last_name %>, </h1>
     <p> 
-      This email confirms that you have successfully reserved spot #<span class="highlight-1"><%= @spot.pretty_id %></span> at <span class="highlight-1"><%= @spot.location.location_name %></span>. What follows is more information about the reservation.
+      You have successfully reserved a Parkify spot at <span class="highlight-1"><%= @spot.location.location_name %></span>. See Below for more information about your reservation.
+    </p>
+    <hr/>
+    
+    <p>
+        <span style="font-weight:bold">Spot address: </span><%= @spot.location.location_address %><br/>
+        <span style="font-weight:bold">Unique Spot ID: </span><%= @spot.pretty_id %><br/>
+        <span style="font-weight:bold">How to find your spot: </span><%= @spot.location.location_address %><br/>
     </p>
     <hr/>
     <p>
-        <span class="highlight-2"><%= @spot.location.location_address %></span><br/>
-        <%= @spot.location.directions %>
-    </p>
-    <hr/>
-    <p>
-        <span class="highlight-2">Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").to_s %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").to_s %><br/>
-        <%= "$%0.2f" % (@acceptance.payment_info.amount_charged / 100.0) %> Charged to ************<%= @card.last4 %>
-        </span>
+        <span style="font-weight:bold">Reservation Duration: </span><%= ((@acceptance.start_time.in_time_zone("Pacific Time (US & Canada)") - @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)"))/18000).floor/2.0 %> hours<br/>
+        <span style="font-weight:bold">Time Booked: </span><%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").strftime(%l:%M %p) %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").strftime(%l:%M %p) %><br/>
+        <span style="font-weight:bold"><%= "$%0.2f" % (@acceptance.payment_info.amount_charged / 100.0) %></span>Charged to ************<%= @card.last4 %><br/>
+    
+        <span class="highlight-2">Time Booked: <br/>
+         
     </p>
     <hr/>
     <p>Need Help? Call 1-855-Parkify or visit our site, <a href="http://www.parkify.me">parkify.me</a>.</p>
