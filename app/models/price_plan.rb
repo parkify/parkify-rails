@@ -24,7 +24,21 @@ class PricePlan < ActiveRecord::Base
   def as_json(options={})
     result = super()
     
-    result["price_list"] = self.price_intervals.as_json
+    current = nil
+    self.price_intervals.each do |pr|
+      if(pr.start_time <= Time.now and pr.end_time >= Time.now)
+        current = pr
+        break
+      end
+    end
+    
+    if current
+      intervals = [current] + (self.price_intervals - [current])
+      result["price_list"] = intervals.as_json
+    else
+      result["price_list"] = self.price_intervals.as_json
+    end
+    
     result
   end
 end
