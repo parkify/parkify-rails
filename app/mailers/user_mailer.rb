@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "you-are-a-valued-customer@parkify.me"
+  default from: "support@parkify.me"
 
   def welcome_email(user)
     @user = user
@@ -13,6 +13,6 @@ class UserMailer < ActionMailer::Base
     @spot = acceptance.offers[0].resource
     
     @card = charge.card
-    mail(:to => user.email, :subject => "Successful Purchase of Spot")
+    mail(:to => user.email, :subject => "Successful Reservation of Spot")
   end
 end
