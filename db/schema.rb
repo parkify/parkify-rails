@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120921053930) do
+ActiveRecord::Schema.define(:version => 20120930123523) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20120921053930) do
     t.text     "billing_address"
     t.string   "company_phone_number"
     t.string   "zip_code"
+    t.string   "phone_number"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
