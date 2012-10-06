@@ -41,7 +41,7 @@ class GameDay
       y = p.price_intervals.new()
       y.start_time=b
       y.end_time=pint.end_time
-      x.price_per_hour=pint.price_per_hour
+      y.price_per_hour=pint.price_per_hour
       pint.end_time=a
       
       pint.save
