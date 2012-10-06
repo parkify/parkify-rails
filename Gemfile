@@ -25,6 +25,7 @@ end
 gem 'jquery-rails', '2.0.0'
 
 gem 'devise'
+gem 'cancan'
 gem 'haml'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 

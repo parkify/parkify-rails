@@ -55,4 +55,26 @@ class GameDay
   end
   
   
+  
+  
+  # TODO: Make general
+  def quickOffer(spots)
+    a = Time.new(2012,10,6,16,0,0, "-07:00")
+    b = Time.new(2012,10,7,9,0,0, "-07:00")
+ 
+    spots.each do |i|
+      resource = Resource.find(i)
+    
+      #TODO: fix DST
+      offer = resource.offers.new({:start_time => a, :end_time => b})
+      if resource.save
+          if offer.save
+            offer.updateWithParent!
+          end
+      end
+    end
+  end
+  
+  
+  
 end
