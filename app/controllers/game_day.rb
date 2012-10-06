@@ -61,7 +61,7 @@ class GameDay
   def quickOffer(spots)
     a = Time.new(2012,10,6,16,0,0, "-07:00")
     b = Time.new(2012,10,7,9,0,0, "-07:00")
- 
+  
     spots.each do |i|
       resource = Resource.find(i)
     
