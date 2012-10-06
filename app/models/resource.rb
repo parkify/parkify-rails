@@ -54,7 +54,7 @@ class Resource < ActiveRecord::Base
       end
     end
     
-    if(open_consecutive_offers == [] )
+    if(open_consecutive_offers == [] || !(self.active == true))
       result["free"] = "false"
       if(options[:level_of_detail] == "all")
         result["offers"] = ""
