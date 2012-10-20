@@ -1,4 +1,4 @@
-
+# TODO: Make general
 class GameDay
 
   def changePrice(pr,spots)
@@ -23,8 +23,8 @@ class GameDay
   end
 
   def gdPrice(pr, spots)
-    a = Time.new(2012,10,6,9,0,0, "-07:00")
-    b = Time.new(2012,10,6,23,0,0, "-07:00")
+    a = Time.new(2012,10,20,9,0,0, "-07:00")
+    b = Time.new(2012,10,20,17,0,0, "-07:00")
     
     spots.each do |i|
       s = Resource.find_by_id(i)
@@ -57,7 +57,7 @@ class GameDay
   
   
   
-  # TODO: Make general
+
   def quickOffer(spots)
     a = Time.new(2012,10,6,5,0,0, "-07:00") ##offered before 5 for convenience with the above method.
     b = Time.new(2012,10,7,9,0,0, "-07:00")
