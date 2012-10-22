@@ -27,7 +27,8 @@ gem 'jquery-rails', '2.0.0'
 gem 'devise'
 gem 'cancan'
 gem 'haml'
-gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+#gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'stripe'
 
 gem "paperclip", "~> 3.0"
 gem 'rails_admin'

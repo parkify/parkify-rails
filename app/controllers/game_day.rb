@@ -50,7 +50,6 @@ class GameDay
       p.price_intervals << x
       p.price_intervals << y
       
-      p.save
     end
   end
   
