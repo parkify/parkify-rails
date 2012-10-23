@@ -36,7 +36,7 @@ class Payment
         
         paymentInfo.details = "$#{partialamount_chargedFromCredit/100} was deducted from account credits and "
       end
-    ends
+    end
     
     
     #verify that the user has a valid card and grab that card.
