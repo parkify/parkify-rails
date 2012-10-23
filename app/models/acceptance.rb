@@ -92,12 +92,13 @@ class Acceptance < ActiveRecord::Base
     #now focus on payment
     
     
-    
+      
     
     amountToCharge = (amountToCharge * 100).floor #need value in cents
     
     #TODO: Add better detail for this charge
     paymentInfo = Payment::charge(user, amountToCharge, "Spot Reservation")
+    self.payment_info = paymentInfo
     
     if !paymentInfo
       self.status = "not_successfully_paid"
