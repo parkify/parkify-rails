@@ -16,6 +16,37 @@ class User < ActiveRecord::Base
   has_many :resources, :dependent => :destroy
   has_many :acceptances
   
+  def active_card
+    return self.stripe_customer_ids.where('active_customer = ?', true).first
+  end
+  
+  def activate_card(card)
+    if(!card)
+      return false
+    end
+    #verify that card is one of this user's cards
+    if(!self.stripe_customer_ids.where(:id => card.id).present?)
+      return false
+    else
+      #set all other cards to false.
+      self.stripe_customer_ids.each do |cardEach|
+        if(cardEach.id == card.id)
+          cardEach.active_customer = true
+          cardEach.save
+        elsif (cardEach.active_customer)
+          cardEach.active_customer = false
+          cardEach.save
+        end
+      end
+      
+      return true
+    end
+  end
+  
+  def validate_cards
+    return self.stripe_customer_ids.where('active_customer = ?', true).count == 1
+  end
+  
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
   end

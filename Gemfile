@@ -23,8 +23,8 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
+#Temporarily removed while rubygems.com's Dependency API is down.
 #gem 'jquery-rails', '2.0.0'
-#gem 'jquery-rails', :git => 'https://github.com/indirect/jquery-rails'
 
 gem 'devise'
 gem 'cancan'

@@ -229,7 +229,6 @@ DEPENDENCIES
   haml
   haml-rails
   hpricot
-  jquery-rails (= 2.0.0)
   paperclip (~> 3.0)
   pg (= 0.12.2)
   rails (= 3.2.7rc1)
