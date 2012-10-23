@@ -10,7 +10,7 @@ class Payment
       return nil
     end
   
-    #Verify user is valid
+    #Verify that user is valid
     if (!user)
       Payment::payment_failed(user, paymentInfo, reason, "User was invalid")
       return nil
