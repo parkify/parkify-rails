@@ -29,7 +29,7 @@ gem 'devise'
 gem 'cancan'
 gem 'haml'
 #gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
-#gem 'stripe'
+gem 'stripe'
 
 gem "paperclip", "~> 3.0"
 gem 'rails_admin'
