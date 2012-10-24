@@ -111,6 +111,7 @@ class Payment
         return "$#{amountToCharge/100.0} will be deducted from account credits"
       else
         partialamount_chargedFromCredit = user.credit
+        amountToCharge -= partialamount_chargedFromCredit
         toRtn = "$#{partialamount_chargedFromCredit/100.0} will be deducted from account credits and "
       end
     end
