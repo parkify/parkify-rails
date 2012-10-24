@@ -24,7 +24,7 @@ class Payment
     partialamount_chargedFromCredit = 0
     if(user.credit > 0)
       if(user.credit >= amountToCharge)
-        paymentInfo.details = "$#{amountToCharge/100} was deducted from account credits"
+        paymentInfo.details = "$#{amountToCharge/100.0} was deducted from account credits"
         user.credit -= amountToCharge
         Payment::payment_succeeded(user, paymentInfo, reason)
         paymentInfo.save
@@ -34,7 +34,7 @@ class Payment
         amountToCharge -= partialamount_chargedFromCredit
         user.credit = 0.0
         
-        paymentInfo.details = "$#{partialamount_chargedFromCredit/100} was deducted from account credits and "
+        paymentInfo.details = "$#{partialamount_chargedFromCredit/100.0} was deducted from account credits and "
       end
     end
     
@@ -66,7 +66,7 @@ class Payment
     
       if(charge.failure_message.nil?)
         Payment::payment_succeeded(user, paymentInfo, reason)
-        paymentInfo.details += "$#{amountToCharge/100} was charged to card *#{charge.card.last4}"
+        paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}"
         paymentInfo.save
         return paymentInfo
       else
