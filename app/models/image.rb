@@ -26,6 +26,18 @@ class Image < ActiveRecord::Base
   end
   
   
+  def landscape_for_spot_info_page
+    return true
+  end
+  
+  def landscape_for_spot_conf_page
+    return true
+  end
+  
+  def standard_for_instructions
+    return true
+  end
+  
   def duplicate_and_attach_to(ids)
     ids.each do |resource_id|
       r = Resource.find_by_id(resource_id)
