@@ -15,9 +15,9 @@ class Acceptance < ActiveRecord::Base
   
   def as_json(options={})
     result = super(:only => [:id])
-    result[details] = ""
+    result["details"] = ""
     if(self.payment_info)
-      result[details] = self.payment_info.details
+      result["details"] = self.payment_info.details
     end
     result
   end
