@@ -1,45 +1,14 @@
 Dear <%= @user.first_name %> <%= @user.last_name %>,
-
-This email confirms that you have successfully reserved spot #<%= @spot.pretty_id %> at <%= @spot.location.location_name %>. What follows is more information about the reservation.
-===============================================
-<%= @spot.location.location_address %>
-
-<%= @spot.location.directions %>
-===============================================
-Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").to_s %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").to_s %>
-<%= "$%0.2f" % (@acceptance.payment_info.amount_charged / 100.0) %> Charged to ************<%= @card.last4 %>
-
-
-Need Help? Call 1-855-Parkify or visit our site, parkify.me
-
-
-Thanks for reserving with us and have a great day!
-
-Respectfully,
--- The Parkify Team
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Welcome to Parkify, <%= @user.first_name %>
-===============================================
- 
-You have successfully signed up to Parkify.
-
-Thanks for joining and have a great day!
-
-Respectfully,
--- The Parkify Team
+    
+      You have successfully reserved a Parkify spot at <%= @spot.location.location_name %>. See Below for more information about your reservation.
+    
+    
+      Spot address:<%= @spot.location.location_address %>]
+      Unique Spot ID: <%= @spot.pretty_id %>
+      How to find your spot: <%= @spot.location.directions %>
+    
+    Reservation Duration: <%= ((@acceptance.end_time.in_time_zone("Pacific Time (US & Canada)") - @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)"))/1800).floor/2.0 %> hours
+    Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").strftime("%l:%M %p") %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").strftime("%l:%M %p") %>
+    <%= @acceptance.payment_info.details %>
+        
+    Questions? Need help finding your spot? Call 1-855-Parkify or visit our site, www.parkify.me.
