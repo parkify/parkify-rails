@@ -36,7 +36,7 @@ class Resource < ActiveRecord::Base
     result["location"] = self.location.as_json(options)
     
     
-    #Images
+    #Imagess
     imageIDs = []
     landscape_for_spot_info_page_ids = []
     landscape_for_spot_conf_page_ids = []
