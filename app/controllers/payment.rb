@@ -42,6 +42,9 @@ class Payment
     #verify that the user has a valid card and grab that card.
     customer = user.active_card
     if (!customer)
+      user.credit += partialamount_chargedFromCredit
+      paymentInfo.amount_charged = 0
+      paymentInfo.save
       Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
       return nil
     end
@@ -52,7 +55,6 @@ class Payment
     #TODO: Figure out a better solution for the 50-cent restriction.
     #TODO: Make sure card charges are not blocking this thread
     if(amountToCharge >= 50)
-      p amountToCharge
       begin
         charge = Stripe::Charge.create ({:amount=>amountToCharge.floor, :currency=>"usd", :customer => customer.customer_id, :description => "#{user.email}:#{reason}"})
       rescue
@@ -87,6 +89,50 @@ class Payment
     end
     
   end
+  
+  
+  
+  #Don't attempt to charge user, but instead find how much it will cost, etc
+  def self.charge_string(user, amountToCharge, reason)
+    if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
+      return "Error"
+    end
+  
+    #Verify that user is valid
+    if (!user)
+      return "Error"
+    end
+    
+    #Try to charge everything from account credit first.
+    partialamount_chargedFromCredit = 0
+    toRtn = ""
+    if(user.credit > 0)
+      if(user.credit >= amountToCharge)
+        return "$#{amountToCharge/100.0} will be deducted from account credits"
+      else
+        partialamount_chargedFromCredit = user.credit
+        toRtn = "$#{partialamount_chargedFromCredit/100.0} will be deducted from account credits and "
+      end
+    end
+    
+    
+    #verify that the user has a valid card and grab that card.
+    customer = user.active_card
+    if (!customer)
+      return "Error: You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance."
+    end
+    
+    if(amountToCharge >= 50)
+      return toRtn + "$#{amountToCharge/100.0} will be charged to card *#{charge.card.last4}"
+    else
+      return "Error"
+    end
+    
+  end
+  
+  
+  
+  
     
     
   def self.payment_succeeded(user, paymentInfo, reason)

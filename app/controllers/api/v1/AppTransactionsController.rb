@@ -51,25 +51,38 @@ class Api::V1::AppTransactionsController < ApplicationController
     @acceptance = Acceptance.build_from_api(params[:transaction])
     respond_to do |format|
       if @acceptance != nil and @acceptance.save
-        p "yes1!----------------------------"
         if(@acceptance.add_offers_and_charge_from_api(params[:transaction]) and @acceptance.save!)
-          p "yes2!----------------------------" 
           format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
           format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
         else
-          p "no2!----------------------------" 
           format.html { render action: "new" }
           puts @acceptance.status
           format.json { render json: @acceptance.errors, status: :unprocessable_entity }
         end
       else
-        p "yes2!----------------------------" 
         format.html { render action: "new" }
         puts @acceptance.status
         format.json { render json: @acceptance.errors, status: :unprocessable_entity }
       end
     end
   end
+  
+  
+  def preview
+    
+    @acceptance = Acceptance.build_from_api(params[:transaction])
+    toSend = @acceptance.check_price_from_api(params[:transaction])
+    respond_to do |format|
+      if(toSend)
+        format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
+        format.json { render json: toSend, status: :created, location: @acceptance, }
+      else
+        format.html { render action: "new" }
+        format.json { render json: {:success => false}, status: :unprocessable_entity }
+      end
+    end
+  end
+  
 
   # PUT /transactions/1
   # PUT /transactions/1.json

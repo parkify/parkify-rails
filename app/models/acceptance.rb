@@ -107,6 +107,7 @@ class Acceptance < ActiveRecord::Base
       offer.capacity_list.add_if_can!(interval)
       b_undo = true
     else
+      self.status = "successfully_paid"
       UserMailer.payment_succeeded_email(self.user, self).deliver
       return true
     end
@@ -126,5 +127,70 @@ class Acceptance < ActiveRecord::Base
     
     
   end
+  
+  
+  
+  # Now try to validate, find the total cost, and charge with card.
+  # If anything goes wrong, clean up and return false.
+  # Assumes: that self has been saved.
+  def check_price_from_api(params)
+    params = JSON.parse(params)
+    
+    toRtn = {}
+    toRtn[:price_string] = ""
+     
+    if(!self.user)
+      toRtn[:price_string] = "invalid user"
+      toRtn[:success] = false
+      return toRtn
+    end
+    
+    b_undo = false
+    amountToCharge = 0.0
+    offers_to_add = []
+    params["offer_ids"].each do |offer_id|
+    
+      #grab the correct offer
+      offer = Offer.find_by_id(offer_id.to_i)
+      offers_to_add << offer
+      
+      #check if there is space
+      eff_start_time = [self.start_time, offer.start_time].max
+      eff_end_time = [self.end_time, offer.end_time].min
+      if(eff_end_time < start_time)
+        toRtn[:price_string] = "Error: invalid timing"
+        toRtn[:success] = false
+        return toRtn
+      end
+      
+      # find cost
+      amountToCharge += offer.find_cost(eff_start_time, eff_end_time)
+    end
+      
+    #now focus on payment
+    amountToCharge = (amountToCharge * 100).floor #need value in cents
+    charge_string = Payment::charge_string(user, amountToCharge, "Spot Reservation")
+    if(charge_string.downcase.include?("error"))
+      toRtn[:success] = false
+    else
+      toRtn[:success] = true
+    end
+    toRtn[:price_string] = charge_string
+    return toRtn
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 end
