@@ -122,8 +122,10 @@ class Payment
       return "Error: You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance."
     end
     
+    card = Stripe::Customer.retrieve(customer.customer_id).active_card
+    
     if(amountToCharge >= 50)
-      return toRtn + "$#{amountToCharge/100.0} will be charged to card *#{charge.card.last4}"
+      return toRtn + "$#{amountToCharge/100.0} will be charged to card *#{card.last4}"
     else
       return "Error"
     end
