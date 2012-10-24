@@ -13,7 +13,14 @@ class Acceptance < ActiveRecord::Base
   # Just builds a blank acceptance, since acceptances need to be saved first before
   #   we can add member entities.
   
-  
+  def as_json(options={})
+    result = super(:only => [:id])
+    result[details] = ""
+    if(self.payment_info)
+      result[details] = self.payment_info.details
+    end
+    result
+  end
   
   def self.build_from_api(params)
     params = JSON.parse(params)
