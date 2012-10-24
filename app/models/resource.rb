@@ -40,7 +40,7 @@ class Resource < ActiveRecord::Base
     imageIDs = []
     landscape_for_spot_info_page_ids = []
     landscape_for_spot_conf_page_ids = []
-    standard_for_instructions_ids = []
+    standard_for_instructions_ids = {}
     self.images.each do |i|
       imageIDs << i.id
       if i.landscape_for_spot_info_page
@@ -50,7 +50,7 @@ class Resource < ActiveRecord::Base
         landscape_for_spot_conf_page_ids << i.id
       end
       if i.standard_for_instructions
-        standard_for_instructions_ids << i.id
+        standard_for_instructions_ids[i.name] = i.id
       end
     end
    
