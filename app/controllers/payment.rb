@@ -26,6 +26,7 @@ class Payment
       if(user.credit >= amountToCharge)
         paymentInfo.details = "$#{amountToCharge/100.0} was deducted from account credits"
         user.credit -= amountToCharge
+        user.save
         Payment::payment_succeeded(user, paymentInfo, reason)
         paymentInfo.save
         return paymentInfo
@@ -33,6 +34,7 @@ class Payment
         partialamount_chargedFromCredit = user.credit
         amountToCharge -= partialamount_chargedFromCredit
         user.credit = 0.0
+        user.save
         
         paymentInfo.details = "$#{partialamount_chargedFromCredit/100.0} was deducted from account credits and "
       end
@@ -43,6 +45,7 @@ class Payment
     customer = user.active_card
     if (!customer)
       user.credit += partialamount_chargedFromCredit
+      user.save
       paymentInfo.amount_charged = 0
       paymentInfo.save
       Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
@@ -60,6 +63,7 @@ class Payment
       rescue
         reasonForError = "#{$!}"
         user.credit += partialamount_chargedFromCredit
+        user.save
         paymentInfo.amount_charged = 0
         paymentInfo.save
         Payment::payment_failed(user, paymentInfo, reason, reasonForError)
@@ -74,6 +78,7 @@ class Payment
       else
         #give back credit.
         user.credit += partialamount_chargedFromCredit
+        user.save
         paymentInfo.amount_charged = 0
         paymentInfo.save
         Payment::payment_failed(user, paymentInfo, reason, "Stripe failed")
@@ -82,6 +87,7 @@ class Payment
     
     else
       user.credit += partialamount_chargedFromCredit
+      user.save
       paymentInfo.amount_charged = 0
       paymentInfo.save
       Payment::payment_failed(user, paymentInfo, reason, "amount was less than 50c")
