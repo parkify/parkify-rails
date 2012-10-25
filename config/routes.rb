@@ -65,6 +65,7 @@ ParkifyRails::Application.routes.draw do
         resources :acceptances, :controller => "app_transactions", :only => [:create] do
           post 'preview', :on => :collection
         end
+        resource :account, :controller => "account"
       end
   end
 

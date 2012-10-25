@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
@@ -13,12 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    
-    if params[:id]
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = current_user
     
     respond_to do |format|
       format.html # show.html.erb
@@ -39,11 +34,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if params[:id]
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = current_user
   end
 
   # POST /users
@@ -65,20 +56,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    skipFix = false
-    if params[:id]
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-      skipFix = true
-    end
-    
-    # Do this so devise can validate correctly
-    if !skipfix and user.saveparams[:user][:password].blank?
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation)
-    end
-
+    @user = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -93,11 +71,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if params[:id]
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = current_user
     @user.destroy
 
     respond_to do |format|
