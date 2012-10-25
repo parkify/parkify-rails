@@ -40,7 +40,7 @@ class Api::V1::AccountController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(JSON.parse(params[:user]))
 
     respond_to do |format|
       if @user.save
@@ -58,7 +58,7 @@ class Api::V1::AccountController < ApplicationController
   def update
     @user = current_user
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(JSON.parse(params[:user]))
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
