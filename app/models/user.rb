@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit
   # attr_accessible :title, :body
   
   has_many :cars, :dependent => :destroy
@@ -78,6 +78,14 @@ class User < ActiveRecord::Base
                 # method, otherwise you'll mess up Ruby's method
                 # lookup.
     
+  end
+  
+  def as_json(options={})
+    result = super(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])
+    
+    #result["credit_cards"] = self.stripe_customer_ids.as_json
+    #result["cars"] = self.cars.as_json
+    #result["promos"] =
   end
   
 end
