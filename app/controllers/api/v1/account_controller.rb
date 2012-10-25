@@ -70,6 +70,24 @@ class Api::V1::AccountController < ApplicationController
       end
     end
   end
+  
+  def activate_card
+    @user = current_user
+    @card = StripeCustomerId.find_by_id(params[:id])
+    
+    respond_to do |format|
+      puts "1"
+      if @user.activate_card(@card)
+        puts "2"  
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render json: {:card=>@card, :success=>true}, location: @user }
+      else
+        puts "3"
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
