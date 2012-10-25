@@ -86,6 +86,7 @@ class User < ActiveRecord::Base
     result["credit_cards"] = self.stripe_customer_ids.as_json
     #result["cars"] = self.cars.as_json
     #result["promos"] =
+    result
   end
   
 end
