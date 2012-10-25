@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     puts meth, args, block
     super # You *must* call super if you don't handle the
                 # method, otherwise you'll mess up Ruby's method
-                # lookup.
+                # lookup.s
     
   end
   
