@@ -102,6 +102,21 @@ class Api::V1::AccountController < ApplicationController
       end
     end
   end
+  
+  def update_cars
+    @user = current_user
+    
+    respond_to do |format|
+    err = @user.update_cars(JSON.parse(params[:cars]))
+      if !err
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render json: {:success=>true}, location: @user }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: err, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json

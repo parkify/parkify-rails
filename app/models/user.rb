@@ -107,7 +107,23 @@ class User < ActiveRecord::Base
   end
   
   
-  
+  def update_cars (cars)
+    if(!cars)
+      return nil
+    else
+      toRtn = nil
+      cars.each do |cHash|
+        c = Car.find_by_id(cHash["id"])
+        if (c.license_plate_number != cHash["license_plate_number"])
+          c.license_plate_number = cHash["license_plate_number"];
+          if(!c.save)
+            toRtn = c.error
+          end
+        end
+      end
+      return toRtn
+    end
+  end
   
   
   def method_missing(meth, *args, &block)
