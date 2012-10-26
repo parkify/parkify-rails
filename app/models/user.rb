@@ -52,17 +52,22 @@ class User < ActiveRecord::Base
   end
   
   def save_with_card_and_car!(stripe_token_id, license_plate)
-    if(stripe_token_id) #TODO: Maybe check actual validity of token
+    if(stripe_token_id) #TODO: Maybe better check actual validity of token
     
-      logger.info "err3..."
-      return false unless save()
-      logger.info "err4..."
       #Add the credit card and make a new customer.
       customer = Stripe::Customer.create(
         :card => stripe_token_id,
         :description => email
       )
-      self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true)
+      if (customer.actie_card.cvc_check != "pass") 
+        self.errors.add(:card, "Card failed CVC check")
+        return false
+      end
+     
+      return false unless save()
+      
+      
+      self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
       send_welcome_email
@@ -72,6 +77,39 @@ class User < ActiveRecord::Base
       return false
     end
   end
+  
+  def save_with_new_card!(stripe_token_id)
+    if(stripe_token_id) #TODO: Maybe check actual validity of token
+    
+      #Add the credit card and make a new customer.
+      customer = Stripe::Customer.create(
+        :card => stripe_token_id,
+        :description => email
+      )
+      if (customer.actie_card.cvc_check != "pass") 
+        self.errors.add(:card, "Card failed CVC check")
+        return false
+      end
+     
+    
+      return false unless save()
+      
+      if(self.stripe_customer_ids.count == 0)
+        self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
+      else
+        self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => false, :last4 => customer.active_card.last4)
+      end
+      
+    else
+      self.errors.add(:card, "Invalid Card")
+      return false
+    end
+  end
+  
+  
+  
+  
+  
   def method_missing(meth, *args, &block)
     puts meth, args, block
     super # You *must* call super if you don't handle the
