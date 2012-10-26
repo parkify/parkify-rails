@@ -50,5 +50,13 @@ class Promo < ActiveRecord::Base
     end
   end
   
+  def discount(amount)  
+    if self.of_type?('discount') and self.active?
+      return self.value1 * amount
+    else
+      return amount
+    end
+  end
+  
   
 end

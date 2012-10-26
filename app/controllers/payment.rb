@@ -5,6 +5,7 @@ class Payment
   #returns a payment info object
   #TODO: attach reason and user to paymentInfo
   def self.charge(user, amountToCharge, reason)
+  
     if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
       Payment::payment_failed(user, paymentInfo, reason, "Charge amount was negative")
       return nil
@@ -16,6 +17,21 @@ class Payment
       return nil
     end
     
+    #consider discounts first
+    discountedAmountToCharge = amountToCharge
+    user.promos.each do |p|
+      if p.of_type?('discount')
+        discountedAmountToCharge = min(discountedAmountToCharge, p.discount(amountToCharge))
+      end
+    end
+    
+    discountedString = ""
+    if(amountToCharge != discountedAmountToCharge)
+      discountedString = " (after discounts)"
+      amountToCharge = discountedAmountToCharge
+    end
+    
+    
     #make a paymentInfo object
     paymentInfo = PaymentInfo.create()
     paymentInfo.amount_charged = amountToCharge
@@ -24,7 +40,7 @@ class Payment
     partialamount_chargedFromCredit = 0
     if(user.credit > 0)
       if(user.credit >= amountToCharge)
-        paymentInfo.details = "$#{amountToCharge/100.0} was deducted from account credits"
+        paymentInfo.details = "$#{amountToCharge/100.0} was deducted from account credits" + discountedString
         user.credit -= amountToCharge
         user.save
         Payment::payment_succeeded(user, paymentInfo, reason)
@@ -72,7 +88,7 @@ class Payment
     
       if(charge.failure_message.nil?)
         Payment::payment_succeeded(user, paymentInfo, reason)
-        paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}"
+        paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}" + discountedString
         paymentInfo.save
         return paymentInfo
       else
@@ -109,12 +125,25 @@ class Payment
       return "Error"
     end
     
+    #consider discounts first
+    discountedAmountToCharge = amountToCharge
+    user.promos.each do |p|
+      if p.of_type?('discount')
+        discountedAmountToCharge = min(discountedAmountToCharge, p.discount(amountToCharge))
+      end
+    end
+    
+    discountedString = ""
+    if(amountToCharge != discountedAmountToCharge)
+      discountedString = " (after discounts)"
+    end
+    
     #Try to charge everything from account credit first.
     partialamount_chargedFromCredit = 0
     toRtn = ""
     if(user.credit > 0)
       if(user.credit >= amountToCharge)
-        return "$#{amountToCharge/100.0} will be deducted from account credits"
+        return "$#{amountToCharge/100.0} will be deducted from account credits" + discountedString
       else
         partialamount_chargedFromCredit = user.credit
         amountToCharge -= partialamount_chargedFromCredit
@@ -132,7 +161,7 @@ class Payment
     card = Stripe::Customer.retrieve(customer.customer_id).active_card
     
     if(amountToCharge >= 50)
-      return toRtn + "$#{amountToCharge/100.0} will be charged to card *#{card.last4}"
+      return toRtn + "$#{amountToCharge/100.0} will be charged to card *#{card.last4}" + discountedString
     else
       return "Error"
     end
