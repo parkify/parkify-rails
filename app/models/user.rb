@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   end
   
   def save_with_new_promo!(code_text)
-    if(license_plate_number)
+    if(code_text)
       c = Code.find_by_code_text(code_text)
       if(!c)
         self.errors.add(:code, "code invalid")
