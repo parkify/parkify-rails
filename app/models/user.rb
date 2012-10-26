@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
         if (c.license_plate_number != cHash["license_plate_number"])
           c.license_plate_number = cHash["license_plate_number"];
           if(!c.save)
-            toRtn = c.error
+            toRtn = c.errors
           end
         end
       end
