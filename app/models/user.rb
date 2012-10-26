@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
     
       return false unless save()
       
-      car = self.cars.new(:license_plate_number => license_plate, :active_car => true)
+      car = self.cars.new(:license_plate_number => license_plate_number, :active_car => true)
       
       if(!car.save)
         self.errors.add(:car, car.errors.values[0])
