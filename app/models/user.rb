@@ -160,9 +160,9 @@ class User < ActiveRecord::Base
       
       self.promos << promo
       
-      user_promo = self.user_promos.find_by_promo_id(promo.id)
-      user_promo.code = c
-      if(!user_promo.save)
+      promo_users = self.promo_users.find_by_promo_id(promo.id)
+      promo_users.code = c
+      if(!promo_users.save)
         self.errors.add(:code, "code invalid")
         return false
       end
