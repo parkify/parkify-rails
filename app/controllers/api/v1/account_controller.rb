@@ -112,6 +112,7 @@ class Api::V1::AccountController < ApplicationController
     p @user
     p "hmm"
     respond_to do |format|
+      p "faa"
       if @user.save_with_new_car!(params[:license_plate_number])
         #format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render json: {:car=>@user.cars.order(:created_at).last, :success=>true}, location: @user }
