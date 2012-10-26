@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
         return false
       end
       
-      if(promo.of_type('once'))
+      if(promo.of_type?('once'))
         promo.perform_action(self)
       end
       return true
