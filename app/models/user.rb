@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   
   
   has_many :promo_users
-  has_many :users, :through => :promo_users
+  has_many :promos, :through => :promo_users
   has_many :codes, :through => :promo_users
   
   def active_card
