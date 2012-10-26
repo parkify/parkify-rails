@@ -110,14 +110,14 @@ class User < ActiveRecord::Base
     p "ahaa"
     p license_plate_number
     p "ahaaa"
-    if(license_plate_number) #TODO: Maybe check actual validity of token
+    if(license_plate_number)
     
       if(!self.save())
         p "hio"
         return false
       end
       
-      car = self.cars.new(:license_plate_number => license_plate_number, :active_car => true)
+      car = self.cars.new({:license_plate_number => license_plate_number, :active_car => true})
       
       if(!car.save)
         p "fii"
@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
         self.errors.add(:car, car.errors.values[0])
         return false
       end
-      
+      p "fuu"
     else
       p "faa"
       self.errors.add(:car, "Invalid license plate number")
