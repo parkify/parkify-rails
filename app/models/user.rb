@@ -106,6 +106,26 @@ class User < ActiveRecord::Base
     end
   end
   
+  def save_with_new_car!(license_plate_number)
+    if(license_plate_number) #TODO: Maybe check actual validity of token
+    
+      #Add the credit card and make a new customer.
+      customer = Stripe::Customer.creat(
+        :card => stripe_token_id,
+        :description => email
+      )
+      
+    
+      return false unless save()
+      
+      self.cars.create(:license_plate_number => license_plate, :active_car => true)
+      
+    else
+      self.errors.add(:card, "Invalid license plate number")
+      return false
+    end
+  end
+  
   
   def update_cars (cars)
     if(!cars)

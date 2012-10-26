@@ -67,6 +67,7 @@ ParkifyRails::Application.routes.draw do
         end
         resource :account, :controller => "account" do
           post 'add_card', :on => :collection
+          post 'add_car', :on => :collection
           post 'activate_card', :on => :collection
           post 'update_cars', :on => :collection
         end
