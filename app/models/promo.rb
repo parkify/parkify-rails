@@ -34,10 +34,12 @@ class Promo < ActiveRecord::Base
     toRtn = true
     if self.start_time
       toRtn &= self.start_time <= Time.now
-      
+    end
+    
     if self.end_time
       toRtn &= self.end_time >= Time.now
-      
+    end
+    
     toRtn
   end
   
