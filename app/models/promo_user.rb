@@ -1,5 +1,5 @@
 class PromoUser < ActiveRecord::Base
-  attr_accessible :code_id, :promo_idd, :user_id
+  attr_accessible :code_id, :promo_id, :user_id
   
   belongs_to :user
   belongs_to :promo
