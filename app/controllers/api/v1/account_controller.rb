@@ -105,7 +105,9 @@ class Api::V1::AccountController < ApplicationController
   
   def add_car
     @user = current_user
-    
+    p "hmm"
+    p @user
+    p "hmm"
     respond_to do |format|
       if @user.save_with_new_car!(params[:license_plate_number])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
