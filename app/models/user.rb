@@ -112,7 +112,10 @@ class User < ActiveRecord::Base
     p "ahaaa"
     if(license_plate_number) #TODO: Maybe check actual validity of token
     
-      return false unless save()
+      if(!self.save())
+        p "hio"
+        return false
+      end
       
       car = self.cars.new(:license_plate_number => license_plate_number, :active_car => true)
       
