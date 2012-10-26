@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
         :card => stripe_token_id,
         :description => email
       )
-      if (customer.actie_card.cvc_check != "pass") 
+      if (customer.active_card.cvc_check != "pass") 
         self.errors.add(:card, "Card failed CVC check")
         return false
       end
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
         :card => stripe_token_id,
         :description => email
       )
-      if (customer.actie_card.cvc_check != "pass") 
+      if (customer.active_card.cvc_check != "pass") 
         self.errors.add(:card, "Card failed CVC check")
         return false
       end
