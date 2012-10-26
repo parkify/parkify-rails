@@ -100,6 +100,8 @@ class User < ActiveRecord::Base
         self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => false, :last4 => customer.active_card.last4)
       end
       
+      return true
+      
     else
       self.errors.add(:card, "Invalid Card")
       return false
@@ -107,27 +109,22 @@ class User < ActiveRecord::Base
   end
   
   def save_with_new_car!(license_plate_number)
-    p "ahaa"
-    p license_plate_number
-    p "ahaaa"
     if(license_plate_number)
     
       if(!self.save())
-        p "hio"
         return false
       end
       
       car = self.cars.new({:license_plate_number => license_plate_number, :active_car => true})
       
       if(!car.save)
-        p "fii"
-        p car.errors
         self.errors.add(:car, car.errors.values[0])
         return false
       end
-      p "fuu"
+      
+      return true
+      
     else
-      p "faa"
       self.errors.add(:car, "Invalid license plate number")
       return false
     end
