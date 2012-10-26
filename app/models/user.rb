@@ -107,6 +107,9 @@ class User < ActiveRecord::Base
   end
   
   def save_with_new_car!(license_plate_number)
+    p "ahaa"
+    p license_plate_number
+    p "ahaaa"
     if(license_plate_number) #TODO: Maybe check actual validity of token
     
       return false unless save()
