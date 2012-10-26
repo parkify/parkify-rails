@@ -154,6 +154,11 @@ class User < ActiveRecord::Base
         return false
       end
       
+      if(self.promos.include? promo)
+        self.errors.add(:code, "you already have this promotion")
+        return false
+      end
+      
       if(!self.save())
         return false
       end
