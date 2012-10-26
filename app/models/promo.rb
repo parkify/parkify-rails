@@ -25,6 +25,7 @@ class Promo < ActiveRecord::Base
     end
   end
   
+  
   def of_type?(type)
     return self.promo_type && self.promo_type.include?('['+type+']')
   end
