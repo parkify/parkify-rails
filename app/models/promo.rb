@@ -1,5 +1,5 @@
 class Promo < ActiveRecord::Base
-  attr_accessible :description, :end_time, :name, :start_time, :type, :value1, :value2
+  attr_accessible :description, :end_time, :name, :start_time, :promo_type, :value1, :value2
 
   has_many :codes
   has_many :promo_users
@@ -26,7 +26,7 @@ class Promo < ActiveRecord::Base
   end
   
   def of_type?(type)
-    return self.type && self.type.include?('['+type+']')
+    return self.promo_type && self.type.include?('['+type+']')
   end
   
   def active?
