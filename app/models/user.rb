@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
     result = super(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])
     
     result["credit_cards"] = self.stripe_customer_ids.as_json
-    #result["cars"] = self.cars.as_json
+    result["cars"] = self.cars.as_json
     #result["promos"] =
     result
   end

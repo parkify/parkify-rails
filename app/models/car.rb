@@ -4,4 +4,8 @@ class Car < ActiveRecord::Base
   belongs_to :user
   has_many :acceptances
   
+  def as_json(options={})
+    result = super(:only => [:id, :license_plate_number])
+    result
+  end
 end
