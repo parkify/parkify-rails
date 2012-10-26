@@ -1,0 +1,23 @@
+%h1 Listing promo_users
+
+%table
+  %tr
+    %th User
+    %th Promo idd
+    %th Code
+    %th
+    %th
+    %th
+
+  - @promo_users.each do |promo_user|
+    %tr
+      %td= promo_user.user_id
+      %td= promo_user.promo_idd
+      %td= promo_user.code_id
+      %td= link_to 'Show', promo_user
+      %td= link_to 'Edit', edit_promo_user_path(promo_user)
+      %td= link_to 'Destroy', promo_user, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Promo user', new_promo_user_path

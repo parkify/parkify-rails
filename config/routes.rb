@@ -1,4 +1,10 @@
 ParkifyRails::Application.routes.draw do
+  resources :promo_users
+
+  resources :promos
+
+  resources :codes
+
   resources :price_intervals
 
   resources :agreements
@@ -70,6 +76,7 @@ ParkifyRails::Application.routes.draw do
           post 'add_car', :on => :collection
           post 'activate_card', :on => :collection
           post 'update_cars', :on => :collection
+          post 'add_promo', :on => :collection
         end
       end
   end

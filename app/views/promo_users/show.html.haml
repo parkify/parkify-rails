@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @promo_user.user_id
+%p
+  %b Promo idd:
+  = @promo_user.promo_idd
+%p
+  %b Code:
+  = @promo_user.code_id
+
+= link_to 'Edit', edit_promo_user_path(@promo_user)
+\|
+= link_to 'Back', promo_users_path

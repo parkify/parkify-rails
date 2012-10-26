@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023225728) do
+ActiveRecord::Schema.define(:version => 20121026145137) do
 
   create_table "acceptances", :force => true do |t|
     t.timestamp "start_time"
@@ -53,6 +53,14 @@ ActiveRecord::Schema.define(:version => 20121023225728) do
     t.timestamp "created_at",                           :null => false
     t.timestamp "updated_at",                           :null => false
     t.boolean   "active_car",                           :null => false
+  end
+
+  create_table "codes", :force => true do |t|
+    t.text     "code_text"
+    t.boolean  "personal"
+    t.integer  "promo_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -117,6 +125,26 @@ ActiveRecord::Schema.define(:version => 20121023225728) do
     t.timestamp "updated_at",          :null => false
   end
 
+  create_table "promo_users", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "promo_idd"
+    t.integer  "code_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "promos", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "type"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.float    "value1"
+    t.float    "value2"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "quick_properties", :force => true do |t|
     t.string    "key"
     t.string    "value"
@@ -156,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20121023225728) do
     t.boolean   "active_customer", :default => false, :null => false
     t.timestamp "created_at",                         :null => false
     t.timestamp "updated_at",                         :null => false
+    t.text      "last4",           :default => ""
   end
 
   create_table "users", :force => true do |t|

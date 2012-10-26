@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @promo.name
+%p
+  %b Description:
+  = @promo.description
+%p
+  %b Type:
+  = @promo.type
+%p
+  %b Start time:
+  = @promo.start_time
+%p
+  %b End time:
+  = @promo.end_time
+%p
+  %b Value1:
+  = @promo.value1
+%p
+  %b Value2:
+  = @promo.value2
+
+= link_to 'Edit', edit_promo_path(@promo)
+\|
+= link_to 'Back', promos_path

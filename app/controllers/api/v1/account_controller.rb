@@ -120,6 +120,21 @@ class Api::V1::AccountController < ApplicationController
     end
   end
   
+  def add_promo
+    @user = current_user
+    respond_to do |format|
+      @promo = @user.save_with_new_promo!(params[:code_text])
+      if @promo
+        #format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render json: {:promo=>@promo, :success=>true}, location: @user }
+      else
+        p "foo"
+        #format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def update_cars
     @user = current_user
     

@@ -1,0 +1,31 @@
+%h1 Listing promos
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Type
+    %th Start time
+    %th End time
+    %th Value1
+    %th Value2
+    %th
+    %th
+    %th
+
+  - @promos.each do |promo|
+    %tr
+      %td= promo.name
+      %td= promo.description
+      %td= promo.type
+      %td= promo.start_time
+      %td= promo.end_time
+      %td= promo.value1
+      %td= promo.value2
+      %td= link_to 'Show', promo
+      %td= link_to 'Edit', edit_promo_path(promo)
+      %td= link_to 'Destroy', promo, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Promo', new_promo_path

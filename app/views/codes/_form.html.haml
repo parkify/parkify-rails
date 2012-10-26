@@ -1,0 +1,19 @@
+= form_for @code do |f|
+  -if @code.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@code.errors.count, "error")} prohibited this code from being saved:"
+      %ul
+        - @code.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :code_text
+    = f.text_area :code_text
+  .field
+    = f.label :personal
+    = f.check_box :personal
+  .field
+    = f.label :promo_id
+    = f.number_field :promo_id
+  .actions
+    = f.submit 'Save'

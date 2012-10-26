@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   has_many :resources, :dependent => :destroy
   has_many :acceptances
   
+  
+  has_many :promo_users
+  has_many :users, :through => :promo_users
+  has_many :codes, :through => :promo_users
+  
   def active_card
     return self.stripe_customer_ids.where('active_customer = ?', true).first
   end
@@ -126,6 +131,47 @@ class User < ActiveRecord::Base
       
     else
       self.errors.add(:car, "Invalid license plate number")
+      return false
+    end
+  end
+  
+  def save_with_new_promo!(code_text)
+    if(license_plate_number)
+      c = Code.find_by_code_text(code_text)
+      if(!c)
+        self.errors.add(:code, "code invalid")
+        return false
+      end
+      
+      if(c.personal && c.users.count > 0)
+        self.errors.add(:code, "code already used")
+        return false
+      end
+      
+      promo = c.promo
+      if(!promo)
+        self.errors.add(:code, "code invalid")
+        return false
+      end
+      
+      if(!self.save())
+        return false
+      end
+      
+      self.promos << promo
+      
+      user_promo = self.user_promos.find_by_promo_id(promo.id)
+      user_promo.code = c
+      if(!user_promo.save)
+        self.errors.add(:code, "code invalid")
+        return false
+      end
+      
+      
+      return true
+      
+    else
+      self.errors.add(:code, "code invalid")
       return false
     end
   end

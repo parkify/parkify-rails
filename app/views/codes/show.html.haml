@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Code text:
+  = @code.code_text
+%p
+  %b Personal:
+  = @code.personal
+%p
+  %b Promo:
+  = @code.promo_id
+
+= link_to 'Edit', edit_code_path(@code)
+\|
+= link_to 'Back', codes_path
