@@ -2,6 +2,8 @@ class Promo < ActiveRecord::Base
   attr_accessible :description, :end_time, :name, :start_time, :type, :value1, :value2
 
   has_many :codes
+  has_many :promo_users
+  has_many :users, :through => :promo_users
   
   def generate_unique_codes(count, personal)
     if(count == 1)
@@ -24,5 +26,29 @@ class Promo < ActiveRecord::Base
       return toRtn
     end
   end
+  
+  def of_type?(type)
+    return self.type && self.type.include?('['+type+']')
+  end
+  
+  def active?
+    
+    toRtn = true
+    if self.start_time
+      toRtn &= self.start_time <= Time.now
+      
+    if self.end_time
+      toRtn &= self.end_time >= Time.now
+      
+    toRtn
+  end
+  
+  def perform_action(user)  
+    if self.of_type?('add_credits') and self.active?
+      user.credit += self.value1
+    end
+  end
+  
+  def 
   
 end
