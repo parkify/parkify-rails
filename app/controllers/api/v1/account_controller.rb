@@ -111,6 +111,7 @@ class Api::V1::AccountController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render json: {:car=>@user.cars.order(:created_at).last, :success=>true}, location: @user }
       else
+        p "foo"
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

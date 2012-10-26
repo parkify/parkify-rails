@@ -114,12 +114,14 @@ class User < ActiveRecord::Base
       car = self.cars.new(:license_plate_number => license_plate_number, :active_car => true)
       
       if(!car.save)
+        p "fii"
         p car.errors
         self.errors.add(:car, car.errors.values[0])
         return false
       end
       
     else
+      p "faa"
       self.errors.add(:car, "Invalid license plate number")
       return false
     end
