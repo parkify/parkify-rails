@@ -5,4 +5,13 @@ class PromoUser < ActiveRecord::Base
   belongs_to :promo
   belongs_to :code
   
+  def as_json(options={})
+    result = super(:only => [:id])
+    result[:id] = promo_id
+    result[:name] = self.promo.name
+    result[:description] = self.promo.description
+    result[:code_text] = self.code.code_text
+    result
+  end
+  
 end
