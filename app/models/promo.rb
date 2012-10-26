@@ -12,12 +12,10 @@ class Promo < ActiveRecord::Base
         a = SecureRandom::hex(4)
         if(!Code.find_by_code_text(a))
           return [ self.codes.create({:code_text=>a, :personal=>personal}) ]
-          break
         end
         fallback--
       end
       return nil
-      
     else 
       toRtn = []
       count.times do |c|
