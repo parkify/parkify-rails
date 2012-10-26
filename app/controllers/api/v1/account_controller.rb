@@ -95,7 +95,7 @@ class Api::V1::AccountController < ApplicationController
     respond_to do |format|
       if @user.save_with_new_card!(params[:stripe_token_id])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render json: {:card=>@card, :success=>true}, location: @user }
+        format.json { render json: {:card=>@user.stripe_customer_ids.order(:created_by).last, :success=>true}, location: @user }
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
