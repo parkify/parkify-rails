@@ -135,6 +135,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  #if success, returns the created promo_user join tuple.
   def save_with_new_promo!(code_text)
     if(code_text)
       c = Code.find_by_code_text(code_text)
@@ -165,8 +166,8 @@ class User < ActiveRecord::Base
       
       self.promos << promo
       
-      promo_users = self.promo_users.find_by_promo_id(promo.id)
-      promo_users.code = c
+      promo_user = self.promo_users.find_by_promo_id(promo.id)
+      promo_user.code = c
       if(!promo_users.save)
         self.errors.add(:code, "code invalid")
         return false
@@ -175,7 +176,7 @@ class User < ActiveRecord::Base
       if(promo.of_type?('once'))
         promo.perform_action(self)
       end
-      return true
+      return promo_user
       
     else
       self.errors.add(:code, "code invalid")
