@@ -17,7 +17,7 @@ class Payment
       return nil
     end
     
-    #consider discounts first
+    #consider discounts first 
     discountedAmountToCharge = amountToCharge
     user.promos.each do |p|
       if p.of_type?('discount')
