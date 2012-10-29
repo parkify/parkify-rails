@@ -141,6 +141,7 @@ class Payment
     discountedString = ""
     if(amountToCharge != discountedAmountToCharge)
       discountedString = " (after discounts)"
+      amountToCharge = discountedAmountToCharge
     end
     
     #Try to charge everything from account credit first.
