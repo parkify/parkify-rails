@@ -124,6 +124,7 @@ class Api::V1::AccountController < ApplicationController
     @user = current_user
     respond_to do |format|
       @promo_user = @user.save_with_new_promo!(params[:code_text])
+      p @promo_user
       if @promo_user
         #format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render json: {:promo=>@promo_user, :success=>true}, location: @user }
