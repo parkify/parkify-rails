@@ -104,9 +104,9 @@ class Payment
     else
         #for now, just give it to them for free.
       Payment::payment_succeeded(user, paymentInfo, reason)
-      paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}" + discountedString
+      paymentInfo.details += "$#{amountToCharge/100.0} was charged to credit card" + discountedString
       paymentInfo.save
-        return paymentInfo
+      return paymentInfo
         #user.credit += partialamount_chargedFromCredit
         #user.save
         #paymentInfo.amount_charged = 0
