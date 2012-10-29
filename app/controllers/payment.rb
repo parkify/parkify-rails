@@ -21,7 +21,7 @@ class Payment
     discountedAmountToCharge = amountToCharge
     user.promos.each do |p|
       if p.of_type?('discount')
-        discountedAmountToCharge = min(discountedAmountToCharge, p.discount(amountToCharge))
+        discountedAmountToCharge = [discountedAmountToCharge, p.discount(amountToCharge)].min
       end
     end
     
@@ -134,7 +134,7 @@ class Payment
     discountedAmountToCharge = amountToCharge
     user.promos.each do |p|
       if p.of_type?('discount')
-        discountedAmountToCharge = min(discountedAmountToCharge, p.discount(amountToCharge))
+        discountedAmountToCharge = [discountedAmountToCharge, p.discount(amountToCharge)].min
       end
     end
     
