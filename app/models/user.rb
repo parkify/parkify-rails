@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
       if(!promo_users.save)
         self.errors.add(:code, "code invalid")
         return false
-      end
+      end 
       
       if(promo.of_type?('once'))
         promo.perform_action(self)
