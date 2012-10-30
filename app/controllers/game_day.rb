@@ -76,9 +76,9 @@ class GameDay
       pint = p.price_intervals.order(:start_time).last
       
       
-      bef = p.price_intervals.where('end_time = ?', @start_time)
-      cur = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time)
-      aft = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time)
+      bef = p.price_intervals.where('end_time = ?', @start_time).first
+      cur = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time).first
+      aft = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time).first
       
       #todo: fix so this adjusts correctly.
       if(bef)
