@@ -163,4 +163,19 @@ class Api::V1::AccountController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def update_password
+    @user = User.find(current_user.id)
+    respond_to do |format|
+      if @user.update_with_password(params[:user])
+        # Sign in the user by passing validation in case his password changed
+        sign_in @user, :bypass => true
+        format.json { render json: {:user=>@user, :success=>true}, location: @user }
+      else
+        format.json { render json: err, status: :unprocessable_entity }
+      end
+    end
+  end
+  
 end
