@@ -171,7 +171,7 @@ class Api::V1::AccountController < ApplicationController
       if @user.update_attributes(JSON.parse(params[:user]))
         # Sign in the user by passing validation in case his password changed
         sign_in @user, :bypass => true
-        format.json { render json: {:user=>@user, :auth_token=>@user.auth_token :success=>true}, location: @user }
+        format.json { render json: {:user=>@user, :auth_token=>@user.auth_token, :success=>true}, location: @user }
       else
         p @user.errors
         format.json { render json: @user.errors, status: :unprocessable_entity }
