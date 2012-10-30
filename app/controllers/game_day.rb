@@ -64,6 +64,40 @@ class GameDay
   end
   
   
+  #untested
+  def gdAdjust(spots,start_time=@start_time, end_time=@end_time)
+    a = start_time
+    b = end_time
+    
+    spots.each do |i|
+      s = Resource.find_by_id(i)
+      offer = s.offers.order(:created_at).last
+      p = offer.price_plan
+      pint = p.price_intervals.order(:start_time).last
+      
+      
+      bef = p.price_intervals.where('end_time = ?', @start_time)
+      cur = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time)
+      aft = p.price_intervals.where('start_time = ? and end_time = ?', @start_time, @end_time)
+      
+      #todo: fix so this adjusts correctly.
+      if(bef)
+        bef.end_time = end_time
+        bef.save
+      end
+      if(cur)
+        cur.start_time = start_time
+        cur.end_time = end_time
+        cur.save
+      end
+      if(aft)
+        aft.start_time = start_time
+        aft.save
+      end
+    end
+  end
+  
+  
   
   
   #todo: double-check validity.
