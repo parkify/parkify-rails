@@ -173,6 +173,7 @@ class Api::V1::AccountController < ApplicationController
         sign_in @user, :bypass => true
         format.json { render json: {:user=>@user, :success=>true}, location: @user }
       else
+        p @user.errors
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
