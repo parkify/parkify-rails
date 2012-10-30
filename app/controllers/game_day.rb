@@ -1,6 +1,15 @@
 # TODO: Make general
 class GameDay
+  attr_accessor :start_time
+  attr_accessor :end_time
+  
+  def initialize(start_time, end_time)
+    @start_time = start_time
+    @end_time = end_time
+  end
+  
 
+  #todo: double-check validity.
   def changePrice(pr,spots)
     spots.each do |i|
       s = Resource.find_by_id(i)
@@ -22,9 +31,10 @@ class GameDay
     end
   end
 
+  
   def gdPrice(pr, spots)
-    a = Time.new(2012,10,20,9,0,0, "-07:00")
-    b = Time.new(2012,10,20,17,0,0, "-07:00")
+    a = @start_time
+    b = @end_time
     
     spots.each do |i|
       s = Resource.find_by_id(i)
@@ -56,7 +66,7 @@ class GameDay
   
   
   
-
+  #todo: double-check validity.
   def quickOffer(spots)
     a = Time.new(2012,10,6,5,0,0, "-07:00") ##offered before 5 for convenience with the above method.
     b = Time.new(2012,10,7,9,0,0, "-07:00")
