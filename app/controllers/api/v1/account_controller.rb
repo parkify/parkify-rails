@@ -168,7 +168,7 @@ class Api::V1::AccountController < ApplicationController
   def update_password
     @user = User.find(current_user.id)
     respond_to do |format|
-      if @user.update_with_password(JSON.parse(params[:user]))
+      if @user.update_attributes(JSON.parse(params[:user]))
         # Sign in the user by passing validation in case his password changed
         sign_in @user, :bypass => true
         format.json { render json: {:user=>@user, :success=>true}, location: @user }
