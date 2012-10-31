@@ -179,4 +179,18 @@ class Api::V1::AccountController < ApplicationController
     end
   end
   
+  
+  def reset_password
+    @user = User.find_by_email(params[:email])
+    respond_to do |format|
+      if @user
+        @user.send_reset_password_instructions
+        format.json { render json: {:success=>true}, location: @user }
+       else
+        format.json { render json: {:success=>false}, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  
 end

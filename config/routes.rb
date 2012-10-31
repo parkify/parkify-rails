@@ -78,6 +78,7 @@ ParkifyRails::Application.routes.draw do
           post 'update_cars', :on => :collection
           post 'add_promo', :on => :collection
           post 'update_password', :on => :collection
+          post 'reset_password', :on => :collection
         end
       end
   end

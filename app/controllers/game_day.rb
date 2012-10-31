@@ -64,7 +64,7 @@ class GameDay
   end
   
   
-  #untested
+  #untested, also, should be two separate functions
   def gdAdjust(spots,start_time=@start_time, end_time=@end_time)
     a = start_time
     b = end_time
@@ -82,7 +82,8 @@ class GameDay
       
       #todo: fix so this adjusts correctly.
       if(bef)
-        bef.end_time = end_time
+        #bef.end_time = end_time
+        bef.end_time = start_time
         bef.save
       end
       if(cur)
@@ -91,7 +92,8 @@ class GameDay
         cur.save
       end
       if(aft)
-        aft.start_time = start_time
+        #aft.start_time = start_time
+        aft.start_time = end_time
         aft.save
       end
     end
