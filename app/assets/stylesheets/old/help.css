@@ -1,0 +1,298 @@
+html
+{
+	background: #7F7F7F url("../images/background.jpg") repeat left top scroll;
+}
+
+#page
+{
+	z-index: 1;
+	width: 960px;
+	min-height: 859px;
+	-pie-box-shadow: 6px 6px 8px #808080;
+	-moz-box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 6px 6px 8px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #FFFFFF;
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	border-radius: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -1px;
+}
+
+.Style
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #FFFFFF;
+}
+
+#u305
+{
+	z-index: 2;
+	width: 961px;
+	position: relative;
+	margin-right: -961px;
+}
+
+#u301
+{
+	z-index: 4;
+	width: 991px;
+	position: relative;
+	margin-right: -991px;
+	margin-top: -8px;
+	left: -4px;
+}
+
+#u298-5
+{
+	z-index: 6;
+	width: 298px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -298px;
+	margin-top: 21px;
+	left: 611px;
+}
+
+#pu298-4
+{
+	width: 290px;
+	color: #D3F4FF;
+	font-weight: bold;
+	position: relative;
+	margin-right: -290px;
+	margin-top: 7px;
+	left: 8px;
+}
+
+#u298
+{
+	text-decoration: none;
+	color: #D3F4FF;
+}
+
+#pu791
+{
+	width: 0.01px;
+	position: relative;
+	margin-right: -1px;
+}
+
+#u791
+{
+	z-index: 48;
+	width: 57px;
+	height: 22px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 3px;
+}
+
+#u792
+{
+	z-index: 49;
+	width: 84px;
+	height: 22px;
+	position: relative;
+	margin-right: -84px;
+	margin-top: 3px;
+	left: 75px;
+}
+
+#u793
+{
+	z-index: 50;
+	width: 47px;
+	height: 22px;
+	position: relative;
+	margin-right: -47px;
+	margin-top: 3px;
+	left: 180px;
+}
+
+#u794
+{
+	z-index: 51;
+	width: 47px;
+	height: 25px;
+	position: relative;
+	margin-right: -47px;
+	left: 247px;
+}
+
+#u299
+{
+	z-index: 11;
+	width: 93px;
+	position: relative;
+	margin-right: -93px;
+	margin-top: 20px;
+	left: 17px;
+}
+
+#u309
+{
+	z-index: 13;
+	width: 851px;
+	position: relative;
+	margin-right: -851px;
+	margin-top: 657px;
+	left: 54px;
+}
+
+#u295-4
+{
+	z-index: 15;
+	width: 138px;
+	min-height: 24px;
+	color: #D3F4FF;
+	font-size: 12px;
+	position: relative;
+	margin-right: -138px;
+	margin-top: 758px;
+	left: 84px;
+}
+
+#u293
+{
+	z-index: 19;
+	width: 57px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 750px;
+	left: 619px;
+}
+
+#u296-4
+{
+	z-index: 21;
+	width: 137px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -137px;
+	margin-top: 751px;
+	left: 715px;
+}
+
+#pu296-3
+{
+	width: 135px;
+	color: #D3F4FF;
+	font-size: 12px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 5px;
+}
+
+#u790
+{
+	z-index: 47;
+	width: 82px;
+	height: 24px;
+	position: relative;
+	margin-right: -82px;
+	left: 55px;
+}
+
+#u335
+{
+	z-index: 25;
+	width: 492px;
+	position: relative;
+	margin-right: -492px;
+	margin-top: 173px;
+	left: 217px;
+}
+
+#u305_img,#u301_img,#u299_img,#u309_img,#u293_img,#u335_img
+{
+	vertical-align: top;
+}
+
+#u297-17
+{
+	z-index: 27;
+	width: 454px;
+	min-height: 376px;
+	text-align: center;
+	color: #D3F4FF;
+	font-size: 16px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -454px;
+	margin-top: 195px;
+	left: 236px;
+}
+
+#u787
+{
+	z-index: 44;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 745px;
+	left: 612px;
+}
+
+#u788
+{
+	z-index: 45;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 654px;
+}
+
+#u789
+{
+	z-index: 46;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 716px;
+}
+
+.ie #u791,.ie #u792,.ie #u793,.ie #u794,.ie #u790,.ie #u787,.ie #u788,.ie #u789
+{
+	background-color: #FFFFFF;
+	opacity: 0.01;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+	filter: alpha(opacity=1);
+}
+
+#u818-4
+{
+	z-index: 52;
+	width: 135px;
+	min-height: 43px;
+	color: #D3F4FF;
+	font-size: 60px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 101px;
+	left: 395px;
+}
+
+body
+{
+	padding-bottom: 37px;
+}
+

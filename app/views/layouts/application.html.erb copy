@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ParkifyRails</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <% if user_signed_in? %>
+    <div>Signed in as... <%= current_user.email %></div> 
+    <div><%= link_to "Log out", destroy_user_session_path, :method => :delete %></div>
+  <% else %>
+    <div><%= link_to "Log in", new_user_session_path, :method => :get %></div> 
+    <div><%= link_to "Register", new_user_registration_path, :method => :get %></div>
+  <% end %>
+  <hr/>
+  <%= yield %>
+
+</body>
+</html>
