@@ -1,0 +1,295 @@
+html
+{
+	background: #7F7F7F url("../images/background.jpg") repeat left top scroll;
+}
+
+#page
+{
+	z-index: 1;
+	width: 960px;
+	min-height: 859px;
+	-pie-box-shadow: 6px 6px 8px #808080;
+	-moz-box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 6px 6px 8px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #FFFFFF;
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	border-radius: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -1px;
+}
+
+.Style
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #FFFFFF;
+}
+
+#u162
+{
+	z-index: 2;
+	width: 961px;
+	position: relative;
+	margin-right: -961px;
+}
+
+#u156
+{
+	z-index: 4;
+	width: 991px;
+	position: relative;
+	margin-right: -991px;
+	margin-top: -8px;
+	left: -4px;
+}
+
+#u155-5
+{
+	z-index: 6;
+	width: 299px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -299px;
+	margin-top: 21px;
+	left: 610px;
+}
+
+#pu155-4
+{
+	width: 290px;
+	color: #D3F4FF;
+	font-weight: bold;
+	position: relative;
+	margin-right: -290px;
+	margin-top: 7px;
+	left: 9px;
+}
+
+#u155
+{
+	text-decoration: none;
+	color: #D3F4FF;
+}
+
+#pu752
+{
+	width: 0.01px;
+	position: relative;
+	margin-right: -1px;
+}
+
+#u752
+{
+	z-index: 29;
+	width: 57px;
+	height: 22px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 3px;
+}
+
+#u753
+{
+	z-index: 30;
+	width: 84px;
+	height: 22px;
+	position: relative;
+	margin-right: -84px;
+	margin-top: 3px;
+	left: 76px;
+}
+
+#u760
+{
+	z-index: 32;
+	width: 47px;
+	height: 22px;
+	position: relative;
+	margin-right: -47px;
+	margin-top: 3px;
+	left: 181px;
+}
+
+#u761
+{
+	z-index: 33;
+	width: 47px;
+	height: 25px;
+	position: relative;
+	margin-right: -47px;
+	left: 248px;
+}
+
+#u153
+{
+	z-index: 11;
+	width: 93px;
+	position: relative;
+	margin-right: -93px;
+	margin-top: 20px;
+	left: 17px;
+}
+
+#u158
+{
+	z-index: 13;
+	width: 960px;
+	position: relative;
+	margin-right: -960px;
+	margin-top: 76px;
+}
+
+#u158_img
+{
+	padding-bottom: 1px;
+	vertical-align: top;
+}
+
+#u164
+{
+	z-index: 15;
+	width: 132px;
+	position: relative;
+	margin-right: -132px;
+	margin-top: 312px;
+	left: 238px;
+}
+
+#u160
+{
+	z-index: 17;
+	width: 851px;
+	position: relative;
+	margin-right: -851px;
+	margin-top: 657px;
+	left: 54px;
+}
+
+#u185-4
+{
+	z-index: 19;
+	width: 138px;
+	min-height: 24px;
+	color: #D3F4FF;
+	font-size: 12px;
+	position: relative;
+	margin-right: -138px;
+	margin-top: 758px;
+	left: 84px;
+}
+
+#u198
+{
+	z-index: 23;
+	width: 57px;
+	position: relative;
+	margin-right: -57px;
+	margin-top: 750px;
+	left: 619px;
+}
+
+#u162_img,#u156_img,#u153_img,#u164_img,#u160_img,#u198_img
+{
+	vertical-align: top;
+}
+
+#u203-4
+{
+	z-index: 25;
+	width: 135px;
+	min-height: 18px;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 751px;
+	left: 715px;
+}
+
+#pu203-3
+{
+	width: 135px;
+	color: #D3F4FF;
+	font-size: 12px;
+	font-weight: bold;
+	position: relative;
+	margin-right: -135px;
+	margin-top: 5px;
+}
+
+#u767
+{
+	z-index: 37;
+	width: 82px;
+	height: 24px;
+	position: relative;
+	margin-right: -82px;
+	left: 53px;
+}
+
+#u757
+{
+	z-index: 31;
+	width: 84px;
+	height: 22px;
+	position: relative;
+	margin-right: -84px;
+	margin-top: 371px;
+	left: 573px;
+}
+
+#u763
+{
+	z-index: 34;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 745px;
+	left: 610px;
+}
+
+#u764
+{
+	z-index: 35;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 653px;
+}
+
+#u766
+{
+	z-index: 36;
+	width: 29px;
+	height: 37px;
+	position: relative;
+	margin-right: -29px;
+	margin-top: 744px;
+	left: 714px;
+}
+
+.ie #u752,.ie #u753,.ie #u760,.ie #u761,.ie #u767,.ie #u757,.ie #u763,.ie #u764,.ie #u766
+{
+	background-color: #FFFFFF;
+	opacity: 0.01;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+	filter: alpha(opacity=1);
+}
+
+body
+{
+	padding-bottom: 37px;
+}
+

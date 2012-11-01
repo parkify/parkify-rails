@@ -33,6 +33,8 @@ gem 'haml'
 gem 'stripe'
 gem 'xml-simple'
 
+gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
+
 gem "paperclip", "~> 3.0"
 gem 'rails_admin'
 
