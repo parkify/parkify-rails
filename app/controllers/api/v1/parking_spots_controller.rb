@@ -7,7 +7,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
   def index
   
   
-    @parking_spots = Resource.all
+    @parking_spots = Resource.where("active=true")
     
     
     
