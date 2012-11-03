@@ -57,12 +57,12 @@ class Api::V1::AppTransactionsController < ApplicationController
         else
           format.html { render action: "new" }
           puts @acceptance.status
-          format.json { render json: @acceptance.errors, status: :unprocessable_entity }
+            format.json { render json: {:error=>@acceptance.errors}, status: :unprocessable_entity }
         end
       else
         format.html { render action: "new" }
         puts @acceptance.status
-        format.json { render json: @acceptance.errors, status: :unprocessable_entity }
+          format.json { render json: {:error=>@acceptance.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -75,7 +75,7 @@ class Api::V1::AppTransactionsController < ApplicationController
     respond_to do |format|
       if(toSend)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
-        format.json { render json: toSend, status: :created, location: @acceptance, }
+          format.json { render json: {:success => true, :message=>toSend}, status: :created, location: @acceptance, }
       else
         format.html { render action: "new" }
         format.json { render json: {:success => false}, status: :unprocessable_entity }
