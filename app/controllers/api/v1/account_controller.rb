@@ -115,7 +115,7 @@ class Api::V1::AccountController < ApplicationController
       else
         p "foo"
         #format.html { render action: "edit" }
-          format.json { render json: {:erro=>@user.errors}, status: :unprocessable_entity }
+          format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
