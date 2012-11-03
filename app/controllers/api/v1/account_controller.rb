@@ -69,7 +69,7 @@ class Api::V1::AccountController < ApplicationController
       else
         puts "3"
         #format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -87,7 +87,7 @@ class Api::V1::AccountController < ApplicationController
       else
         puts "3"
         #format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -101,7 +101,7 @@ class Api::V1::AccountController < ApplicationController
         format.json { render json: {:card=>@user.stripe_customer_ids.order(:created_at).last, :success=>true}, location: @user }
       else
         #format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -115,7 +115,7 @@ class Api::V1::AccountController < ApplicationController
       else
         p "foo"
         #format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: {:erro=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -132,7 +132,7 @@ class Api::V1::AccountController < ApplicationController
         p "foo"
         #format.html { render action: "edit" }
         p @user.errors
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -147,7 +147,7 @@ class Api::V1::AccountController < ApplicationController
         format.json { render json: {:success=>true}, location: @user }
       else
         #format.html { render action: "edit" }
-        format.json { render json: err, status: :unprocessable_entity }
+          format.json { render json: {:error=>err}, status: :unprocessable_entity }
       end
     end
   end
@@ -174,7 +174,7 @@ class Api::V1::AccountController < ApplicationController
         format.json { render json: {:user=>@user, :auth_token=>@user.authentication_token, :success=>true}, location: @user }
       else
         p @user.errors
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
       end
     end
   end
