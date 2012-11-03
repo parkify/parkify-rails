@@ -20,7 +20,7 @@ class Api::V1::AccountController < ApplicationController
     
     respond_to do |format|
       #format.html # show.html.erb
-        format.json { render json: {user=>@user, :success=>true } }
+        format.json { render json: {:user=>@user, :success=>true } }
     end
   end
 
