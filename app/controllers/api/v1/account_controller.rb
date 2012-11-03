@@ -65,7 +65,7 @@ class Api::V1::AccountController < ApplicationController
       if @user.update_attributes(JSON.parse(params[:user]))
         puts "2"  
         #format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render json: {:user=>@user, :success=>true}, location: @user }
+        format.json { render json: {:user=>@user.as_json(), :success=>true}, location: @user }
       else
         puts "3"
         #format.html { render action: "edit" }
