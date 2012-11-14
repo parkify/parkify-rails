@@ -3,7 +3,7 @@ class CreatePromos < ActiveRecord::Migration
     create_table :promos do |t|
       t.text :name
       t.text :description
-      t.text :promo
+      t.text :promo_type
       t.datetime :start_time
       t.datetime :end_time
       t.float :value1

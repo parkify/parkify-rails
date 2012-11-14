@@ -4,7 +4,7 @@ source "http://bundler-api.herokuapp.com"
 gem 'rails', '3.2.7rc1'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
+  #gem 'sqlite3', '1.3.5'
   gem 'capybara'
   gem 'rspec-rails'
   gem 'haml-rails'
@@ -36,8 +36,10 @@ gem 'xml-simple'
 gem "paperclip", "~> 3.0"
 gem 'rails_admin'
 
+gem 'pg', '0.12.2'
+
 group :production do
-  gem 'pg', '0.12.2'
+  #gem 'pg', '0.12.2'
   gem "rmagick", "2.12.0", :require => 'RMagick'
   gem 'aws-s3'
   gem 'aws-sdk'
