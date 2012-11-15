@@ -13,10 +13,11 @@ class Location < ActiveRecord::Base
     result
   end
 
+
 # Interprets text_in as simple directions and transforms into
 # xml directions (interpreting newlines as direction separators)
-# Then, sets current direction as this xml direction string
-# and simple_directions as the original string.
+# Then, sets directions as this xml direction string
+# and simple_directions as the text string.
   def read_in_plain_directions (text_in)
     self.plain_directions = text_in
     xml_in = text_in.gsub "\n", "</Text></Direction><Direction><Text>"
@@ -25,4 +26,18 @@ class Location < ActiveRecord::Base
     self.directions = xml_in
     self
   end
+
+
+# Interprets xml_in as xml directions and transforms into
+# simple directions (interpreting putting newlines between directions)
+# Then, sets directions as this xml direction string
+# and simple_directions as the text string.
+  def read_in_xml_directions (text_in)
+    self.directions = text_in
+    doc = Nokogiri::XML(text_in)
+    self.plain_directions = doc.xpath("//Text").to_a.map{|x| x.inner_text}.join("\n")
+    self
+  end
+
 end
+

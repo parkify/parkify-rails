@@ -38,6 +38,8 @@ gem 'rails_admin'
 
 gem 'pg', '0.12.2'
 
+gem 'nokogiri'
+
 group :production do
   #gem 'pg', '0.12.2'
   gem "rmagick", "2.12.0", :require => 'RMagick'
