@@ -176,6 +176,11 @@ class User < ActiveRecord::Base
       if(promo.of_type?('once'))
         promo.perform_action(self)
       end
+
+      if(!self.save())
+	return false
+      end
+
       return promo_user
       
     else
