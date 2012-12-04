@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Resource offer:
+  = @offer_schedule.resource_offer_id
+%p
+  %b Start date:
+  = @offer_schedule.start_date
+%p
+  %b End date:
+  = @offer_schedule.end_date
+%p
+  %b Recurrance type:
+  = @offer_schedule.recurrance_type
+%p
+  %b Relative start:
+  = @offer_schedule.relative_start
+%p
+  %b Duration:
+  = @offer_schedule.duration
+%p
+  %b Price per hour:
+  = @offer_schedule.price_per_hour
+%p
+  %b Capacity:
+  = @offer_schedule.capacity
+
+= link_to 'Edit', edit_offer_schedule_path(@offer_schedule)
+\|
+= link_to 'Back', offer_schedules_path

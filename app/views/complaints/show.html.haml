@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @complaint.user_id
+%p
+  %b Resource offer:
+  = @complaint.resource_offer_id
+%p
+  %b Image:
+  = @complaint.image_id
+%p
+  %b Description:
+  = @complaint.description
+%p
+  %b Latitude:
+  = @complaint.latitude
+%p
+  %b Longitude:
+  = @complaint.longitude
+%p
+  %b Resolved:
+  = @complaint.resolved
+
+= link_to 'Edit', edit_complaint_path(@complaint)
+\|
+= link_to 'Back', complaints_path

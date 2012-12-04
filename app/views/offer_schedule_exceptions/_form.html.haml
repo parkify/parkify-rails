@@ -1,0 +1,28 @@
+= form_for @offer_schedule_exception do |f|
+  - if @offer_schedule_exception.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@offer_schedule_exception.errors.count, "error")} prohibited this offer_schedule_exception from being saved:"
+      %ul
+        - @offer_schedule_exception.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :resource_offer_id
+    = f.number_field :resource_offer_id
+  .field
+    = f.label :exception_type
+    = f.text_field :exception_type
+  .field
+    = f.label :start
+    = f.datetime_select :start
+  .field
+    = f.label :duration
+    = f.text_field :duration
+  .field
+    = f.label :price
+    = f.text_field :price
+  .field
+    = f.label :capacity
+    = f.text_field :capacity
+  .actions
+    = f.submit 'Save'

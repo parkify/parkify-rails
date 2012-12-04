@@ -1,0 +1,31 @@
+= form_for @complaint do |f|
+  - if @complaint.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@complaint.errors.count, "error")} prohibited this complaint from being saved:"
+      %ul
+        - @complaint.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :resource_offer_id
+    = f.number_field :resource_offer_id
+  .field
+    = f.label :image_id
+    = f.number_field :image_id
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :latitude
+    = f.text_field :latitude
+  .field
+    = f.label :longitude
+    = f.text_field :longitude
+  .field
+    = f.label :resolved
+    = f.check_box :resolved
+  .actions
+    = f.submit 'Save'

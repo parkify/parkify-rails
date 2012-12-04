@@ -1,0 +1,2 @@
+module OfferScheduleExceptionsHelper
+end

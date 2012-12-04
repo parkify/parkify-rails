@@ -1,0 +1,12 @@
+class Api::V1::UsersPresenter < Api::V1::ApplicationPresenter
+  
+  def as_json(user, options={})
+    result = user.as_json(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])
+    
+    result["credit_cards"] = user.cards.as_json
+    result["cars"] = user.cars.as_json
+    result["promos"] = user.promo_users.as_json
+    result
+  end
+  
+end

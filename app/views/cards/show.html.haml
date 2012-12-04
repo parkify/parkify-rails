@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Customer:
+  = @card.customer_id
+%p
+  %b User:
+  = @card.user_id
+%p
+  %b Active customer:
+  = @card.active_customer
+%p
+  %b Zip code:
+  = @card.zip_code
+%p
+  %b Last4:
+  = @card.last4
+
+= link_to 'Edit', edit_card_path(@card)
+\|
+= link_to 'Back', cards_path

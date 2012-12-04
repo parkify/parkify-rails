@@ -1,0 +1,29 @@
+%h1 Listing offer_schedule_exceptions
+
+%table
+  %tr
+    %th Resource offer
+    %th Exception type
+    %th Start
+    %th Duration
+    %th Price
+    %th Capacity
+    %th
+    %th
+    %th
+
+  - @offer_schedule_exceptions.each do |offer_schedule_exception|
+    %tr
+      %td= offer_schedule_exception.resource_offer_id
+      %td= offer_schedule_exception.exception_type
+      %td= offer_schedule_exception.start
+      %td= offer_schedule_exception.duration
+      %td= offer_schedule_exception.price
+      %td= offer_schedule_exception.capacity
+      %td= link_to 'Show', offer_schedule_exception
+      %td= link_to 'Edit', edit_offer_schedule_exception_path(offer_schedule_exception)
+      %td= link_to 'Destroy', offer_schedule_exception, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Offer schedule exception', new_offer_schedule_exception_path

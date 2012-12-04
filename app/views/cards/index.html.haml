@@ -1,0 +1,27 @@
+%h1 Listing cards
+
+%table
+  %tr
+    %th Customer
+    %th User
+    %th Active customer
+    %th Zip code
+    %th Last4
+    %th
+    %th
+    %th
+
+  - @cards.each do |card|
+    %tr
+      %td= card.customer_id
+      %td= card.user_id
+      %td= card.active_customer
+      %td= card.zip_code
+      %td= card.last4
+      %td= link_to 'Show', card
+      %td= link_to 'Edit', edit_card_path(card)
+      %td= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Card', new_card_path

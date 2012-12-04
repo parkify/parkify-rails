@@ -1,0 +1,21 @@
+%li
+  %table
+    %tr
+      %th
+      %th
+      %th
+    %tr
+      %td= link_to 'Show', resource
+      %td= link_to 'Edit', edit_resource_path(resource)
+      %td= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'View Offers', resource_offers_path(resource)
+  %p
+    ="#{resource.title}"
+    %br
+    ="Description : #{resource.description}"
+    %br
+    = "Capacity: #{resource.capacity}"
+    %br
+    = "Price Plan: $#{resource.price_plan.price_per_hour unless !resource.price_plan}/hr"
+    %br
+    = "Location: #{resource.location.location_name unless !resource.location}"
