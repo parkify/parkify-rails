@@ -1,4 +1,4 @@
-# TODO: Make general
+
 class GameDay
   attr_accessor :start_time
   attr_accessor :end_time

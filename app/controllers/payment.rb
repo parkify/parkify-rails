@@ -5,7 +5,10 @@ class Payment
   #returns a payment info object
   #TODO: attach reason and user to paymentInfo
   def self.charge(user, amountToCharge, reason)
-  
+    
+    paymentInfo = PaymentInfo.new()
+    paymentInfo.amount_charged = amountToCharge
+
     if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
       Payment::payment_failed(user, paymentInfo, reason, "Charge amount was negative")
       return nil
@@ -32,9 +35,7 @@ class Payment
     end
     
     
-    #make a paymentInfo object
-    paymentInfo = PaymentInfo.create()
-    paymentInfo.amount_charged = amountToCharge
+    
     
     #Try to charge everything from account credit first.
     partialamount_chargedFromCredit = 0
@@ -44,7 +45,6 @@ class Payment
         user.credit -= amountToCharge
         user.save
         Payment::payment_succeeded(user, paymentInfo, reason)
-        paymentInfo.save
         return paymentInfo
       else
         partialamount_chargedFromCredit = user.credit
@@ -63,12 +63,11 @@ class Payment
       user.credit += partialamount_chargedFromCredit
       user.save
       paymentInfo.amount_charged = 0
-      paymentInfo.save
       Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
       return nil
     end
     
-    paymentInfo.stripe_customer_id_id = customer.id
+    paymentInfo.card_id = customer.id
     
     #Try to charge the rest from the card. If there is less than 50c to charge, then make it free for now.
     #TODO: Figure out a better solution for the 50-cent restriction.
@@ -81,7 +80,6 @@ class Payment
         user.credit += partialamount_chargedFromCredit
         user.save
         paymentInfo.amount_charged = 0
-        paymentInfo.save
         Payment::payment_failed(user, paymentInfo, reason, reasonForError)
         return nil
       end
@@ -89,30 +87,21 @@ class Payment
       if(charge.failure_message.nil?)
         Payment::payment_succeeded(user, paymentInfo, reason)
         paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}" + discountedString
-        paymentInfo.save
         return paymentInfo
       else
         #give back credit.
         user.credit += partialamount_chargedFromCredit
         user.save
         paymentInfo.amount_charged = 0
-        paymentInfo.save
         Payment::payment_failed(user, paymentInfo, reason, "Stripe failed")
         return nil
       end
     
     else
-        #for now, just give it to them for free.
+      #for now, just give it to them for free.
       Payment::payment_succeeded(user, paymentInfo, reason)
       paymentInfo.details += "$#{amountToCharge/100.0} was charged to credit card" + discountedString
-      paymentInfo.save
       return paymentInfo
-        #user.credit += partialamount_chargedFromCredit
-        #user.save
-        #paymentInfo.amount_charged = 0
-        #paymentInfo.save
-        #Payment::payment_failed(user, paymentInfo, reason, "amount was less than 50c")
-        r#eturn nil
     end
     
   end
@@ -193,35 +182,11 @@ class Payment
     Rails.logger.info "Payment failed: (for #{reason}) (user #{user.email}) failed because #{reasonForFailure})"
   end
   
-end#don't forget to return paymentInfo obj.
+end
 
-
-    #customer = user.stripe_customer_ids.first #TODO: pick the one that is active instead
-    #paymentInfo = self.create_payment_info()
-    #paymentInfo.stripe_customer_id_id = customer.id
- 
-    #if(amountToCharge >= 50)
-    #  charge = Stripe::Charge.create ({:amount=>amountToCharge, :currency=>"usd", :customer => customer.customer_id, :description => user.email})
-    #
-    #  if(charge.failure_message.nil?)
-    #    self.status = "successfully_paid"
-    #    paymentInfo.amount_charged = amountToCharge
-    #    #def send_conf_email
-    #    UserMailer.payment_succeeded_email(self.user, self, charge).deliver
-    #    return true
-    #  else
-    #    self.status = "not_successfully_paid"
-    #    interval.capacity = -interval.capacity
-    #    offer.capacity_list.add_if_can!(interval)
-    #    b_undo = true
-    #  end
-    #else
-    #  if(amountToCharge < 0)
-    #    b_undo = true
-    #    self.status = "error: negative charge"
-    #  else
-    #    paymentInfo.amount_charged = 0
-    #    self.status = "didn't need to pay"
-    #  end
-    #
-    #end
+class PaymentInfo
+  attr_accessor :amount_charged
+  attr_accessor :stripe_charge_id
+  attr_accessor :card_id
+  attr_accessor :details
+end

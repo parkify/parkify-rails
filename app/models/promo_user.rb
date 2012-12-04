@@ -11,9 +11,7 @@ class PromoUser < ActiveRecord::Base
     result[:name] = self.promo.name
     result[:description] = self.promo.description
     result[:code_text] = self.code.code_text
-    p "checking as json of promouser..."
-    p result
-    p "...end"
+    p "as_json in PromoUser"
     result
   end
   

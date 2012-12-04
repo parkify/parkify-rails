@@ -1,27 +1,23 @@
 class Acceptance < ActiveRecord::Base
-  attr_accessible :user_id, :count, :end_time, :start_time, :status
-  
-  
+  attr_accessible :user_id, :count, :end_time, :start_time, :status, :card_id, :card
+
   belongs_to :user
   
-  has_one :payment_info
-  belongs_to :car
-  
-  has_many :agreements
-  has_many :offers, :through => :agreements
+  belongs_to :resource_offer
+
+  has_one :card
+
+  has_many :complaints
   
   # Just builds a blank acceptance, since acceptances need to be saved first before
   #   we can add member entities.
+  # TODO: update
+  #def as_json(options={})
+  #  result = super(:only => [:id, :details])
+  #  result
+  #end
   
-  def as_json(options={})
-    result = super(:only => [:id])
-    result["details"] = ""
-    if(self.payment_info)
-      result["details"] = self.payment_info.details
-    end
-    result
-  end
-  
+  # no longer used
   def self.build_from_api(params)
     params = JSON.parse(params)
     
@@ -37,10 +33,16 @@ class Acceptance < ActiveRecord::Base
     
     toRtn
   end
+
+  def check_with_resource_offer_handler(roh)
+    
+  end
   
   # Now try to validate, find the total cost, and charge with card.
   # If anything goes wrong, clean up and return false.
   # Assumes: that self has been saved.
+
+  # TODO: TEST
   def add_offers_and_charge_from_api(params)
     params = JSON.parse(params)
     
@@ -49,99 +51,91 @@ class Acceptance < ActiveRecord::Base
       return false
     end
     
-    b_undo = false
     amountToCharge = 0.0
-    offers_to_add = []
-    params["offer_ids"].each do |offer_id|
+
     
-      #grab the correct offer
-      offer = Offer.find_by_id(offer_id.to_i)
-      offers_to_add << offer
-      
-      #check if there is space
-      eff_start_time = [self.start_time, offer.start_time].max
-      eff_end_time = [self.end_time, offer.end_time].min
-      if(eff_end_time < start_time)
-        b_undo = true
-        self.status = "invalid timing"
-        break 
-      end
-      interval = CapacityInterval.new({:start_time => eff_start_time, :end_time => eff_end_time, :capacity => 1})
-      if(!offer.capacity_list.add_if_can!(interval))
-        b_undo = true
-        self.status = "not enough capacity"
-        break
-      end
-      
-      # find cost
-      amountToCharge += offer.find_cost(eff_start_time, eff_end_time)
-    end
-      
-    #uh oh, we failed somewhere. Time to clean up our mess.
-    if(b_undo)
-      offers_to_add[0...-1].each do |offer|
-        eff_start_time = [self.start_time, offer.start_time].max
-        eff_end_time = [self.end_time, offer.end_time].min
-        interval = CapacityInterval.new({:start_time => eff_start_time, :end_time => eff_end_time, :capacity => -1})
-        offer.capacity_list.add_if_can!(interval)
-      end
+
+    interval = CapacityInterval.new({:start_time => self.start_time, :end_time => self.end_time, :capacity => 1})
+    if(!resource_offer.add_if_can!(interval))
+      self.status = "Resource not available for target capacity interval"
       return false
-    else
-      offers_to_add.each do |offer|
-        Agreement.create({:acceptance_id => self.id, :offer_id => offer.id})
-        
-       # self.offers << offer
-      end
     end
-    
-    self.status = "payment pending"
-  
+
     #now focus on payment
-    
-    
-      
-    
+    self.status = "payment pending"
+    amountToCharge = resource_offer.find_cost(self.start_time, self.end_time)
     amountToCharge = (amountToCharge * 100).floor #need value in cents
-    
-    #TODO: Add better detail for this charge
+
     paymentInfo = Payment::charge(user, amountToCharge, "Spot Reservation")
     self.payment_info = paymentInfo
     
     if !paymentInfo
-      self.status = "not_successfully_paid"
+      self.status = "not successfully paid"
       interval.capacity = -interval.capacity
       offer.capacity_list.add_if_can!(interval)
-      offer.capacity_list.add_if_can!(interval)
-      b_undo = true
+      return false
     else
-      self.status = "successfully_paid"
+      self.status = "successfully paid"
       UserMailer.payment_succeeded_email(self.user, self).deliver
       return true
     end
+  end
+
+
+def validate_and_charge()
     
-    
-    
-    #uh oh, we failed somewhere. Time to clean up our mess.
-    if(b_undo)
-      offers_to_add[0...-1].each do |offer|
-        eff_start_time = [self.start_time, offer.start_time].max
-        eff_end_time = [self.end_time, offer.end_time].min
-        interval = CapacityInterval.new({:start_time => eff_start_time, :end_time => eff_end_time, :capacity => -1})
-        offer.capacity_list.add_if_can!(interval)
-      end
+    if(!self.user)
+      self.status = "invalid user"
+      self.errors.add(:user, "must be logged in")
       return false
     end
     
+    resource_offer = ResourceOffer.find_by_id(self.resource_offer_id)
+    if (!resource_offer)
+      self.status = "invalid spot"
+      self.errors.add(:spot, "is currently not available")
+      return false
+    end
+
+    #TODO: serialize or transactionalize
+    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
+    if (price < 0)    
+      self.status = "scheduling failed"
+      self.errors.add(:transaction, "failed")
+      self.save
+      return false
+    end
+
+    #now focus on payment
+    self.status = "payment pending"
+    amountToCharge = (price * 100).floor #need value in cents
+    paymentInfo = Payment::charge(user, amountToCharge, "Spot Reservation")
     
+    if !paymentInfo
+      self.status = "payment failed"
+      self.save
+      return false
+    else
+      self.set_payment_info(paymentInfo)
+      self.status = "successfully paid"
+      self.save
+      UserMailer.payment_succeeded_email(self.user, self).deliver
+      return true
+    end
+  end
+  
+  def set_payment_info(paymentInfo)
+    if(paymentInfo)
+      self.amount_charged = paymentInfo.amount_charged
+      self.stripe_charge_id = paymentInfo.stripe_charge_id
+      self.card_id = paymentInfo.card_id
+      self.details = paymentInfo.details
+    end
   end
   
   
-  
-  # Now try to validate, find the total cost, and charge with card.
-  # If anything goes wrong, clean up and return false.
-  # Assumes: that self has been saved.
-  def check_price_from_api(params)
-    params = JSON.parse(params)
+  # Check the price without making the purchase.
+  def check_price(resource_offer_handler=nil)
     
     toRtn = {}
     toRtn[:price_string] = ""
@@ -152,52 +146,44 @@ class Acceptance < ActiveRecord::Base
       return toRtn
     end
     
-    b_undo = false
-    amountToCharge = 0.0
-    offers_to_add = []
-    params["offer_ids"].each do |offer_id|
-    
-      #grab the correct offer
-      offer = Offer.find_by_id(offer_id.to_i)
-      offers_to_add << offer
-      
-      #check if there is space
-      eff_start_time = [self.start_time, offer.start_time].max
-      eff_end_time = [self.end_time, offer.end_time].min
-      if(eff_end_time < start_time)
-        toRtn[:price_string] = "Error: invalid timing"
-        toRtn[:success] = false
-        return toRtn
-      end
-      
-      # find cost
-      amountToCharge += offer.find_cost(eff_start_time, eff_end_time)
-    end
-      
-    #now focus on payment
-    amountToCharge = (amountToCharge * 100).floor #need value in cents
-    charge_string = Payment::charge_string(user, amountToCharge, "Spot Reservation")
-    if(charge_string.downcase.include?("error"))
-      toRtn[:success] = false
+    #grab correct price
+    if(resource_offer_handler)
+      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
     else
-      toRtn[:success] = true
+      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
     end
-    toRtn[:price_string] = charge_string
+
+    if (price < 0)
+      toRtn[:price_string] = "spot not available at this time"
+      toRtn[:success] = false
+      return toRtn
+    end
+
+    #now focus on payment
+    amountToCharge = (price * 100).floor #need value in cents
+    toRtn[:price_string] = Payment::charge_string(user, amountToCharge, "Spot Reservation")
+
+    toRtn[:success] = !toRtn[:price_string].downcase.include?("error")
     return toRtn
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+  def generate_working_schedule(start_time_in, end_time_in)
+    toRtn = {:capacity_intervals => [], :price_intervals => []}
+   
+    start_time_to_generate = [start_time_in, self.start_time].max
+    end_time_to_generate = [end_time_in, self.end_time].min
+
+    if (end_time_to_generate > start_time_to_generate)
+        toRtn[:capacity_intervals] << CapacityInterval.new(start_time_to_generate, end_time_to_generate, 0)
+    end
+
+    return toRtn
+  end
+
+  def card
+    ch = Stripe::Charge.retrieve(self.stripe_charge_id)
+    return ch.card
+  end
 
 end

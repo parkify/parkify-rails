@@ -1,7 +1,7 @@
-class CapacityInterval < ActiveRecord::Base
-  attr_accessible :capacity, :capacity_list_id, :end_time, :start_time
+class CapacityIntervalOld < ActiveRecord::Base
+  attr_accessible :capacity, :resource_offer_id, :end_time, :start_time
   
-  belongs_to :capacity_list
+  belongs_to :resource_offer
   
   def contains(time)
     return time >= start_time && time <= end_time

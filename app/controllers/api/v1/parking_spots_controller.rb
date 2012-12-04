@@ -5,15 +5,12 @@ class Api::V1::ParkingSpotsController < ApplicationController
   #before_filter :authenticate_user!
   
   def index
-  
-  
-    @parking_spots = Resource.where("active=true")
-    
-    
+    @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:all=>true})
+    presenter = Api::V1::ResourceOfferContainersPresenter.new
     
     respond_to do |format|
       format.html # index.html.erb
-        format.json { render json: {:success => "true", :spots => @parking_spots.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true, :count => "all"), :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:success => "true", :spots => @parking_spots.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter}), :level_of_detail => params[:level_of_detail]} }
     end
   end
 
@@ -23,24 +20,21 @@ class Api::V1::ParkingSpotsController < ApplicationController
     #Fix id_numbering for (< v1.2)
     params[:id] = Integer(params[:id]) - 90000
     #end fix
-    @parking_spot = Resource.find(params[:id])
+
+    @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
+    presenter = Api::V1::ResourceOfferContainersPresenter.new
+    
+    spot_json = @parking_spot.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: {:success => "true", :spot => @parking_spot.as_json(:level_of_detail => params[:level_of_detail], :id_fix => true), :count => "one", :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:success => "true", :spot => spot_json, :count => "one", :level_of_detail => params[:level_of_detail]} }
     end
   end
 
   
   
-  
-  
-  
-  
   #TODO: SUPPORT BELOW
-  
-  
-  
   
   # GET /parking_spots/new
   # GET /parking_spots/new.json

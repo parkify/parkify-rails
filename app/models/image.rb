@@ -16,6 +16,8 @@ class Image < ActiveRecord::Base
   attr_accessor :copy_of
   attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
   
+  after_save :update_handler
+
   # Deprecated
   def image_attachment_url
     if copy_of
@@ -48,4 +50,11 @@ class Image < ActiveRecord::Base
       r.save
     end
   end
+
+  private
+    def update_handler
+      if self.imageable_type == "ResourceOffer"
+        ApplicationController::resource_offer_handler().update_resource_info([self.resource_offer_id])
+      end
+    end
 end
