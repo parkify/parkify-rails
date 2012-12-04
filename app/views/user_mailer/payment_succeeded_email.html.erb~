@@ -29,7 +29,7 @@
     <p>
         <span style="font-weight:bold">Spot address: </span><%= @spot.location.location_address %><br/>
         <span style="font-weight:bold">Unique Spot ID: </span><%= @spot.pretty_id %><br/>
-        <span style="font-weight:bold">How to find your spot: </span><%= @spot.location.directions %><br/>
+        <span style="font-weight:bold">How to find your spot: </span><%= @spot.location.plain_directions %><br/>
     </p>
     <hr/>
     <p>
@@ -41,5 +41,5 @@
     <hr/>
     <p>Questions? Need help finding your spot? Call 1-855-Parkify or visit our site, <a href="http://www.parkify.me">parkify.me</a>.</p>
     <br/>
-  </body>f
+  </body>
 </html>

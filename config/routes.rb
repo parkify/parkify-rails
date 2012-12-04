@@ -1,4 +1,18 @@
 ParkifyRails::Application.routes.draw do
+  resources :complaints
+
+  resources :cards
+
+  resources :device_users
+
+  resources :devices
+
+  resources :offer_schedule_exceptions
+
+  resources :offer_schedules
+
+  resources :resource_offers
+
   resources :promo_users
 
   resources :promos
@@ -66,6 +80,7 @@ ParkifyRails::Application.routes.draw do
 
   
   namespace :api do
+
       namespace :v1 do
         devise_for :users
         resources :resources, :controller => "parking_spots", :only => [:index, :show]
@@ -83,6 +98,24 @@ ParkifyRails::Application.routes.draw do
           post 'problem_spot', :on => :collection
         end
       end
+
+      namespace :v2 do
+        devise_for :users
+        resources :resources, :controller => "parking_spots", :only => [:index, :show]
+        resources :acceptances, :controller => "app_transactions", :only => [:create] do
+          post 'preview', :on => :collection
+        end
+        resource :account, :controller => "account" do
+          post 'add_card', :on => :collection
+          post 'add_car', :on => :collection
+          post 'activate_card', :on => :collection
+          post 'update_cars', :on => :collection
+          post 'add_promo', :on => :collection
+          post 'update_password', :on => :collection
+          post 'reset_password', :on => :collection
+        end
+      end
+
   end
 
   

@@ -1,14 +1,14 @@
 Dear <%= @user.first_name %> <%= @user.last_name %>,
     
-      You have successfully reserved a Parkify spot at <%= @spot.location.location_name %>. See Below for more information about your reservation.
+      You have successfully reserved a Parkify spot at <%= @spot.location_name %>. See Below for more information about your reservation.
     
     
-      Spot address:<%= @spot.location.location_address %>]
+      Spot address:<%= @spot.location_address %>]
       Unique Spot ID: <%= @spot.pretty_id %>
-      How to find your spot: <%= @spot.location.plain_directions %>
+      How to find your spot: <%= @spot.plain_directions %>
     
     Reservation Duration: <%= ((@acceptance.end_time.in_time_zone("Pacific Time (US & Canada)") - @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)"))/1800).floor/2.0 %> hours
     Time Booked: <%= @acceptance.start_time.in_time_zone("Pacific Time (US & Canada)").strftime("%l:%M %p") %> - <%= @acceptance.end_time.in_time_zone("Pacific Time (US & Canada)").strftime("%l:%M %p") %>
-    <%= @acceptance.payment_info.details %>
+    <%= @acceptance.details %>
         
     Questions? Need help finding your spot? Call 1-855-Parkify or visit our site, www.parkify.me.

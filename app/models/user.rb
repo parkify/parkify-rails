@@ -8,21 +8,26 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit, :devices, :device_users
   # attr_accessible :title, :body
   
   has_many :cars, :dependent => :destroy
-  has_many :stripe_customer_ids, :dependent => :destroy
-  has_many :resources, :dependent => :destroy
+  has_many :cards, :dependent => :destroy
+  has_many :resource_offers
   has_many :acceptances
   
   
   has_many :promo_users
   has_many :promos, :through => :promo_users
   has_many :codes, :through => :promo_users
+
+  has_many :device_users
+  has_many :devices, :through => :device_users
+  
+  has_many :complaints
   
   def active_card
-    return self.stripe_customer_ids.where('active_customer = ?', true).first
+    return self.cards.where('active_customer = ?', true).first
   end
   
   def activate_card(card)
@@ -30,11 +35,11 @@ class User < ActiveRecord::Base
       return false
     end
     #verify that card is one of this user's cards
-    if(!self.stripe_customer_ids.where(:id => card.id).present?)
+    if(!self.cards.where(:id => card.id).present?)
       return false
     else
       #set all other cards to false.
-      self.stripe_customer_ids.each do |cardEach|
+      self.cards.each do |cardEach|
         if(cardEach.id == card.id)
           cardEach.active_customer = true
           cardEach.save
@@ -49,7 +54,7 @@ class User < ActiveRecord::Base
   end
   
   def validate_cards
-    return self.stripe_customer_ids.where('active_customer = ?', true).count == 1
+    return self.cards.where('active_customer = ?', true).count == 1
   end
   
   def send_welcome_email
@@ -65,14 +70,14 @@ class User < ActiveRecord::Base
         :description => email
       )
       if (customer.active_card.cvc_check != "pass") 
-        self.errors.add(:card, "Card failed CVC check")
+        self.errors.add(:card, "failed CVC check")
         return false
       end
      
       return false unless save()
       
       
-      self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
+      self.cards.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
       send_welcome_email
@@ -92,23 +97,23 @@ class User < ActiveRecord::Base
         :description => email
       )
       if (customer.active_card.cvc_check != "pass") 
-        self.errors.add(:card, "Card failed CVC check")
+        self.errors.add(:card, "failed CVC check")
         return false
       end
      
     
       return false unless save()
       
-      if(self.stripe_customer_ids.count == 0)
-        self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
+      if(self.cards.count == 0)
+        self.cards.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
       else
-        self.stripe_customer_ids.create(:customer_id => customer.id, :active_customer => false, :last4 => customer.active_card.last4)
+        self.cards.create(:customer_id => customer.id, :active_customer => false, :last4 => customer.active_card.last4)
       end
       
       return true
       
     else
-      self.errors.add(:card, "Invalid Card")
+      self.errors.add(:card, "invalid")
       return false
     end
   end
@@ -130,7 +135,7 @@ class User < ActiveRecord::Base
       return true
       
     else
-      self.errors.add(:car, "Invalid license plate number")
+      self.errors.add(:number, "invalid")
       return false
     end
   end
@@ -140,23 +145,23 @@ class User < ActiveRecord::Base
     if(code_text)
       c = Code.find_by_code_text(code_text)
       if(!c)
-        self.errors.add(:code, "code invalid")
+        self.errors.add(:code, "invalid")
         return false
       end
       
       if(c.personal && c.users.count > 0)
-        self.errors.add(:code, "code already used")
+        self.errors.add(:code, "already used")
         return false
       end
       
       promo = c.promo
       if(!promo)
-        self.errors.add(:code, "code invalid")
+        self.errors.add(:code, "invalid")
         return false
       end
       
       if(self.promos.include? promo)
-        self.errors.add(:code, "you already have this promotion")
+        self.errors.add(:promotion, "already attached to account")
         return false
       end
       
@@ -169,7 +174,7 @@ class User < ActiveRecord::Base
       promo_user = self.promo_users.find_by_promo_id(promo.id)
       promo_user.code = c
       if(!promo_user.save)
-        self.errors.add(:code, "code invalid")
+        self.errors.add(:code, "invalid")
         return false
       end 
       
@@ -179,7 +184,7 @@ class User < ActiveRecord::Base
       return promo_user
       
     else
-      self.errors.add(:code, "code invalid")
+      self.errors.add(:code, "invalid")
       return false
     end
   end
@@ -212,13 +217,13 @@ class User < ActiveRecord::Base
     
   end
   
-  def as_json(options={})
-    result = super(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])
-    
-    result["credit_cards"] = self.stripe_customer_ids.as_json
-    result["cars"] = self.cars.as_json
-    result["promos"] = self.promo_users.as_json
-    result
-  end
-  
+  #def as_json(options={})
+  #  result = super(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])
+  #  
+  #  result["credit_cards"] = self.cards.as_json
+  #  result["cars"] = self.cars.as_json
+  #  result["promos"] = self.promo_users.as_json
+  #  result
+  #end
+  include PresentationMethods
 end
