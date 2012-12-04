@@ -1,0 +1,2 @@
+module OfferSchedulesHelper
+end

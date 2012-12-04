@@ -1,0 +1,25 @@
+%h1 Listing devices
+
+%table
+  %tr
+    %th Device uid
+    %th Push token
+    %th Device type
+    %th Last used at
+    %th
+    %th
+    %th
+
+  - @devices.each do |device|
+    %tr
+      %td= device.device_uid
+      %td= device.push_token_id
+      %td= device.device_type
+      %td= device.last_used_at
+      %td= link_to 'Show', device
+      %td= link_to 'Edit', edit_device_path(device)
+      %td= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Device', new_device_path

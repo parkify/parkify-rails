@@ -1,0 +1,35 @@
+<h1>Listing resource_offers</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+    <th>User</th>
+    <th>Title</th>
+    <th>Active</th>
+    <th>Sign</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resource_offers.each do |resource_offer| %>
+  <tr>
+    <td><%= resource_offer.description %></td>
+    <td><%= resource_offer.longitude %></td>
+    <td><%= resource_offer.latitude %></td>
+    <td><%= resource_offer.user_id %></td>
+    <td><%= resource_offer.title %></td>
+    <td><%= resource_offer.active %></td>
+    <td><%= resource_offer.sign_id %></td>
+    <td><%= link_to 'Show', resource_offer %></td>
+    <td><%= link_to 'Edit', edit_resource_offer_path(resource_offer) %></td>
+    <td><%= link_to 'Destroy', resource_offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Resource offer', new_resource_offer_path %>

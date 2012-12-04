@@ -1,0 +1,23 @@
+%h1 Listing device_users
+
+%table
+  %tr
+    %th Device
+    %th User
+    %th Last used at
+    %th
+    %th
+    %th
+
+  - @device_users.each do |device_user|
+    %tr
+      %td= device_user.device_id
+      %td= device_user.user_id
+      %td= device_user.last_used_at
+      %td= link_to 'Show', device_user
+      %td= link_to 'Edit', edit_device_user_path(device_user)
+      %td= link_to 'Destroy', device_user, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Device user', new_device_user_path

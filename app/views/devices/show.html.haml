@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Device uid:
+  = @device.device_uid
+%p
+  %b Push token:
+  = @device.push_token_id
+%p
+  %b Device type:
+  = @device.device_type
+%p
+  %b Last used at:
+  = @device.last_used_at
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path

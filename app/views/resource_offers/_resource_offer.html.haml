@@ -1,0 +1,17 @@
+%li
+  %table
+    %tr
+      %th
+      %th
+      %th
+    %tr
+      %td= link_to 'Show', resource_offer
+      %td= link_to 'Edit', edit_resource_offer_path(resource_offer)
+      %td= link_to 'Destroy', resource_offer, :confirm => 'Are you sure?', :method => :delete
+      -# %td= link_to 'Add Time Interval Offers', time_intervals_path(resource)
+  %p
+    ="#{resource_offer.title}"
+    %br
+    ="Description : #{resource_offer.description}"
+    %br
+    = "Location: #{resource.location.location_name unless !resource.location}"

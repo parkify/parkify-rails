@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Resource offer:
+  = @offer_schedule_exception.resource_offer_id
+%p
+  %b Exception type:
+  = @offer_schedule_exception.exception_type
+%p
+  %b Start:
+  = @offer_schedule_exception.start
+%p
+  %b Duration:
+  = @offer_schedule_exception.duration
+%p
+  %b Price:
+  = @offer_schedule_exception.price
+%p
+  %b Capacity:
+  = @offer_schedule_exception.capacity
+
+= link_to 'Edit', edit_offer_schedule_exception_path(@offer_schedule_exception)
+\|
+= link_to 'Back', offer_schedule_exceptions_path

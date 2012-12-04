@@ -1,0 +1,31 @@
+%h1 Listing complaints
+
+%table
+  %tr
+    %th User
+    %th Resource offer
+    %th Image
+    %th Description
+    %th Latitude
+    %th Longitude
+    %th Resolved
+    %th
+    %th
+    %th
+
+  - @complaints.each do |complaint|
+    %tr
+      %td= complaint.user_id
+      %td= complaint.resource_offer_id
+      %td= complaint.image_id
+      %td= complaint.description
+      %td= complaint.latitude
+      %td= complaint.longitude
+      %td= complaint.resolved
+      %td= link_to 'Show', complaint
+      %td= link_to 'Edit', edit_complaint_path(complaint)
+      %td= link_to 'Destroy', complaint, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Complaint', new_complaint_path

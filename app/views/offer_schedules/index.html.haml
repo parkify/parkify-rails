@@ -1,0 +1,33 @@
+%h1 Listing offer_schedules
+
+%table
+  %tr
+    %th Resource offer
+    %th Start date
+    %th End date
+    %th Recurrance type
+    %th Relative start
+    %th Duration
+    %th Price per hour
+    %th Capacity
+    %th
+    %th
+    %th
+
+  - @offer_schedules.each do |offer_schedule|
+    %tr
+      %td= offer_schedule.resource_offer_id
+      %td= offer_schedule.start_date
+      %td= offer_schedule.end_date
+      %td= offer_schedule.recurrance_type
+      %td= offer_schedule.relative_start
+      %td= offer_schedule.duration
+      %td= offer_schedule.price_per_hour
+      %td= offer_schedule.capacity
+      %td= link_to 'Show', offer_schedule
+      %td= link_to 'Edit', edit_offer_schedule_path(offer_schedule)
+      %td= link_to 'Destroy', offer_schedule, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Offer schedule', new_offer_schedule_path
