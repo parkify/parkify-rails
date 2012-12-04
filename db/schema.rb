@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20121121154325) do
   create_table "complaints", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_offer_id"
-    t.integer  "image_id"
     t.string   "description",       :default => "",    :null => false
     t.float    "latitude"
     t.float    "longitude"
