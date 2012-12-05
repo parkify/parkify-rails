@@ -33,6 +33,7 @@ ParkifyRails::Application.routes.draw do
   match "/contact" => "home#contact"
   match "/tos" => "home#tos"
   match "/privacy" => "home#privacy"
+  match "/extend" => "home#extend"
   
   #fix for first iphone release
   match "/users/sign_in" => redirect("http://parkify-rails.herokuapp.com/my/users/sign_in")
@@ -94,6 +95,7 @@ ParkifyRails::Application.routes.draw do
           post 'add_promo', :on => :collection
           post 'update_password', :on => :collection
           post 'reset_password', :on => :collection
+          post 'problem_spot', :on => :collection
         end
       end
 

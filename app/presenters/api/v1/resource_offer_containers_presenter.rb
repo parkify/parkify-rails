@@ -5,11 +5,11 @@ class Api::V1::ResourceOfferContainersPresenter < Api::V1::ApplicationPresenter
     start_time = roc.start_time
     end_time = roc.end_time
     available = ( roc.resource.active && (end_time - start_time) >= 2.hours )
-    
     result = {
       :id => roc.resource.id + 90000, # id fix for this version
       :title => roc.resource.title,
       :free => available.to_s,
+      :available => available,
       :quick_properties => self.quick_properties_as_json(roc),
       :location => {
         :latitude => roc.resource.latitude,
@@ -47,7 +47,7 @@ class Api::V1::ResourceOfferContainersPresenter < Api::V1::ApplicationPresenter
         :land_info => landscape_for_spot_info_page_ids.as_json,
         :land_conf => landscape_for_spot_conf_page_ids.as_json,
         :standard => standard_for_instructions_ids.as_json,
-        :offers => available ? [self.offer_as_json(roc, start_time, end_time)] : ""
+        :offers => [self.offer_as_json(roc, start_time, end_time)]
       } )
     end
 

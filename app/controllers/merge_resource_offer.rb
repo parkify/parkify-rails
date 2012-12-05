@@ -19,6 +19,9 @@ class MergeResourceOffer
         ro.location_name = r.location.location_name
         ro.directions = r.location.directions
         ro.plain_directions = r.location.plain_directions
+          if(ro.plain_directions == nil)
+            ro.plain_directions = "";
+          end 
         ro.location_address = r.location.location_address
       end
 
@@ -76,11 +79,12 @@ class MergeResourceOffer
 
   def updateAcceptances()
     Acceptance.all.each do |a|
-      PaymentInfo.joins(",acceptances").where("payment_infos.acceptance_id = acceptances.id AND acceptances.id = ?", a.id).each do |pInfo|
-        a.card_id = pInfo.stripe_customer_id_id
-        a.stripe_charge_id = pInfo.stripe_charge_id
-        a.details = pInfo.details
-        a.amount_charged = pInfo.amount_charged
+     result = ActiveRecord::Base.connection.select_all("SELECT * FROM payment_infos where acceptance_id = #{a.id}").each do |pInfo| 
+#PaymentInfo.joins(",acceptances").where("payment_infos.acceptance_id = acceptances.id AND acceptances.id = ?", a.id).each do |pInfo|
+        a.card_id = pInfo["stripe_customer_id_id"]
+        a.stripe_charge_id = pInfo["stripe_charge_id"]
+        a.details = pInfo["details"]
+        a.amount_charged = pInfo["amount_charged"]
       end         
       a.save
     end

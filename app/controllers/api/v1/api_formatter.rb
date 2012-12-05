@@ -68,7 +68,7 @@ class Api::V1::ParkingSpotsPresentr
     result["standard"] = standard_for_instructions_ids.as_json
     
     activeInterval = CapacityInterval.new({:capacity => 1, :start_time => Time.now, :end_time => Time.now + (1.5*3600)})
-    
+    logger("api_formatter"); 
     if(!can_add?(activeInterval) || !(self.active == true))
       result["free"] = "false"
       if(options[:level_of_detail] == "all")

@@ -46,11 +46,19 @@ class Api::V1::AppTransactionsController < ApplicationController
 
   # POST /transactions
   # POST /transactions.json
-  def create
+  def create(options={})
     build_no_db(params[:transaction])
-    
-    p "haha"
     p @acceptance
+    if(options[:extend])
+      userid = current_user.id
+      acceptanceid = options[:acceptanceid]
+      thisaccept=Acceptance.find(acceptanceid)
+      if(thisaccept != nil || thisaccept.user_id!=userid)
+            @acceptance.errors.add(:spot, "not available at this time")
+            @acceptance.status = "failed"
+      end 
+    end
+    
     if(!RESOURCE_OFFER_HANDLER.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
       @acceptance.errors.add(:spot, "not available at this time")
       @acceptance.status = "failed"
@@ -71,7 +79,6 @@ class Api::V1::AppTransactionsController < ApplicationController
   def preview
     build_no_db(params[:transaction])
 
-    p "haha"
     p @acceptance
     if(@acceptance.status == "failed")
       toSend = {:success => false, :price_string => @acceptance.errors.full_messages().first}
