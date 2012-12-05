@@ -3,7 +3,6 @@ RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 1.week
 # Not an ActiveRecord object. Builds and updates an in-memory schedule for spots.
 class ResourceOfferHandler
   attr_accessor :resources
-  attr_accessor :message
   
   def initialize(options={})
     @resources = {}
@@ -16,7 +15,6 @@ class ResourceOfferHandler
         @resources[ro.id] = ResourceOfferContainer.new(ro, options)
       end
     end
-    @message = "Steady"
   end
 
   def update_resource_info(resource_offers)

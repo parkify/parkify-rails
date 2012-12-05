@@ -36,6 +36,7 @@ gem 'xml-simple'
 gem "paperclip", "~> 3.0"
 gem 'rails_admin'
 gem 'resque'
+gem 'ohm'
 
 gem 'pg', '0.12.2'
 

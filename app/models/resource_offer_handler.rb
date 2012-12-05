@@ -1,8 +1,11 @@
 RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 1.week
 
 # Not an ActiveRecord object. Builds and updates an in-memory schedule for spots.
-class ResourceOfferHandler
-  attr_accessor :resources
+class ResourceOfferHandler < Ohm::Model
+  collection :resources, :ResourceOfferContainer
+  attribute :name
+  
+  index, :name
   
   def initialize(options={})
     @resources = {}
