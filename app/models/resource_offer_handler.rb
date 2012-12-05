@@ -86,11 +86,14 @@ class ResourceOfferContainer
   attr_accessor :resource
   attr_accessor :price_intervals
   attr_accessor :capacity_intervals
-
+  attr_accessor :totalprice_interval
+  attr_accessor :totalcapacity_interval
   def initialize(resource, options={})
     @resource = resource
     @price_intervals = []
     @capacity_intervals = []
+    @totalprice_interval =[]
+    @totalcapacity_interval=[]
     update_availability(options[:start_time], options[:end_time], options[:no_update_info])
   end
 
@@ -108,6 +111,8 @@ class ResourceOfferContainer
 
     @capacity_intervals = []
     @price_intervals = []
+    @totalprice_interval =[]
+    @totalcapacity_interval=[]
 
     # I specify a window with which to generate a working schedule.
     if(start_time == nil || end_time == nil)
@@ -122,7 +127,9 @@ class ResourceOfferContainer
 
       #TODO: replace the += operator with an "interval merge" operator (to be defined)
       @capacity_intervals += toAdd[:capacity_intervals]
+      @totalcapacity_interval += toAdd[:capacity_intervals]
       @price_intervals += toAdd[:price_intervals]
+      @totalprice_interval += toAdd[:price_intervals]
     end
 
     # Look through the exception relation and force each change onto the working schedule
@@ -130,6 +137,8 @@ class ResourceOfferContainer
       toAdd = ose.generate_working_schedule(start_time, end_time)
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
       @price_intervals = ValuedInterval::force_intervals(toAdd[:price_intervals], @price_intervals)
+      @totalcapacity_interval = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @totalcapacity_interval)
+      @totalprice_interval = ValuedInterval::force_intervals(toAdd[:price_intervals], @totalprice_interval)
     end
 
     # Look through all acceptances and force_interval 
@@ -143,9 +152,13 @@ class ResourceOfferContainer
     #TODO: I need to remember to re-update every so often to advance this window.
   end
 
-  def start_time(time=Time.now())
+  def start_time(time=Time.now(), total=false)
     #toRtn = Time.now
-    capIntervals = @capacity_intervals.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
+    thisarray = @capacity_intervals
+    if(!total)
+      thisarray = @totalcapacity_interval
+    end
+    capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
       return Time.at(0)
     end
@@ -171,9 +184,14 @@ class ResourceOfferContainer
     return earliest_time
   end
 
-  def end_time(time=Time.now())
+  def end_time(time=Time.now(), total=false)
+    if(total)
+      thisarray = @capacity_intervals
+    else
+      thisarray = @totalcapacity_interval
+    end
     #toRtn = Time.now
-    capIntervals = @capacity_intervals.select{|x| x.end_time >= time}.sort{|x,y| x.start_time <=> y.start_time}
+    capIntervals = thisarray.select{|x| x.end_time >= time}.sort{|x,y| x.start_time <=> y.start_time}
     if(capIntervals.size == 0)
       return Time.at(0)
     end
