@@ -6,6 +6,7 @@ class ResourceOfferHandler
   
   def initialize(options={})
     @resources = {}
+    @activeresources = {}
     if options[:only]
       options[:only].each do |ro_id|
         @resources[ro_id] = ResourceOfferContainer.new(ResourceOffer.find_by_id(ro, options))
@@ -13,6 +14,9 @@ class ResourceOfferHandler
     else
       ResourceOffer.all.each do |ro|
         @resources[ro.id] = ResourceOfferContainer.new(ro, options)
+        if (ro["active"]==true)
+          @activeresources[ro.id] = @resources[ro.id]
+        end
       end
     end
   end
@@ -38,8 +42,11 @@ class ResourceOfferHandler
   end
   
   def retrieve_spots(options={})
+    
     if options[:all]
       return @resources.values
+    elsif options[:active]
+      return @activeresources
     elsif options[:only]
       return options[:only].map{|x| @resources[x]}
     else

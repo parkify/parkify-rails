@@ -79,7 +79,7 @@ class Resource < ActiveRecord::Base
         end
       end
     end
-    
+    logger("Resource rb file"); 
     if(open_consecutive_offers == [] || !(self.active == true))
       result["free"] = "false"
       if(options[:level_of_detail] == "all")

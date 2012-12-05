@@ -5,7 +5,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
   #before_filter :authenticate_user!
   
   def index
-    @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:all=>true})
+    @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
     respond_to do |format|
