@@ -54,7 +54,7 @@ class ResourceOfferHandler
   end
 
   def validate_reservation(resource_offer_id, start_time, end_time)
-    resource_offer_container = self.resources[resource_offer_id]
+    resource_offer_container = @resources[resource_offer_id]
     if(resource_offer_container == nil)
       return false
     else
@@ -63,7 +63,7 @@ class ResourceOfferHandler
   end
 
   def validate_reservation_and_find_price(resource_offer_id, start_time, end_time)
-    resource_offer_container = self.resources[resource_offer_id]
+    resource_offer_container = @resources[resource_offer_id]
     if(resource_offer_container == nil)
       return -1
     else
