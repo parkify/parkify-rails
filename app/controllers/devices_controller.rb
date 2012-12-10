@@ -39,7 +39,7 @@ class DevicesController < ApplicationController
 
   # POST /devices
   # POST /devices.json
-  def create
+  def create(options={})
     isNew=false
     @device = Device.where("device_uid=?", params[:device_uid]).first
     if (!@device)
@@ -48,6 +48,21 @@ class DevicesController < ApplicationController
     end
     @device.push_token_id = params[:push_token_id]
     @device.device_type = params[:devicetype]
+    if (current_user)
+      userid = current_user.id
+      p 'user logged in'
+      device_user = DeviceUser.where("user_id=?", userid).first
+      if(!device_user)
+        device_user = DeviceUser.new(:device_id=>@device.id, :user_id=>userid, :last_used_at =>Time.now(), :created_at=>Time.now(), :updated_at=>Time.now())
+      end
+      if (device_user.device_id != @device.id)
+        device_user.device_id = @device.id
+        device_user.last_used_at = Time.now()
+        device_user.updated_at = Time.now()
+      end
+      p 'saving new user device record'
+      device_user.save()
+    end
     respond_to do |format|
       if @device.save
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
