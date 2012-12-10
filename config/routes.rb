@@ -46,6 +46,10 @@ ParkifyRails::Application.routes.draw do
   
   get "parking_spots/create"
 
+  post "devices/create"
+  post "device_users/create"
+
+
   get "parking_spots/new"
 
   post "parking_spots/create"

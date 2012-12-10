@@ -53,6 +53,7 @@ class Api::V1::AppTransactionsController < ApplicationController
       userid = current_user.id
       acceptanceid = options[:acceptanceid]
       thisaccept=Acceptance.find(acceptanceid)
+      p "checking an extend"
       if(thisaccept != nil || thisaccept.user_id!=userid)
             @acceptance.errors.add(:spot, "not available at this time")
             @acceptance.status = "failed"
