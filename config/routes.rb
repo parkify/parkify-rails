@@ -46,8 +46,6 @@ ParkifyRails::Application.routes.draw do
   
   get "parking_spots/create"
 
-  post "devices/create"
-  post "device_users/create"
 
 
   get "parking_spots/new"
@@ -87,6 +85,8 @@ ParkifyRails::Application.routes.draw do
 
       namespace :v1 do
         devise_for :users
+        post "devices/create"
+        post "device_users/create"
         resources :resources, :controller => "parking_spots", :only => [:index, :show]
         resources :acceptances, :controller => "app_transactions", :only => [:create] do
           post 'preview', :on => :collection
