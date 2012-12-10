@@ -132,7 +132,23 @@ def validate_and_charge()
       self.details = paymentInfo.details
     end
   end
-  
+  def refund_payment
+    if(self.stripe_charge_id)
+      paymentInfo = Payment::refund(self.stripe_charge_id)
+      if(paymentInfo)
+        return "Credited $"+self.amount_charged.to_s()+" back to account"
+      else
+        return "Error processing refund please contact"
+      end
+    else
+      p 'adding back to credits'
+      user = User.find(self.user_id)
+      user.credit = user.credit + self.amount_charged
+      user.save
+      return "Refunded $"+self.amount_charged.to_s()+" to account";
+    end
+
+  end
   
   # Check the price without making the purchase.
   def check_price(resource_offer_handler=nil)

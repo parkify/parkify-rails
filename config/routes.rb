@@ -85,12 +85,14 @@ ParkifyRails::Application.routes.draw do
 
       namespace :v1 do
         devise_for :users
-        post "devices/create"
-        post "device_users/create"
+        resource :device_users
+        resource :complaints
         resources :resources, :controller => "parking_spots", :only => [:index, :show]
         resources :acceptances, :controller => "app_transactions", :only => [:create] do
           post 'preview', :on => :collection
         end
+        resource :devices
+        
         resource :account, :controller => "account" do
           post 'add_card', :on => :collection
           post 'add_car', :on => :collection

@@ -15,4 +15,13 @@ class UserMailer < ActionMailer::Base
     
     mail(:to => user.email, :subject => "Successful Reservation of Spot")
   end
+  def trouble_with_spot_email(spot, complaint, user, shouldCancel)
+    p 'sending email'
+    @user = user
+    @spot = spot
+    @complaint = complaint
+    @shouldCancel = shouldCancel
+    mail(:to =>"gnamit@gmail.com",  :subject=>"Problem with spot")
+
+  end
 end

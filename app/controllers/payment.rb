@@ -107,7 +107,17 @@ class Payment
   end
   
   
-  
+  def self.refund(chargeToRefund)
+    charge = Stripe::Charge.retrieve(chargeToRefund)
+    charge.refund
+      if(charge.failure_message.nil?)
+        return true
+      else
+        #give back credit.
+        return false 
+
+      end
+  end
   #Don't attempt to charge user, but instead find how much it will cost, etc
   def self.charge_string(user, amountToCharge, reason)
     if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
