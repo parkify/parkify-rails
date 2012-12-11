@@ -8,7 +8,7 @@ class Payment
     
     paymentInfo = PaymentInfo.new()
     paymentInfo.amount_charged = amountToCharge
-
+    paymentInfo.details = ""
     if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
       Payment::payment_failed(user, paymentInfo, reason, "Charge amount was negative")
       return nil
@@ -86,6 +86,7 @@ class Payment
     
       if(charge.failure_message.nil?)
         Payment::payment_succeeded(user, paymentInfo, reason)
+        paymentInfo.stripe_charge_id = charge["id"]
         paymentInfo.details += "$#{amountToCharge/100.0} was charged to card *#{charge.card.last4}" + discountedString
         return paymentInfo
       else
@@ -108,11 +109,14 @@ class Payment
   
   
   def self.refund(chargeToRefund)
+    p "refunding charge" + chargeToRefund
     charge = Stripe::Charge.retrieve(chargeToRefund)
     charge.refund
+    return charge
       if(charge.failure_message.nil?)
         return true
       else
+        p "failed"
         #give back credit.
         return false 
 
