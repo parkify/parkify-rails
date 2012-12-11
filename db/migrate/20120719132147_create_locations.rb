@@ -1,4 +1,7 @@
 class CreateLocations < ActiveRecord::Migration
+  class Location < ActiveRecord::Base
+    # Dummy class
+  end
   def change
     create_table :locations do |t|
       t.float :latitude

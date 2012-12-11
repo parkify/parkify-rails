@@ -1,4 +1,7 @@
 class CreateCapacityIntervals < ActiveRecord::Migration
+  class CapacityInterval < ActiveRecord::Base
+    # Dummy class
+  end
   def change
     create_table :capacity_intervals do |t|
       t.datetime :start_time

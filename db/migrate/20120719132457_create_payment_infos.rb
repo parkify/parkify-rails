@@ -1,4 +1,7 @@
 class CreatePaymentInfos < ActiveRecord::Migration
+  class PaymentInfo < ActiveRecord::Base
+    # Dummy class
+  end
   def change
     create_table :payment_infos do |t|
       t.string :stripe_customer_id_id
