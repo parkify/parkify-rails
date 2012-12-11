@@ -8,7 +8,8 @@ class Acceptance < ActiveRecord::Base
   has_one :card
 
   has_many :complaints
-  
+  after_save :update_handler
+  after_destroy :update_handler
   # Just builds a blank acceptance, since acceptances need to be saved first before
   #   we can add member entities.
   # TODO: update
@@ -201,5 +202,10 @@ def validate_and_charge()
     ch = Stripe::Charge.retrieve(self.stripe_charge_id)
     return ch.card
   end
+
+ private
+    def update_handler
+      ApplicationController::update_resource_availability([self.resource_offer_id])
+    end
 
 end

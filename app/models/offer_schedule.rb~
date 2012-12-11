@@ -8,6 +8,7 @@ class OfferSchedule < ActiveRecord::Base
   belongs_to :resource_offer
 
   after_save :update_handler
+  after_destroy :update_handler
 
   def generate_working_schedule(start_time_in, end_time_in)
     toRtn = {:capacity_intervals => [], :price_intervals => []}

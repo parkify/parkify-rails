@@ -54,7 +54,7 @@ class Image < ActiveRecord::Base
   private
     def update_handler
       if self.imageable_type == "ResourceOffer"
-        ApplicationController::resource_offer_handler().update_resource_info([self.imageable_id])
+        ApplicationController::update_resource_info([self.imageable_id])
       end
     end
 end

@@ -214,7 +214,7 @@ class ResourceOffer < ActiveRecord::Base
   private
     def update_handler
       logger.info "In update_handler of ResourceOffer"
-      ApplicationController::resource_offer_handler().update_resource_info([self.id])
+      ApplicationController::update_resource_info([self.id])
     end
 
 end

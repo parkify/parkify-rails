@@ -6,6 +6,6 @@ class QuickProperty < ActiveRecord::Base
 
   private
     def update_handler
-      ApplicationController::resource_offer_handler().update_resource_info([self.resource_offer_id])
+      ApplicationController::update_resource_info([self.resource_offer_id])
     end
 end

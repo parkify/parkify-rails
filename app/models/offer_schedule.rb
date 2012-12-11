@@ -98,7 +98,7 @@ class OfferSchedule < ActiveRecord::Base
 
 private
     def update_handler
-      ApplicationController::resource_offer_handler().update_resource_availability([self.resource_offer_id])
+      ApplicationController::update_resource_availability([self.resource_offer_id])
     end
 
 end

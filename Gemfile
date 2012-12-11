@@ -11,6 +11,7 @@ group :development, :test do
   gem 'hpricot'
   gem 'ruby_parser'
   gem "factory_girl_rails", "~> 4.0"
+  gem 'heroku_san'
   #gem 'web-app-theme'
 end
 
@@ -23,7 +24,7 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-#Temporarily removed while rubygems.com's Dependency API is down.
+#Temporarily removed while rubygems.coms Dependency API is down.
 #gem 'jquery-rails', '2.0.0'
 
 gem 'devise'

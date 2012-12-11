@@ -68,6 +68,7 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -86,6 +87,11 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
+    heroku-api (0.3.7)
+      excon (~> 0.16.10)
+    heroku_san (4.0.7)
+      heroku-api (>= 0.1.2)
+      rake
     hike (1.2.1)
     hpricot (0.8.6)
     httparty (0.9.0)
@@ -258,6 +264,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   haml
   haml-rails
+  heroku_san
   hpricot
   nokogiri
   ohm

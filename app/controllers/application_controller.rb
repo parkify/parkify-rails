@@ -7,4 +7,16 @@ class ApplicationController < ActionController::Base
     RESOURCE_OFFER_HANDLER
   end
 
+  def self.update_resource_info(spots)
+    if RESOURCE_OFFER_HANDLER
+      resource_offer_handler().update_resource_info(spots)
+    end
+  end
+
+  def self.update_resource_availability(spots)
+    if RESOURCE_OFFER_HANDLER
+      resource_offer_handler().update_resource_availability(spots)
+    end
+  end
+
 end
