@@ -10,7 +10,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     
    
     
-    toPresent = @parking_spots.map { |k,v| {:spots => v.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})}
+    toPresent = @parking_spots.map { |k,v| {:spots => v.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})}}
     toPresent[:success] = "true"
     toPresent[:level_of_detail] =  params[:level_of_detail]
     
