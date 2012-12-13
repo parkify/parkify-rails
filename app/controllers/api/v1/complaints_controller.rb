@@ -49,7 +49,7 @@ class Api::V1::ComplaintsController < ApplicationController
     respond_to do |format|
       if @complaint.save
         if(resource)
-          if (params[:shouldCancel])
+          if (params[:shouldCancel] == "1")
             resource.active=false
           end
           UserMailer.trouble_with_spot_email(resource, @complaint, current_user, params[:shouldCancel]).deliver
