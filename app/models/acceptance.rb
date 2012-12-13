@@ -135,14 +135,19 @@ def validate_and_charge()
   end
   def refund_payment
     if(self.stripe_charge_id)
-      paymentInfo = Payment::refund(self.stripe_charge_id)
-      if(paymentInfo)
+      charge = Payment::refund(self.stripe_charge_id)
+      if(charge.failure_message.nil?)
+        self.status = "CC refunded" 
+        self.save
         return "Credited $"+self.amount_charged.to_s()+" back to account"
       else
+        p charge.failure_message
         return "Error processing refund please contact"
       end
     else
-      p 'adding back to credits'
+      self.status = "Credits refunded" 
+      self.save
+
       user = User.find(self.user_id)
       user.credit = user.credit + self.amount_charged
       user.save
