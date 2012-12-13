@@ -5,7 +5,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
   #before_filter :authenticate_user!
   
   def index
-    @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:all=>true})
+    @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
     respond_to do |format|
@@ -24,19 +24,11 @@ class Api::V1::ParkingSpotsController < ApplicationController
     @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
-    toSend = @parking_spot.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
-
-    p "TESTING"
-    p params
-    p @parking_spot.resource.location_address
-    p toSend
-
-    p "CONTINUING TESTING"
-    p RESOURCE_OFFER_HANDLER.message
+    spot_json = @parking_spot.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: {:success => "true", :spot => toSend, :count => "one", :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:success => "true", :spot => spot_json, :count => "one", :level_of_detail => params[:level_of_detail]} }
     end
   end
 

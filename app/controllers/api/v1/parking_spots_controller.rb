@@ -10,7 +10,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:success => "true", :spots => @parking_spots.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter}), :level_of_detail => params[:level_of_detail]} }
+      format.json { render json: {:success => "true", :spots => @parking_spots.map { |e| {:id => e} }.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter}), :level_of_detail => params[:level_of_detail]} }
     end
   end
 
