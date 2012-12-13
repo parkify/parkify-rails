@@ -9,8 +9,8 @@ class Api::V1::ParkingSpotsController < ApplicationController
     presenter = Api::V1::ResourceOfferContainersPresenter.new
 
     toPresent = @parking_spots.map { |e| {:spots => e} }.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
-    toPresent[:success] => "true"
-    toPresent[:level_of_detail] =>  params[:level_of_detail]
+    toPresent[:success] = "true"
+    toPresent[:level_of_detail] =  params[:level_of_detail]
     
     respond_to do |format|
       format.html # index.html.erb

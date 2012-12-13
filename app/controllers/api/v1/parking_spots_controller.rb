@@ -7,8 +7,10 @@ class Api::V1::ParkingSpotsController < ApplicationController
   def index
     @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
     presenter = Api::V1::ResourceOfferContainersPresenter.new
-
-    toPresent = @parking_spots.map { |e| {:spots => e} }.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
+    
+   
+    
+    toPresent = @parking_spots.map { |k,v| {:spots => v} }.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
     toPresent[:success] = "true"
     toPresent[:level_of_detail] =  params[:level_of_detail]
     
