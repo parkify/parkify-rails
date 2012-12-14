@@ -110,6 +110,7 @@ ParkifyRails::Application.routes.draw do
         resource :device_users
         resource :complaints
         resources :resources, :controller => "parking_spots", :only => [:index, :show]
+        resource :app_transactions
         resources :acceptances, :controller => "app_transactions", :only => [:create] do
           post 'preview', :on => :collection
         end

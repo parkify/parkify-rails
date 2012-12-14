@@ -9,22 +9,41 @@ class Api::V1::AppTransactionsController < ApplicationController
    
   
   def index
-    @transactions = Transaction.all
+    p 'idnex'
+    @acceptances = []
+    if(current_user)
+      @acceptances = Acceptance.where("userid=? and (status=? or status = ?) and end_time> ?", current_user.id, "successfully paid", "payment pending", Time.now())
+    end
+    p "acceptances are "
+    p @acceptances.as_json()
+#respond_to do |format|
+#format.html # index.html.erb
+#@transactions = Transaction.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @transactions }
+      format.json { render json: @acceptances.as_json() }
     end
   end
 
   # GET /transactions/1
   # GET /transactions/1.json
   def show
-    @transaction = Transaction.find(params[:id])
+    p 'show?'
+    @acceptances = []
+    if(current_user)
+      if(params[:id])
+        @acceptance = Acceptance.find(params[:id])
+      else
+        @acceptances = Acceptance.where("user_id=? and (status=? or status = ?) and end_time> ?", current_user.id, "successfully paid", "payment pending", Time.now())
+      end
+    end
+    p "acceptances are "
+    p @acceptances.as_json()
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @transaction }
+      format.json { render json: @acceptances.as_json() }
     end
   end
 
