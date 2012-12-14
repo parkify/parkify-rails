@@ -166,9 +166,7 @@ class User < ActiveRecord::Base
         return false
       end
       
-      if(!self.save())
-        return false
-      end
+      return false unless save()
       
       self.promos << promo
       
@@ -182,6 +180,8 @@ class User < ActiveRecord::Base
       if(promo.of_type?('once'))
         promo.perform_action(self)
       end
+      return false unless save()
+
       return promo_user
       
     else

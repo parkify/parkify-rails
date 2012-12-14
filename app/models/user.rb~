@@ -109,7 +109,8 @@ class User < ActiveRecord::Base
       else
         self.cards.create(:customer_id => customer.id, :active_customer => false, :last4 => customer.active_card.last4)
       end
-      
+      return false unless save()
+
       return true
       
     else
