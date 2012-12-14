@@ -1,4 +1,4 @@
-class Api::V1::RegistrationsController < ApplicationController
+class Api::V2::RegistrationsController < ApplicationController
   
   respond_to :json
   
@@ -12,7 +12,7 @@ class Api::V1::RegistrationsController < ApplicationController
       #Return the results
       lpn = @user.cars.first.license_plate_number
       last_four_digits = Stripe::Customer.retrieve(@user.cards[0].customer_id).active_card.last4
-      render :json=> {:success=>true, :user=>@user.as_json({:presenter=>Api::V1::UsersPresenter.new}), :auth_token=>@user.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }, :status=>201
+      render :json=> {:success=>true, :user=>@user.as_json({:presenter=>Api::V2::UsersPresenter.new}), :auth_token=>@user.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }, :status=>201
       #render :json=>{:success=>true, :auth_token=>@user.authentication_token, :user=>@user.email}
       return
     else

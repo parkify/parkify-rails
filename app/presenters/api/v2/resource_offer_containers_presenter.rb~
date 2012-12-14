@@ -1,4 +1,4 @@
-class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
+class Api::V1::ResourceOfferContainersPresenter < Api::V1::ApplicationPresenter
   
   def as_json(roc, options={})
     # Check Availability

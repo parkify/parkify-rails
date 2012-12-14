@@ -1,4 +1,4 @@
-class Api::V2::ParkingSpotsController < ApplicationController
+class Api::V1::ParkingSpotsController < ApplicationController
   # GET /parking_spots
   # GET /parking_spots.json
   
@@ -6,7 +6,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
   
   def index
     @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
-    presenter = Api::V2::ResourceOfferContainersPresenter.new
+    presenter = Api::V1::ResourceOfferContainersPresenter.new
     
    
    
@@ -26,7 +26,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
     #end fix
 
     @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
-    presenter = Api::V2::ResourceOfferContainersPresenter.new
+    presenter = Api::V1::ResourceOfferContainersPresenter.new
     
     spot_json = @parking_spot.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
 
