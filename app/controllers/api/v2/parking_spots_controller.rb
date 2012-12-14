@@ -8,13 +8,11 @@ class Api::V2::ParkingSpotsController < ApplicationController
     @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
     presenter = Api::V2::ResourceOfferContainersPresenter.new
     
-   
-   
-    spotsAsJSON = @parking_spots.map { |k,v| v.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})}
+  
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => spotsAsJSON, :success => true, :level_of_detail => params[:level_of_detail]}}
+      format.json { render json: {:spots => @parking_spots.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter}), :success => true, :level_of_detail => params[:level_of_detail]}}
     end
   end
 
