@@ -1,4 +1,4 @@
-class Api::V2::AppTransactionsController < ApplicationController
+class Api::V1::AppTransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   
@@ -46,32 +46,47 @@ class Api::V2::AppTransactionsController < ApplicationController
 
   # POST /transactions
   # POST /transactions.json
-  def create
+  def create(options={})
+    build_no_db(params[:transaction])
+    p @acceptance
+    if(options[:extend])
+      userid = current_user.id
+      acceptanceid = options[:acceptanceid]
+      thisaccept=Acceptance.find(acceptanceid)
+      p "checking an extend"
+      if(thisaccept != nil || thisaccept.user_id!=userid)
+            @acceptance.errors.add(:spot, "not available at this time")
+            @acceptance.status = "failed"
+      end 
+    end
     
-    @acceptance = Acceptance.build_from_api(params[:transaction])
+    if(!RESOURCE_OFFER_HANDLER.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
+      @acceptance.errors.add(:spot, "not available at this time")
+      @acceptance.status = "failed"
+    end
+
     respond_to do |format|
-      if @acceptance != nil and @acceptance.save
-        if(@acceptance.add_offers_and_charge_from_api(params[:transaction]) and @acceptance.save!)
-          format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
-          format.json { render json: {:acceptance => @acceptance, :success=>true}, status: :created, location: @acceptance, }
-        else
-          format.html { render action: "new" }
-          puts @acceptance.status
-            format.json { render json: {:error=>@acceptance.errors}, status: :unprocessable_entity }
-        end
+      if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge() and @acceptance.save
+        format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
+        format.json { render json: {:acceptance => @acceptance.as_json({:only => [:id, :details]}), :success=>true}, status: :created, location: @acceptance, }
       else
         format.html { render action: "new" }
-        puts @acceptance.status
-          format.json { render json: {:error=>@acceptance.errors}, status: :unprocessable_entity }
+        format.json { render json: {:success => false, :error=>@acceptance.errors}}
       end
     end
   end
   
   
   def preview
-    
-    @acceptance = Acceptance.build_from_api(params[:transaction])
-    toSend = @acceptance.check_price_from_api(params[:transaction])
+    build_no_db(params[:transaction])
+
+    p @acceptance
+    if(@acceptance.status == "failed")
+      toSend = {:success => false, :price_string => @acceptance.errors.full_messages().first}
+    else
+      toSend = @acceptance.check_price(RESOURCE_OFFER_HANDLER)
+    end
+
     respond_to do |format|
       if(toSend)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
@@ -83,6 +98,27 @@ class Api::V2::AppTransactionsController < ApplicationController
     end
   end
   
+  def build_no_db(params)
+    params = JSON.parse(params)
+
+    @acceptance = Acceptance.new({
+      :status => "pending",
+      :user_id => current_user.id,
+      :start_time => Time.at(params["start_time"].to_f()),
+      :end_time => Time.at(params["end_time"].to_f()),
+    })
+
+    if (params["end_time"] < params["start_time"] )
+      @acceptance.errors.add(:reservation, "has invalid time")
+      @acceptance.status = "failed"
+    elsif (params["offer_ids"].length != 1)
+      @acceptance.errors.add(:spot, "not available at this time")
+      @acceptance.status = "failed"
+    else
+      @acceptance.resource_offer_id = params["offer_ids"][0].to_i
+    end
+
+  end
 
   # PUT /transactions/1
   # PUT /transactions/1.json

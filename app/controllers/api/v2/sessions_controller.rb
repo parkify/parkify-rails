@@ -1,4 +1,4 @@
-class Api::V2::SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
   #before_filter :authenticate_user!, :except => [:create, :destroy]
   before_filter :ensure_params_exist
   respond_to :json
@@ -13,8 +13,8 @@ class Api::V2::SessionsController < ApplicationController
       @user = resource
       resource.ensure_authentication_token!
       lpn = @user.cars.first.license_plate_number
-      last_four_digits = Stripe::Customer.retrieve(@user.stripe_customer_ids[0].customer_id).active_card.last4
-      render :json=> {:success=>true, :user=>@user.as_json(), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }
+      last_four_digits = @user.active_card.last4
+      render :json=> {:success=>true, :user=>@user.as_json({:presenter=>Api::V1::UsersPresenter.new}), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }
       return
     end
     invalid_login_attempt
