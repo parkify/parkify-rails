@@ -2,7 +2,7 @@ config = YAML::load(File.open("#{Rails.root}/config/redis.yml"))[Rails.env]
 
 Resque.redis = Redis.new(:host => config['host'], :port => config['port'])
 
-Ohm.connect({:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true})
+Ohm.connect({:host => config['host'], :port => config['port'], :password => config['password'], :thread_safe => true})
 
 
 
