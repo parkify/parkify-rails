@@ -1,0 +1,18 @@
+# Currently unused. Will be used once I better define our environments.p
+
+defaults: &defaults
+  host: localhost
+  port: 6379
+
+development:
+  <<: *defaults 
+
+#"redis://redistogo:b78903562b573eca1f7245bfd29a8986@spadefish.redistogo.com:9247/"
+staging:
+  host: 'b78903562b573eca1f7245bfd29a8986@spadefish.redistogo.com'
+  port: 9247
+  password: 'redistogo'
+  thread_safe: true
+	
+production:
+  <<: *defaults
