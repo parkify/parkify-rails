@@ -18,8 +18,8 @@ staging:
 #"redis://redistogo:b78903562b573eca1f7245bfd29a8986@spadefish.redistogo.com:9247/"
 production:
   <<: *defaults 
-  #host: '4c72d254881eb818aa62d5c02ca36128@spadefish.redistogo.com'
-  #port: 9362
-  #password: 'redistogo'
-  #thread_safe: true
+  host: '4c72d254881eb818aa62d5c02ca36128@spadefish.redistogo.com'
+  port: 9362
+  password: 'redistogo'
+  thread_safe: true
 
