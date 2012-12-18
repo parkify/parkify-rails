@@ -16,4 +16,4 @@
 
 # Ignore the sensitive environment setup config file
 /config/heroku_env.rb
-
+*~
