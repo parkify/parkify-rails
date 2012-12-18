@@ -40,14 +40,19 @@ class Api::V1::DevicesController < ApplicationController
   # POST /devices
   # POST /devices.json
   def create(options={})
-    isNew=false
     @device = Device.where("device_uid=?", params[:device_uid]).first
+    isNew=false
     if (!@device)
-      isNew=true
       @device = Device.new(:device_uid=>params[:device_uid], :push_token_id=> params[:push_token_id], :last_used_at =>Time.now(), :created=>Time.now(), :updated_at=>Time.now())
+      isNew=true
     end
+    reservationused=@device.reservationused
+#isNew=false
     @device.push_token_id = params[:push_token_id]
     @device.device_type = params[:devicetype]
+    if (params[:reservationUsed])
+      @device.reservationused= params[:reservationUsed]
+    end
     if (current_user)
       userid = current_user.id
       p 'user logged in'
@@ -66,7 +71,7 @@ class Api::V1::DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
-        format.json {render json: {:isNew=>isNew, :success=>true, :device=>@device.as_json()}, status: :created}
+        format.json {render json: {:isNew=>isNew, :success=>true, :device=>@device.as_json(), :reservationUsed=>reservationused}, status: :created}
 #format.json { render json: @device, status: :created, isNew: isNew, location: @device }
       else
         format.html { render action: "new" }
