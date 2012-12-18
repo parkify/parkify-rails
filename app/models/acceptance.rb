@@ -196,7 +196,7 @@ def validate_and_charge()
     end_time_to_generate = [end_time_in, self.end_time].min
 
     if (end_time_to_generate > start_time_to_generate)
-        toRtn[:capacity_intervals] << CapacityInterval.make(start_time_to_generate, end_time_to_generate, 0)
+        toRtn[:capacity_intervals] << CapacityInterval.new(start_time_to_generate, end_time_to_generate, 0)
     end
 
     return toRtn
