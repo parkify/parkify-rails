@@ -166,11 +166,27 @@ class ResourceOfferContainer
 
   def self.from_hash(h)
     toRtn = new(ResourceOffer.new(h["resource"]), {:no_update => true})
-    toRtn.price_intervals = h["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
-    toRtn.capacity_intervals = h["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
 
-    toRtn.totalprice_interval = h["totalprice_interval"].map{|interval| PriceInterval.from_hash(interval)}
-    toRtn.capacity_intervals = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
+    toRtn.price_intervals = []
+    if h["price_intervals"]
+      toRtn.price_intervals = h["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
+    end
+
+    toRtn.capacity_intervals = []
+    if h["capacity_intervals"]
+      toRtn.capacity_intervals = h["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
+    end
+
+    toRtn.totalprice_interval = []
+    if h["totalprice_interval"]
+      toRtn.totalprice_interval = h["totalprice_interval"].map{|interval| PriceInterval.from_hash(interval)}
+    end
+
+    toRtn.capacity_intervals = []
+    if h["totalcapacity_interval"]
+      toRtn.capacity_intervals = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
+    end
+
     return toRtn
   end
 
