@@ -166,6 +166,9 @@ class ResourceOfferContainer
   end
 
   def self.from_hash(h)
+    if(! h["resource"])
+      p h
+    end
     resource = ResourceOffer.new(h["resource"])
     resource.id = h["resource"]["id"]
     toRtn = new(resource, {:no_update => true})
