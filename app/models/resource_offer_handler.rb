@@ -89,9 +89,16 @@ class ResourceOfferHandler < Ohm::Model
     if from_redis && self.updated_at < from_redis.updated_at
       self.load!
       self.resources = {}
-      ActiveSupport::JSON.decode(self.resources_ohm).map.each {|k,v| self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
+      ActiveSupport::JSON.decode(self.resources_ohm).each do |k,v|
+        if v and !v.empty?
+          self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) 
+        else
+          p ["trying to assign empty resource:", k]
+        end
+      end
+ 
       self.activeresources = {}
-      ActiveSupport::JSON.decode(self.activeresources_ohm).map.each {|k,v| self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
+      ActiveSupport::JSON.decode(self.activeresources_ohm).each {|k,v| self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
     end
   end
   
