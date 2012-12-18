@@ -55,3 +55,14 @@ production:
   timeout: 5000
   username: parkify
   password: parkify
+
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: pr_production
+  host: localhost
+  pool: 5
+  timeout: 5000
+  username: parkify
+  password: parkify
