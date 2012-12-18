@@ -56,7 +56,6 @@ production:
   username: parkify
   password: parkify
 
-
 staging:
   adapter: postgresql
   encoding: unicode

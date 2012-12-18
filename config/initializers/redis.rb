@@ -1,4 +1,8 @@
-config = YAML::load(File.open("#{Rails.root}/config/redis.yml"))[Rails.env]
+redis_env = (ENV["STAGING_SERVER"] == "#{true}") ? "staging" : Rails.env
+
+
+config = YAML::load(File.open("#{Rails.root}/config/redis.yml"))[redis_env]
+
 
 Resque.redis = Redis.new(:host => config['host'], :port => config['port'])
 
