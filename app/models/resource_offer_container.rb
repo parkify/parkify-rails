@@ -4,6 +4,7 @@ class ResourceOfferContainer
   attr_accessor :capacity_intervals
   attr_accessor :totalprice_interval
   attr_accessor :totalcapacity_interval
+
   def initialize(resource, options={})
     @resource = resource
     @price_intervals = []
@@ -165,8 +166,10 @@ class ResourceOfferContainer
   end
 
   def self.from_hash(h)
-    toRtn = new(ResourceOffer.new(h["resource"]), {:no_update => true})
-
+    resource = ResourceOffer.new(h["resource"])
+    resource.id = h["resource"]["id"]
+    toRtn = new(resource, {:no_update => true})
+    
     toRtn.price_intervals = []
     if h["price_intervals"]
       toRtn.price_intervals = h["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
