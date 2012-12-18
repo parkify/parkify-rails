@@ -89,9 +89,9 @@ class ResourceOfferHandler < Ohm::Model
     if from_redis && self.updated_at < from_redis.updated_at
       self.load!
       self.resources = {}
-      ActiveSupport::JSON.decode(self.resources_ohm).map.each {|k,v| self.resources[k.to_i] = ResourceOfferContainer.from_hash(v)}
+      ActiveSupport::JSON.decode(self.resources_ohm).map.each {|k,v| self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
       self.activeresources = {}
-      ActiveSupport::JSON.decode(self.activeresources_ohm).map.each {|k,v| self.activeresources[k] = ResourceOfferContainer.from_hash(v)}
+      ActiveSupport::JSON.decode(self.activeresources_ohm).map.each {|k,v| self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
     end
   end
   
