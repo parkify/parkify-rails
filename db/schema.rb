@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121154325) do
+ActiveRecord::Schema.define(:version => 20121217193044) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
@@ -98,12 +98,13 @@ ActiveRecord::Schema.define(:version => 20121121154325) do
   end
 
   create_table "devices", :force => true do |t|
-    t.string   "device_uid",    :default => "", :null => false
-    t.string   "push_token_id", :default => "", :null => false
-    t.string   "device_type",   :default => "", :null => false
-    t.datetime "last_used_at",                  :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.string   "device_uid",      :default => "",    :null => false
+    t.string   "push_token_id",   :default => "",    :null => false
+    t.string   "device_type",     :default => "",    :null => false
+    t.datetime "last_used_at",                       :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "reservationused", :default => false
   end
 
   create_table "images", :force => true do |t|

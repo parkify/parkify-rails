@@ -76,13 +76,15 @@ class Acceptance < ActiveRecord::Base
       offer.capacity_list.add_if_can!(interval)
       return false
     else
-      self.status = "successfully paid"
+      self.status = self.status_codes()["1"] 
       UserMailer.payment_succeeded_email(self.user, self).deliver
       return true
     end
   end
 
-
+  def self.status_codes()
+    return Hash["1"=>"successfully paid", "2"=>"not successfully paid", "3"=>"invalid user", "4"=>"invalid spot", "5"=>"scheduling failed", "6"=>"payment pending", "7"=>"not successfully paid"]
+  end
 def validate_and_charge()
     
     if(!self.user)
