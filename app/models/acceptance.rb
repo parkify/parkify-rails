@@ -54,7 +54,6 @@ class Acceptance < ActiveRecord::Base
     
     amountToCharge = 0.0
 
-    
 
     interval = CapacityInterval.new({:start_time => self.start_time, :end_time => self.end_time, :capacity => 1})
     if(!resource_offer.add_if_can!(interval))
@@ -197,7 +196,7 @@ def validate_and_charge()
     end_time_to_generate = [end_time_in, self.end_time].min
 
     if (end_time_to_generate > start_time_to_generate)
-        toRtn[:capacity_intervals] << CapacityInterval.new(start_time_to_generate, end_time_to_generate, 0)
+        toRtn[:capacity_intervals] << CapacityInterval.make(start_time_to_generate, end_time_to_generate, 0)
     end
 
     return toRtn

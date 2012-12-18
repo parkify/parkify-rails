@@ -1,29 +1,39 @@
-class CapacityIntervalOld < ActiveRecord::Base
-  attr_accessible :capacity, :resource_offer_id, :end_time, :start_time
-  
-  belongs_to :resource_offer
-  
+class CapacityInterval < ValuedInterval
+  attr_accessor :capacity
+
+  def initialize(start_time, end_time, capacity)
+    self.start_time = start_time
+    self.end_time = end_time
+    self.capacity = capacity
+  end
+
   def contains(time)
-    return time >= start_time && time <= end_time
+    return time >= self.start_time && time <= self.end_time
   end
   
   def to_s()
-    return "capacity:#{capacity} (from #{start_time} to #{end_time})"
+    return "capacity:#{self.capacity} (from #{self.start_time} to #{self.end_time})"
   end
-  
-  # Check if a given interval overlaps this interval    
-  #def overlaps?(other)
-  #  (start_time - other.end_time) * (other.start_time - end_time) >= 0
-  #end
 
-  # Return a scope for all interval overlapping the given interval, including the given interval itself
-  #scope :overlapping, lambda { |interval| {
-  #  #:conditions => ["(DATEDIFF(start_time, ?) * DATEDIFF(?, end_date)) >= 0", interval.end_date, interval.start_date]
-  #  :conditions => ["((start_time, end_time)OVERLAPS(?,?) AND NOT(start_time >= ? OR end_time <= ?))", interval.start_time, interval.end_time, interval.end_time, interval.start_time]
-  #}}
-  
-  scope :overlapping, lambda { |interval|
-    where(["((CAST(start_time AS TIMESTAMP), CAST(end_time AS TIMESTAMP))OVERLAPS(CAST(? AS TIMESTAMP),CAST(? AS TIMESTAMP)) AND NOT(CAST(start_time AS TIMESTAMP) >= CAST(? AS TIMESTAMP) OR CAST(end_time AS TIMESTAMP) <= CAST(? AS TIMESTAMP)))", interval.start_time, interval.end_time, interval.end_time, interval.start_time])
-  }
+  def dp
+    p [self.start_time, self.end_time, self.capacity]
+  end
 
+  def as_json(options={})
+    {
+      :start_time => "#{self.start_time.to_f}",
+      :end_time => "#{self.end_time.to_f}",
+      :capacity => self.capacity
+    }
+  end
+
+  def self.from_hash(h)
+    if(h && h["start_time"] && h["end_time"] && h["capacity"])
+      new(Time.parse(h["start_time"]),Time.parse(h["end_time"]),h["capacity"])
+    else
+      nil
+    end
+  end
+
+  include PresentationMethods
 end

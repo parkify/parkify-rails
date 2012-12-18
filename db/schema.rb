@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20121121154325) do
     t.integer  "user_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.boolean  "active_car",                           :null => false
+    t.boolean  "active_car"
   end
 
   create_table "codes", :force => true do |t|
@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(:version => 20121121154325) do
     t.string   "username"
     t.integer  "item"
     t.string   "table"
-    t.integer  "month"
+    t.integer  "month",      :limit => 2
     t.integer  "year",       :limit => 8
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false

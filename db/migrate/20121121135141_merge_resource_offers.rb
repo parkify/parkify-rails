@@ -1,5 +1,10 @@
 class MergeResourceOffers < ActiveRecord::Migration
-  
+  class Location < ActiveRecord::Base
+    # Dummy class to connect to db
+  end
+  class Resource < ActiveRecord::Base
+    # Dummy class to connect to db
+  end
   
 
   def up
@@ -39,9 +44,9 @@ class MergeResourceOffers < ActiveRecord::Migration
   def updateResourceOffer()
 
     ResourceOffer.reset_column_information
-    Location.reset_column_information
     Image.reset_column_information
     Acceptance.reset_column_information
+    Location.reset_column_information 
 
     permanentSpots = [13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30] #spots that are up 24/7
 

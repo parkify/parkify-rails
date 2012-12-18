@@ -273,6 +273,7 @@ DEPENDENCIES
   rails (= 3.2.7rc1)
   rails_admin
   resque
+  rest-client (~> 1.6.7)
   rmagick (= 2.12.0)
   rspec-rails
   ruby_parser

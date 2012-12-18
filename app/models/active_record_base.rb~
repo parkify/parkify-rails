@@ -1,9 +1,0 @@
-class AppRecord < ActiveRecord::Base
-  def as_json(options={})
-    if(options[:presenter])
-      return options[:presenter].as_json(self, options)
-    else
-      return super
-    end
-  end
-end

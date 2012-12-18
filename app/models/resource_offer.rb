@@ -1,6 +1,10 @@
 class ResourceOffer < ActiveRecord::Base
 
-  attr_accessible :active, :description, :offer_schedules, :offer_schedule_exceptions, :sign_id, :title, :user_id, :images, :location, :price_intervals, :capacity_intervals
+  attr_accessible :active, :description, :offer_schedules, :offer_schedule_exceptions
+  attr_accessible :sign_id, :title, :user_id, :images, :location, :price_intervals
+  attr_accessible :capacity_intervals, :created_at, :directions, :id, :latitude
+  attr_accessible :location_address, :longitude, :plain_directions, :updated_at
+  attr_accessible :location_name
 
   has_many :images, :as => :imageable
 
