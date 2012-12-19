@@ -47,7 +47,6 @@ class ResourceOfferHandler < Ohm::Model
       theSingleton = fromRedis.first
     else
       theSingleton.is_singleton = "true"
-      theSingleton.save
     end
     theSingleton.resources = {}
     theSingleton.activeresources = {}
@@ -57,6 +56,7 @@ class ResourceOfferHandler < Ohm::Model
         theSingleton.activeresources[ro.id] = theSingleton.resources[ro.id]
       end
     end
+    theSingleton.save!
 
     theSingleton
   end
@@ -81,6 +81,7 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_availability()
       end
     end
+
     self.save!
   end
 
@@ -100,6 +101,7 @@ class ResourceOfferHandler < Ohm::Model
       end
 
       if printdebug
+        p self.resources_ohm
         p ActiveSupport::JSON.decode(self.resources_ohm)
       end
  
