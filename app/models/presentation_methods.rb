@@ -1,3 +1,4 @@
+
 module PresentationMethods
 
   # Overwrite as_json to allow presenters.
@@ -13,6 +14,7 @@ module PresentationMethods
       return {}
     end
   end
+
 
 end
 

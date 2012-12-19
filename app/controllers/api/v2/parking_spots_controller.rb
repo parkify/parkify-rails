@@ -14,7 +14,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => @parking_spots, :success => true, :level_of_detail => params[:level_of_detail]}}
+      format.json { render json: {:spots => spotsAsHash, :success => true, :level_of_detail => params[:level_of_detail]}}
     end
   end
 
@@ -28,7 +28,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
     @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
     presenter = Api::V2::ResourceOfferContainersPresenter.new
     
-    spot_json = presenter.as_json(@parking_spots, {:level_of_detail => params[:level_of_detail]})
+    spot_json = presenter.as_json(@parking_spot, {:level_of_detail => params[:level_of_detail]})
 
     respond_to do |format|
       format.html # show.html.erb
