@@ -60,7 +60,7 @@ class Api::V1::ResourceOfferContainersPresenter < Api::V1::ApplicationPresenter
       :start_time => "#{start_time.to_f}",
       :end_time => "#{end_time.to_f}",
       :price_plan => {
-        :price_list => roc.price_intervals.as_json
+        :price_list => roc.price_intervals.map{|e| self.price_interval_as_json(e)}
       }
     }
   end
@@ -77,5 +77,15 @@ class Api::V1::ResourceOfferContainersPresenter < Api::V1::ApplicationPresenter
     end
     result
   end
+
+  def price_interval_as_json(p)
+    {
+      :start_time => "#{p.start_time.to_f}",
+      :end_time => "#{p.end_time.to_f}",
+      :price_per_hour => p.price
+    }
+  end
+
+  
   
 end

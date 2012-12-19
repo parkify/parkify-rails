@@ -61,12 +61,12 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       :start_time => "#{start_time.to_f}",
       :end_time => "#{end_time.to_f}",
       :price_plan => {
-        :price_list => roc.price_intervals.as_json
+        :price_list => roc.price_intervals.map{|e| self.price_interval_as_json(e)}
       }
     }
   end
 
-  def quick_properties_as_json(roc)
+   def quick_properties_as_json(roc)
     result = {}
     roc.resource.quick_properties.each do |p|
       if(p.key == nil) or (p.value == nil)
@@ -77,6 +77,14 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       result[key] = value
     end
     result
+  end
+
+  def price_interval_as_json(p)
+    {
+      :start_time => "#{p.start_time.to_f}",
+      :end_time => "#{p.end_time.to_f}",
+      :price_per_hour => p.price
+    }
   end
   
 end
