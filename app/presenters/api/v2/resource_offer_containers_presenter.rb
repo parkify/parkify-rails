@@ -61,7 +61,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       :start_time => "#{start_time.to_f}",
       :end_time => "#{end_time.to_f}",
       :price_plan => {
-        :price_list => roc.price_intervals.map{|e| self.price_interval_as_json(e)}
+        :price_list => roc.price_intervals.map{|e| !e ? db(roc) : self.price_interval_as_json(e)}
       }
     }
   end
@@ -86,5 +86,11 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       :price_per_hour => p.price
     }
   end
-  
+
+  def db(roc)
+    p ["nil price interval in resource_offer_container, ", roc]
+    nil
+  end  
+
+
 end
