@@ -7,14 +7,14 @@ class ValuedInterval
     @start_time_fl = t.to_f
   end
   def start_time
-    Time.at(@start_time)
+    Time.at(@start_time_fl)
   end
   
   def end_time=(t)
     @end_time_fl = t.to_f
   end
   def end_time
-    Time.at(@end_time)
+    Time.at(@end_time_fl)
   end
 
   def initialize(start_time, end_time)
