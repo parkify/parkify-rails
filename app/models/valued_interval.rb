@@ -17,13 +17,9 @@ class ValuedInterval
     Time.at(@end_time)
   end
 
-
-  attr_accessor :start_time
-  attr_accessor :end_time
-
   def initialize(start_time, end_time)
-    @start_time_fl = start_time.to_f
-    @end_time_fl = end_time.to_f
+    self.start_time = start_time
+    self.end_time = end_time
   end
 
   def overlapping?(x)
@@ -64,7 +60,8 @@ class ValuedInterval
   def self.from_hash(h)
     if(h && h["start_time"] && h["end_time"])
       new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f))
-    else
+    else  
+      p ["bad hash in ValuedInterval::from_hash, ", h]
       nil
     end
   end

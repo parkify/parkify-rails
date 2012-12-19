@@ -2,9 +2,9 @@ class CapacityInterval < ValuedInterval
   attr_accessor :capacity
 
   def initialize(start_time, end_time, capacity)
-    @start_time_fl = start_time.to_f
-    @end_time_fl = end_time.to_f
-    @capacity = capacity
+    self.start_time = start_time
+    self.end_time = end_time
+    self.capacity = capacity
   end
 
   def contains(time)
@@ -31,6 +31,7 @@ class CapacityInterval < ValuedInterval
     if(h && h["start_time"] && h["end_time"] && h["capacity"])
       new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f),h["capacity"])
     else
+      p ["bad hash in CapacityInterval::from_hash, ", h]
       nil
     end
   end
