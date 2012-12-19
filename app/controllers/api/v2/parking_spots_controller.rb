@@ -26,6 +26,10 @@ class Api::V2::ParkingSpotsController < ApplicationController
     #end fix
 
     @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
+    if !@parking_spot
+      p ["this spot is nil.", RESOUCE_OFFER_HANDLER]
+    end
+
     presenter = Api::V2::ResourceOfferContainersPresenter.new
     
     spot_json = presenter.as_json(@parking_spot, {:level_of_detail => params[:level_of_detail]})
