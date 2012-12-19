@@ -66,7 +66,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
     }
   end
 
-   def quick_properties_as_json(roc)
+  def quick_properties_as_json(roc)
     result = {}
     roc.resource.quick_properties.each do |p|
       if(p.key == nil) or (p.value == nil)

@@ -21,8 +21,8 @@ class PriceInterval < ValuedInterval
   end
 
   def self.from_hash(h)
-    if(h && h["start_time"] && h["end_time"] && h["price"])
-      new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f),h["price"])
+    if(h && h["start_time_fl"] && h["end_time_fl"] && h["price"])
+      new(Time.at(h["start_time_fl"].to_f),Time.at(h["end_time_fl"].to_f),h["price"])
     else
       p ["bad hash in PriceInterval::from_hash, ", h]
       nil

@@ -58,8 +58,8 @@ class ValuedInterval
   end
 
   def self.from_hash(h)
-    if(h && h["start_time"] && h["end_time"])
-      new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f))
+    if(h && h["start_time_fl"] && h["end_time_fl"])
+      new(Time.at(h["start_time_fl"].to_f),Time.at(h["end_time_fl"].to_f))
     else  
       p ["bad hash in ValuedInterval::from_hash, ", h]
       nil

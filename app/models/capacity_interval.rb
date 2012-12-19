@@ -28,8 +28,8 @@ class CapacityInterval < ValuedInterval
   end
 
   def self.from_hash(h)
-    if(h && h["start_time"] && h["end_time"] && h["capacity"])
-      new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f),h["capacity"])
+    if(h && h["start_time_fl"] && h["end_time_fl"] && h["capacity"])
+      new(Time.at(h["start_time_fl"].to_f),Time.at(h["end_time_fl"].to_f),h["capacity"])
     else
       p ["bad hash in CapacityInterval::from_hash, ", h]
       nil

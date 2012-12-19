@@ -159,7 +159,7 @@ class ResourceOfferContainer
       effectiveStartTime = [interval.start_time, start_time].max
       effectiveEndTime = [interval.end_time, end_time].min
       if (effectiveEndTime > effectiveStartTime)
-        toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600;
+        toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600
       end
     end
     return toRtn
