@@ -30,7 +30,7 @@ class PriceInterval < ValuedInterval
 
   def self.from_hash(h)
     if(h && h["start_time"] && h["end_time"] && h["price"])
-      new(Time.parse(h["start_time"]),Time.parse(h["end_time"]),h["price"])
+      new(Time.at(h["start_time"].to_f),Time.at(h["end_time"].to_f),h["price"])
     else
       nil
     end
