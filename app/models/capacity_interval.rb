@@ -2,9 +2,9 @@ class CapacityInterval < ValuedInterval
   attr_accessor :capacity
 
   def initialize(start_time, end_time, capacity)
-    self.start_time = start_time
-    self.end_time = end_time
-    self.capacity = capacity
+    @start_time_fl = start_time.to_f
+    @end_time_fl = end_time.to_f
+    @capacity = capacity
   end
 
   def contains(time)

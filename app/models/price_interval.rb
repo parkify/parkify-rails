@@ -3,9 +3,9 @@ class PriceInterval < ValuedInterval
   attr_accessor :price
 
   def initialize(start_time, end_time, price)
-    self.start_time = start_time
-    self.end_time = end_time
-    self.price = price
+    @start_time_fl = start_time.to_f
+    @end_time_fl = end_time.to_f
+    @price = price
   end
 
   def contains(time)

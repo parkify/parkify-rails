@@ -22,8 +22,8 @@ class ValuedInterval
   attr_accessor :end_time
 
   def initialize(start_time, end_time)
-    @start_time = start_time
-    @end_time = end_time
+    @start_time_fl = start_time.to_f
+    @end_time_fl = end_time.to_f
   end
 
   def overlapping?(x)
