@@ -7,12 +7,14 @@ class Api::V2::ParkingSpotsController < ApplicationController
   def index
     @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
     presenter = Api::V2::ResourceOfferContainersPresenter.new
-    
-  
+
+    spotsAsHash = {}
+
+    @parking_spots.each {|k,v| spotsAsHash[k] = presenter.as_json(v, {:level_of_detail => params[:level_of_detail]})}
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: {:spots => presenter.as_json(@parking_spots, {:level_of_detail => params[:level_of_detail]}), :success => true, :level_of_detail => params[:level_of_detail]}}
+      format.json { render json: {:spots => @parking_spots, :success => true, :level_of_detail => params[:level_of_detail]}}
     end
   end
 
