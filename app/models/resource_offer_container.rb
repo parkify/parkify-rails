@@ -171,7 +171,7 @@ class ResourceOfferContainer
     end
     resource = ResourceOffer.new(h["resource"])
     resource.id = h["resource"]["id"]
-    toRtn = new(resource, {:no_update => true})
+    toRtn = ResourceOfferContainer.new(resource, {:no_update => true})
     
     toRtn.price_intervals = []
     if h["price_intervals"]
