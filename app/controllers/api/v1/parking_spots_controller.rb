@@ -10,7 +10,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     
    
    
-    spotsAsJSON = @parking_spots.map { |k,v| v.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})}
+    spotsAsJSON = @parking_spots.map { |k,v| presenter.as_json(v, {:level_of_detail => params[:level_of_detail]})}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,7 +28,7 @@ class Api::V1::ParkingSpotsController < ApplicationController
     @parking_spot = RESOURCE_OFFER_HANDLER.retrieve_spots({:only=>[params[:id]]}).first
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
-    spot_json = @parking_spot.as_json({:level_of_detail => params[:level_of_detail], :presenter => presenter})
+    spot_json = presenter.as_json(@parking_spot, {:level_of_detail => params[:level_of_detail]})
 
     respond_to do |format|
       format.html # show.html.erb

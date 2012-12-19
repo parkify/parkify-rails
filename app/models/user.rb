@@ -227,5 +227,5 @@ class User < ActiveRecord::Base
   #  result["promos"] = self.promo_users.as_json
   #  result
   #end
-  include PresentationMethods
+  #include PresentationMethods
 end

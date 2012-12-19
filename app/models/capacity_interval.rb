@@ -35,5 +35,5 @@ class CapacityInterval < ValuedInterval
     end
   end
 
-  include PresentationMethods
+  #include PresentationMethods
 end

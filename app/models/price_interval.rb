@@ -36,5 +36,5 @@ class PriceInterval < ValuedInterval
     end
   end
 
-  include PresentationMethods
+  #include PresentationMethods
 end

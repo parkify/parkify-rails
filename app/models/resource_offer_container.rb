@@ -196,5 +196,5 @@ class ResourceOfferContainer
     return toRtn
   end
 
-  include PresentationMethods
+  #include PresentationMethods
 end

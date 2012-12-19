@@ -14,7 +14,7 @@ class Api::V2::SessionsController < ApplicationController
       resource.ensure_authentication_token!
       lpn = @user.cars.first.license_plate_number
       last_four_digits = @user.active_card.last4
-      render :json=> {:success=>true, :user=>@user.as_json({:presenter=>Api::V2::UsersPresenter.new}), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }
+      render :json=> {:success=>true, :user=>Api::V2::UsersPresenter.new().as_json(@user), :auth_token=>resource.authentication_token, :license_plate_number => lpn, :last_four_digits => last_four_digits }
       return
     end
     invalid_login_attempt
