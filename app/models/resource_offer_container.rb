@@ -69,11 +69,11 @@ class ResourceOfferContainer
     #TODO: I need to remember to re-update every so often to advance this window.
   end
   
-  def debug_temp(x)
+  def debug_temp(x,y)
     if(!x)
       p self
     end
-    x.start_time <= time
+    x.start_time <= y
   end
 
   def start_time(time=Time.now(), total=false)
@@ -82,7 +82,7 @@ class ResourceOfferContainer
     if(!total)
       thisarray = @totalcapacity_interval
     end
-    capIntervals = thisarray.select{|x| self.debug_temp(x)}.sort{|x,y| y.start_time <=> x.start_time}
+    capIntervals = thisarray.select{|x| self.debug_temp(x,time)}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
       return Time.at(0)
     end
