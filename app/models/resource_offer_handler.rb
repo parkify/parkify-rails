@@ -140,7 +140,7 @@ class ResourceOfferHandler < Ohm::Model
 
     resource_offer_container = @activeresources[resource_offer_id]
     if(resource_offer_container == nil)
-      p ["Resource_offer_container was nil for id ", resource_offer_id]
+      p ["Resource_offer_container was nil for id  ", resource_offer_id]
       return -1
     else
       return resource_offer_container.validate_reservation_and_find_price(start_time, end_time)
