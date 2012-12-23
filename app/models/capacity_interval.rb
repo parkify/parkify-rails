@@ -19,13 +19,13 @@ class CapacityInterval < ValuedInterval
     p [self.start_time, self.end_time, self.capacity]
   end
 
-  def as_json(options={})
-    {
-      :start_time => "#{self.start_time.to_f}",
-      :end_time => "#{self.end_time.to_f}",
-      :capacity => self.capacity
-    }
-  end
+  #def as_json(options={})
+  #  {
+  #    :start_time => "#{self.start_time.to_f}",
+  #    :end_time => "#{self.end_time.to_f}",
+  #    :capacity => self.capacity
+  #  }
+  #end
 
   def self.from_hash(h)
     if(h && h["start_time_fl"] && h["end_time_fl"] && h["capacity"])
