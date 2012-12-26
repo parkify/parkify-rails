@@ -4,8 +4,8 @@ class Api::V2::ParkingSpotsController < ApplicationController
   
   #before_filter :authenticate_user!
 
-  def debug_check_1 (spots)
-    spots do |k,v|
+  def debug_check_1 (s)
+    s.each do |k,v|
       if(v[:id] == nil)
         p ["Empty resource offer container:", k, v]
       end
