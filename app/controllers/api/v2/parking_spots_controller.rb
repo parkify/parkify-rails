@@ -8,7 +8,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
     s1.each do |k,v|
       if(v[:id] == nil)
         p ["Empty resource offer container:", k, v]
-        p ["original:", , @parking_spots[k]]
+        p ["original:", @parking_spots[k]]
       end
     end
   end
