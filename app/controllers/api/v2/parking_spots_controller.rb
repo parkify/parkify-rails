@@ -3,6 +3,14 @@ class Api::V2::ParkingSpotsController < ApplicationController
   # GET /parking_spots.json
   
   #before_filter :authenticate_user!
+
+  def debug_check_1 (spots)
+    spots do |k,v|
+      if(v[:id] == nil)
+        p ["Empty resource offer container:", k, v]
+      end
+    end
+  end
   
   def index
     @parking_spots = RESOURCE_OFFER_HANDLER.retrieve_spots({:active=>true})
@@ -11,6 +19,8 @@ class Api::V2::ParkingSpotsController < ApplicationController
     spotsAsHash = {}
 
     @parking_spots.each {|k,v| spotsAsHash[k] = presenter.as_json(v, {:level_of_detail => params[:level_of_detail]})}
+
+    debug_check_1(spotsAsHash)
 
     respond_to do |format|
       format.html # index.html.erb
