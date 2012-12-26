@@ -5,13 +5,14 @@ class ResourceOfferContainer
   attr_accessor :totalprice_interval
   attr_accessor :totalcapacity_interval
 
-  def initialize(resource, options={})
+  def initialize(resource=nil, options={})
     @resource = resource
     @price_intervals = []
     @capacity_intervals = []
     @totalprice_interval =[]
     @totalcapacity_interval=[]
     update_availability(options[:start_time], options[:end_time], options[:no_update_info]) unless options[:no_update]
+    self
   end
 
   def update_info
@@ -177,7 +178,13 @@ class ResourceOfferContainer
       p h
     end
     resource = ResourceOffer.new(h["resource"])
+
     resource.id = h["resource"]["id"]
+    
+    if (resource.id == nil)
+      puts ["bad hash in ResourceOfferContainer::from_hash", h]
+    end
+
     toRtn = ResourceOfferContainer.new(resource, {:no_update => true})
     
     toRtn.price_intervals = []
@@ -200,9 +207,7 @@ class ResourceOfferContainer
       toRtn.capacity_intervals = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
-    if (toRtn.resource.id == nil)
-      puts ["bad hash in ResourceOfferContainer::from_hash", h]
-    end
+    
 
     return toRtn
   end
