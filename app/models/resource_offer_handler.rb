@@ -112,6 +112,8 @@ class ResourceOfferHandler < Ohm::Model
   
   def retrieve_spots(options={})
     update_from_redis
+
+    self.debug_check_1
     
     if options[:all]
       return @resources.values
@@ -156,6 +158,23 @@ class ResourceOfferHandler < Ohm::Model
     fresh_container = ResourceOfferContainer.new(ResourceOffer.find_by_id(resource_offer_id), {:start_time=>start_time, :end_time=>end_time, :no_update_info=>true})
     return fresh_container.validate_reservation(start_time, end_time)
   end
+
+  def debug_check_1
+
+    self.resources do |k,v|
+      if(v.resource.id == nil)
+        p ["Empty resource offer container:", k, v]
+      end
+    end
+    
+    self.activeresources do |k,v|
+      if(v.resource.id == nil)
+        p ["Empty active resource offer container:", k, v]
+      end
+    end
+
+  end
+
 end
 
 
