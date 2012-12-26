@@ -21,7 +21,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
 
     @parking_spots.each {|k,v| spotsAsHash[k] = presenter.as_json(v, {:level_of_detail => params[:level_of_detail]})}
 
-    debug_check_1(spotsAsHash)
+    #debug_check_1(spotsAsHash)
 
     respond_to do |format|
       format.html # index.html.erb

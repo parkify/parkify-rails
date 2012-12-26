@@ -200,6 +200,10 @@ class ResourceOfferContainer
       toRtn.capacity_intervals = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
+    if (toRtn.resource.id == nil)
+      puts ["bad hash in ResourceOfferContainer::from_hash", h]
+    end
+
     return toRtn
   end
 

@@ -8,13 +8,13 @@ class ResourceOffer < ActiveRecord::Base
 
   has_many :images, :as => :imageable
 
-  has_many :quick_properties #TODO: adjust other side (//schema, //model, controller, view, data)
+  has_many :quick_properties
 
-  has_many :acceptances #TODO: adjust other side (//schema, //model, controller, view, data)
-  has_many :offer_schedules #TODO: adjust other side (//schema, //model, controller, view, data)
-  has_many :offer_schedule_exceptions #TODO: adjust other side (//schema, //model, controller, view, data)
+  has_many :acceptances 
+  has_many :offer_schedules 
+  has_many :offer_schedule_exceptions 
 
-  belongs_to :user #TODO: adjust other side (//schema, //model, controller, view, data)
+  belongs_to :user 
 
   after_save :update_handler
 
