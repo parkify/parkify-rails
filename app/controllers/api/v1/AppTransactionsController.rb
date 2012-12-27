@@ -79,7 +79,7 @@ class Api::V1::AppTransactionsController < ApplicationController
       end 
     end
     
-    if(!RESOURCE_OFFER_HANDLER.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
+    if(!ApplicationController::resource_offer_handler.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
       @acceptance.errors.add(:spot, "not available at this time")
       @acceptance.status = "failed"
     end
@@ -103,7 +103,7 @@ class Api::V1::AppTransactionsController < ApplicationController
     if(@acceptance.status == "failed")
       toSend = {:success => false, :price_string => @acceptance.errors.full_messages().first}
     else
-      toSend = @acceptance.check_price(RESOURCE_OFFER_HANDLER)
+      toSend = @acceptance.check_price(ApplicationController::resource_offer_handler)
     end
 
     respond_to do |format|
