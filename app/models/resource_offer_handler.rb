@@ -36,8 +36,7 @@ class ResourceOfferHandler < Ohm::Model
     self.resources_ohm = ActiveSupport::JSON.encode(self.resources)
     self.activeresources_ohm = ActiveSupport::JSON.encode(self.activeresources)
     self.updated_at = Time.now
-
-    debug_check_2("after save")
+    debug_check_2("after save ")
 
     super
   end
