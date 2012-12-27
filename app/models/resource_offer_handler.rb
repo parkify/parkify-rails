@@ -37,6 +37,8 @@ class ResourceOfferHandler < Ohm::Model
     self.activeresources_ohm = ActiveSupport::JSON.encode(self.activeresources)
     self.updated_at = Time.now
 
+    debug_check_2("after save")
+
     super
   end
   
@@ -108,6 +110,7 @@ class ResourceOfferHandler < Ohm::Model
       self.activeresources = {}
       ActiveSupport::JSON.decode(self.activeresources_ohm).each {|k,v| self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
     end
+    debug_check_2("after update_from_redis")
   end
   
   def retrieve_spots(options={})
@@ -171,6 +174,18 @@ class ResourceOfferHandler < Ohm::Model
       if(v.resource.id == nil)
         p ["Empty active resource offer container:", k, v]
       end
+    end
+
+  end
+
+  def debug_check_2(s)
+
+    if self.resources_ohm.include?("resource_offer")
+      p ["malformed hash created in ", s]
+    end
+    
+    if self.activeresources_ohm.include?("resource_offer")
+      p ["malformed hash created in ", s]
     end
 
   end
