@@ -57,6 +57,12 @@ class ResourceOfferHandler < Ohm::Model
         theSingleton.activeresources[ro.id] = theSingleton.resources[ro.id]
       end
     end
+    
+    if ActiveSupport::JSON.encode(self.resources).include?("resource_offer")
+      p ["OOOHHHHH NOOOOOO"]
+    end
+
+
     theSingleton.save!
 
     theSingleton
