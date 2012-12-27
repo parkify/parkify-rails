@@ -184,6 +184,7 @@ class ResourceOfferHandler < Ohm::Model
     self.activeresources do |k,v|
       if(v.resource.id == nil)
         p ["Empty active resource offer container: dc3"]
+        break
       end
     end
   end
