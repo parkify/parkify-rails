@@ -10,4 +10,4 @@ if ENV["PENDING_MIGRATIONS"]
    puts "[initializer] Skipping initialization of RESOURCE_OFFER_HANDLER due to pending migrations"
 end
 
-RESOURCE_OFFER_HANDLER = nil
+#RESOURCE_OFFER_HANDLER = nil

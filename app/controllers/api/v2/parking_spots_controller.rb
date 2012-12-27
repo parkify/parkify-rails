@@ -14,7 +14,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
   end
   
   def index
-    @parking_spots = ApplicationController::resource_offer_handler().retrieve_spots({:active=>true})
+    @parking_spots = ApplicationController::resource_offer_handler.retrieve_spots({:active=>true})
     presenter = Api::V2::ResourceOfferContainersPresenter.new
 
     spotsAsHash = {}
@@ -36,7 +36,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
     params[:id] = Integer(params[:id])
     #end fix
 
-    @parking_spot = ApplicationController::resource_offer_handler().retrieve_spots({:only=>[params[:id]]}).first
+    @parking_spot = ApplicationController::resource_offer_handler.retrieve_spots({:only=>[params[:id]]}).first
     if !@parking_spot
       p ["this spot is nil.", RESOUCE_OFFER_HANDLER]
     end
