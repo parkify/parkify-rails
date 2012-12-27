@@ -54,7 +54,7 @@ class ResourceOfferHandler < Ohm::Model
     theSingleton.activeresources = {}
     ResourceOffer.all.each do |ro|
       theSingleton.resources[ro.id] = ResourceOfferContainer.new(ro)
-      if (ro["active"]==true)
+      if (ro.active)
         theSingleton.activeresources[ro.id] = theSingleton.resources[ro.id]
       end
     end
