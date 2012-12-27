@@ -37,7 +37,7 @@ class ResourceOfferHandler < Ohm::Model
     self.activeresources_ohm = ActiveSupport::JSON.encode(self.activeresources)
     self.updated_at = Time.now
     debug_check_2("after save ")
-
+    debug_check_3
     super
   end
   
@@ -162,19 +162,30 @@ class ResourceOfferHandler < Ohm::Model
   end
 
   def debug_check_1
-
     self.resources do |k,v|
       if(v.resource.id == nil)
         p ["Empty resource offer container:", k, v]
       end
     end
-    
     self.activeresources do |k,v|
       if(v.resource.id == nil)
         p ["Empty active resource offer container:", k, v]
       end
     end
+  end
 
+  def debug_check_3
+    self.resources do |k,v|
+      if(v.resource.id == nil)
+        p ["Empty resource offer container: dc3"]
+        break
+      end
+    end
+    self.activeresources do |k,v|
+      if(v.resource.id == nil)
+        p ["Empty active resource offer container: dc3"]
+      end
+    end
   end
 
   def debug_check_2(s)
