@@ -58,7 +58,7 @@ class ResourceOfferHandler < Ohm::Model
       end
     end
     
-    if ActiveSupport::JSON.encode(self.resources).include?("resource_offer")
+    if ActiveSupport::JSON.encode(theSingleton.resources).include?("resource_offer")
       p ["OOOHHHHH NOOOOOO"]
     end
 
