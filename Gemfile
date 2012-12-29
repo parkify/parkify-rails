@@ -26,7 +26,7 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-#Temporarily removed while rubygems.coms Dependency API is down.
+#Temporarily  removed while rubygems.coms Dependency API is down.
 #gem 'jquery-rails', '2.0.0'
 
 gem 'devise'
@@ -44,6 +44,8 @@ gem 'ohm'
 gem 'pg', '0.12.2'
 
 gem 'nokogiri'
+
+gem 'hijack', '~> 0.2.1'
 
 group :production do
   #gem 'pg', '0.12.2'
