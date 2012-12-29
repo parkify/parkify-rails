@@ -86,7 +86,7 @@ class ResourceOfferContainer
     end
     capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
-      #p ["no cap Intervals in ResourceOfferContainer::start_time", time, total, thisarray, self]
+      p ["no cap Intervals in ResourceOfferContainer::start_time", time, total, thisarray, self]
       return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
