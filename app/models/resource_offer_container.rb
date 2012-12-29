@@ -21,7 +21,7 @@ class ResourceOfferContainer
 
   # update both price and capacity intervals
   def update_availability(start_time=nil, end_time=nil, no_update_info=nil)
-    p ["ResourceOfferContainer::update_availability", self.resource.id, start_time, end_time, no_update_info]
+    
     #Quick fix so we can access correct schedule info.
     #TODO: replace accessing of schedule info with a direct sql query.
     if !no_update_info
@@ -67,7 +67,7 @@ class ResourceOfferContainer
       toAdd = acc.generate_working_schedule(start_time, end_time)
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
     end
-  
+    p ["ResourceOfferContainer::update_availability", self.resource.id, start_time, end_time, no_update_info, @capacity_intervals.size, @totalcapacity_interval.size]
     #TODO: I need to remember to re-update every so often to advance this window.
   end
   
