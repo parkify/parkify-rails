@@ -41,6 +41,8 @@ class Api::V2::ParkingSpotsController < ApplicationController
       p ["this spot is nil.", RESOUCE_OFFER_HANDLER]
     end
 
+    p @parking_spot
+
     presenter = Api::V2::ResourceOfferContainersPresenter.new
     
     spot_json = presenter.as_json(@parking_spot, {:level_of_detail => params[:level_of_detail]})
