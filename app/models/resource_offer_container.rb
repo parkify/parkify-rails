@@ -21,6 +21,7 @@ class ResourceOfferContainer
 
   # update both price and capacity intervals
   def update_availability(start_time=nil, end_time=nil, no_update_info=nil)
+    p ["ResourceOfferContainer::update_availability", self.resource.id, start_time, end_time, no_update_info]
     #Quick fix so we can access correct schedule info.
     #TODO: replace accessing of schedule info with a direct sql query.
     if !no_update_info
@@ -85,7 +86,7 @@ class ResourceOfferContainer
     end
     capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
-      p ["no cap Intervals in ResourceOfferContainer::start_time", time, total, thisarray, self]
+      #p ["no cap Intervals in ResourceOfferContainer::start_time", time, total, thisarray, self]
       return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
