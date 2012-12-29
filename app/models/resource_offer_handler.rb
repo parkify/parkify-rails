@@ -1,4 +1,4 @@
-RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 1.week
+RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 2.days
 
 # Not an ActiveRecord model. Builds and updates an in-memory schedule for spots.
 # Updates from a json serialization in redis to maintain state across multiple
