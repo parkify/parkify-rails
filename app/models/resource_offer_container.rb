@@ -83,8 +83,9 @@ class ResourceOfferContainer
     if(!total)
       thisarray = @totalcapacity_interval
     end
-    capIntervals = thisarray.select{|x| self.debug_temp(x,time)}.sort{|x,y| y.start_time <=> x.start_time}
+    capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
+      p ["no cap Intervals in ResourceOfferContainer::start_time", time, total, thisarray]
       return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
