@@ -85,13 +85,13 @@ class ResourceOfferContainer
     end
     capIntervals = thisarray.select{|x| self.debug_temp(x,time)}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
-      return Time.at(0)
+      return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
-      return Time.at(0)
+      return Time.at(2)
     end
     if(capIntervals.first.end_time < time)
-      return Time.at(0)
+      return Time.at(3)
     end
 
     earliest_cap = capIntervals.first
