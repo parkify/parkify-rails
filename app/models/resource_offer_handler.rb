@@ -74,7 +74,7 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_info()
       end
     end
-    
+    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_info"
     self.save!
   end
 
@@ -86,7 +86,7 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_availability()
       end
     end
-
+    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_availability"
     self.save!
   end
 
@@ -104,6 +104,7 @@ class ResourceOfferHandler < Ohm::Model
         self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?
       end
     end
+    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis"
   end
   
   def retrieve_spots(options={})
