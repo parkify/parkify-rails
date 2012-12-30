@@ -23,12 +23,8 @@ class ValuedInterval
   end
 
   def overlapping?(x)
-    #DEBUG    
-    if !@end_time || !@start_time
-      p ["ValuedInterval::overlapping?", self, @end_time, @start_time]
-    end
     #END
-    return (@end_time - x.start_time) * (x.end_time - @start_time) > 0
+    return (self.end_time - x.start_time) * (x.end_time - self.start_time) > 0
   end
 
   def self.force_intervals(intervals_forcing, intervals_onto_in)
@@ -65,7 +61,7 @@ class ValuedInterval
   end
 
   def dp
-    p [@start_time, @end_time]
+    p [self.start_time, self.end_time]
   end
 
   def self.from_hash(h)
