@@ -116,6 +116,7 @@ class ResourceOfferHandler < Ohm::Model
     elsif options[:active]
       return @activeresources
     elsif options[:only]
+      p options[:only].map{|x| @resources[x]}
       return options[:only].map{|x| @resources[x]}
     else
       return []
