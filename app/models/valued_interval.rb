@@ -24,7 +24,7 @@ class ValuedInterval
 
   def overlapping?(x)
     #DEBUG    
-    if!@end_time || !@start_time
+    if !@end_time || !@start_time
       p ["ValuedInterval::overlapping?", self]
     end
     #END
