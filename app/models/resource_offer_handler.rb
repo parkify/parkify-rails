@@ -91,6 +91,7 @@ class ResourceOfferHandler < Ohm::Model
   end
 
   def update_from_redis()
+    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis", self.debug_string]]]
     from_redis = ResourceOfferHandler.find(:is_singleton => "true").first
     if from_redis && self.updated_at < from_redis.updated_at
       self.load!
