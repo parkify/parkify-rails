@@ -211,7 +211,7 @@ class ResourceOfferContainer
 
     toRtn.capacity_intervals = []
     if h["totalcapacity_interval"]
-      toRtn.capacity_intervals = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
+      toRtn.totalcapacity_interval = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
     
