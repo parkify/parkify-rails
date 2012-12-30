@@ -116,7 +116,7 @@ class ResourceOfferHandler < Ohm::Model
     elsif options[:active]
       return @activeresources
     elsif options[:only]
-      p options[:only].map{|x| @resources[x]}
+      p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval]}]
       return options[:only].map{|x| @resources[x]}
     else
       return []

@@ -41,7 +41,7 @@ class Api::V2::ParkingSpotsController < ApplicationController
       p ["this spot is nil.", RESOUCE_OFFER_HANDLER]
     end
 
-    p @parking_spot
+
 
     presenter = Api::V2::ResourceOfferContainersPresenter.new
     
