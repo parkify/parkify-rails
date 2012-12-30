@@ -100,7 +100,7 @@ class ResourceOfferHandler < Ohm::Model
       self.load!
       self.resources = {}
       ActiveSupport::JSON.decode(self.resources_ohm).each do |k,v|
-        toAdd = "[#{v}]"
+        toAdd = "2 "
         self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) 
       end
       dstring += toAdd
