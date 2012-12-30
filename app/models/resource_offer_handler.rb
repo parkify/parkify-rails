@@ -61,6 +61,8 @@ class ResourceOfferHandler < Ohm::Model
 
     theSingleton.save!
 
+    p [[["THE SINGLTON in ResourceOfferHandler::make_singleton", theSingleton]]]
+
     theSingleton
   end
 
@@ -93,25 +95,15 @@ class ResourceOfferHandler < Ohm::Model
     if from_redis && self.updated_at < from_redis.updated_at
       self.load!
       self.resources = {}
-      printdebug = false
       ActiveSupport::JSON.decode(self.resources_ohm).each do |k,v|
-        if v and !v.empty?
-          self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) 
-        else
-          p ["trying to assign empty resource:", k]
-          printdebug = true
-        end
+        self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) 
       end
 
-      if printdebug
-        p self.resources_ohm
-        p ActiveSupport::JSON.decode(self.resources_ohm)
-      end
- 
       self.activeresources = {}
-      ActiveSupport::JSON.decode(self.activeresources_ohm).each {|k,v| self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?}
+      ActiveSupport::JSON.decode(self.activeresources_ohm).each do |k,v|
+        self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?
+      end
     end
-    debug_check_2("after update_from_redis")
   end
   
   def retrieve_spots(options={})
