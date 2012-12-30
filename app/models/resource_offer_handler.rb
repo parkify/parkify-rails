@@ -61,7 +61,7 @@ class ResourceOfferHandler < Ohm::Model
 
     theSingleton.save!
 
-    p [[["THE SINGLTON in ResourceOfferHandler::make_singleton", theSingleton]]]
+    p [[["THE SINGLTON in ResourceOfferHandler::make_singleton", theSingleton.debug_string]]]
 
     theSingleton
   end
@@ -74,7 +74,7 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_info()
       end
     end
-    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_info"
+    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_info", self.debug_string]]]
     self.save!
   end
 
@@ -86,7 +86,7 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_availability()
       end
     end
-    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_availability"
+    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_availability", self.debug_string]]]
     self.save!
   end
 
@@ -104,7 +104,7 @@ class ResourceOfferHandler < Ohm::Model
         self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?
       end
     end
-    p "RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis"
+    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis", self.debug_string]]]
   end
   
   def retrieve_spots(options={})
@@ -117,7 +117,7 @@ class ResourceOfferHandler < Ohm::Model
     elsif options[:active]
       return @activeresources
     elsif options[:only]
-      p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval]}]
+      p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval.size]}]
       return options[:only].map{|x| @resources[x]}
     else
       return []
@@ -195,6 +195,16 @@ class ResourceOfferHandler < Ohm::Model
       p ["malformed hash created in ", s]
     end
 
+  end
+
+
+  def debug_string
+    toRtn = ""
+    self.resources.each do |k,v|
+      toRtn += "[#{k},"
+      toRtn += "#{v.totalcapacity_interval.size}]\n"
+    end
+    toRtn
   end
 
 end
