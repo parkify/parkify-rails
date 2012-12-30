@@ -23,6 +23,11 @@ class ValuedInterval
   end
 
   def overlapping?(x)
+    #DEBUG    
+    if!@end_time || !@start_time
+      p ["ValuedInterval::overlapping?", self]
+    end
+    #END
     return (@end_time - x.start_time) * (x.end_time - @start_time) > 0
   end
 
