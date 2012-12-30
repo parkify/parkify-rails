@@ -29,6 +29,12 @@ class ValuedInterval
   def self.force_intervals(intervals_forcing, intervals_onto_in)
     intervals_onto = intervals_onto_in.dup
     intervals_forcing.each do |vi_forcing|
+      #DEBUG
+      if !vi_forcing
+        p ["ValudedInterval::force_intervals", intervals_forcing]
+        break
+      end
+      #END
       #Find and split any overlapping intervals
       toRemove = []
       toAdd = []
