@@ -1,6 +1,7 @@
 class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
   
   def as_json(roc, options={})
+    p "Api::V2::ResourceOfferContainersPresenter::as_json"
     # Check Availability
     start_time = roc.start_time(Time.now(), true)
     end_time = roc.end_time(Time.now(), true)
