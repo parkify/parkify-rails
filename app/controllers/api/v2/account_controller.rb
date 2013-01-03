@@ -184,7 +184,7 @@ class Api::V2::AccountController < ApplicationController
     @user = User.find_by_email(params[:email])
     respond_to do |format|
       if @user
-        user.send_reset_password_instructions
+        @user.send_reset_password_instructions
         sign_out @user
         format.json { render json: {:success=>true}, location: @user }
        else
