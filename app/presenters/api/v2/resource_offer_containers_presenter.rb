@@ -80,11 +80,27 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
     result
   end
 
+
+
   def price_interval_as_json(p)
     {
       :start_time => "#{p.start_time.to_f}",
       :end_time => "#{p.end_time.to_f}",
-      :price_per_hour => p.price
+      :price_per_hour => p.price,
+      :flat_prices => self.flat_prices(p.price)              
+    }
+  end
+
+# 6h -> 1/12 off
+# 12h -> 2/12 off
+# 18h -> 3/12 off
+# 24h -> 4/12 off
+  def flat_prices(hourly_price)
+    {
+      6.hours => hourly_price*5.5,
+      12.hours => hourly_price*10,
+      18.hours => hourly_price*13.5,
+      24.hours => hourly_price*16
     }
   end
 
