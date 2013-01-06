@@ -97,10 +97,12 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
 # 24h -> 4/12 off
   def flat_prices(hourly_price)
     {
-      "66h" => {:duration => 6.hours, :price => "#{hourly_price*5.5}"},
-      "12h" => {:duration => 12.hours, :price => "#{hourly_price*10}"},
-      "18h" => {:duration => 18.hours, :price => "#{hourly_price*13.5}"},
-      "24h" => {:duration => 24.hours, :price => "#{hourly_price*16}"}
+      "Game Day" => {:duration => 6.hours, :price => "#{hourly_price*5.5}"},
+      "Christmas Day Parking" => {:duration => 12.hours, :price => "#{hourly_price*10}"},
+      "Test of very very very long name" => {:duration => 18.hours, :price => "#{hourly_price*13.5}"},
+      "aaa aaa aaa" => {:duration => 24.hours, :price => "#{hourly_price*16}"}
+      "aaa bbb aaa" => {:duration => 25.hours, :price => "#{hourly_price*16}"}
+      "aaa ccc aaa" => {:duration => 26.hours, :price => "#{hourly_price*16}"}
     }
   end
 
