@@ -100,7 +100,7 @@ def validate_and_charge()
     end
 
     #TODO: serialize or transactionalize
-    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
+    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
     if (price < 0)    
       self.status = "scheduling failed"
       self.errors.add(:transaction, "failed")

@@ -144,7 +144,7 @@ class ResourceOfferHandler < Ohm::Model
     end
   end
 
-  def validate_reservation_and_find_price(resource_offer_id, start_time, end_time)
+  def validate_reservation_and_find_price(resource_offer_id, start_time, end_time, price_type)
     update_from_redis
 
     resource_offer_container = @activeresources[resource_offer_id]
@@ -152,13 +152,13 @@ class ResourceOfferHandler < Ohm::Model
       p ["Resource_offer_container was nil for id  ", resource_offer_id]
       return -1
     else
-      return resource_offer_container.validate_reservation_and_find_price(start_time, end_time)
+      return resource_offer_container.validate_reservation_and_find_price(start_time, end_time, price_type)
     end
   end
 
-  def self.validate_reservation_and_find_price(resource_offer_id, start_time, end_time)
+  def self.validate_reservation_and_find_price(resource_offer_id, start_time, end_time, price_type)
     fresh_container = ResourceOfferContainer.new(ResourceOffer.find_by_id(resource_offer_id), {:start_time=>start_time, :end_time=>end_time, :no_update_info=>true})
-    return fresh_container.validate_reservation_and_find_price(start_time, end_time)
+    return fresh_container.validate_reservation_and_find_price(start_time, end_time, price_type)
   end
 
   def self.validate_reservation(resource_offer_id, start_time, end_time)

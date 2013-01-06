@@ -164,19 +164,32 @@ class ResourceOfferContainer
     return valid
   end
 
-  def validate_reservation_and_find_price(start_time, end_time)
-    return validate_reservation(start_time, end_time) ? find_price(start_time, end_time) : -1
+  def validate_reservation_and_find_price(start_time, end_time, price_type)
+    return validate_reservation(start_time, end_time) ? find_price(start_time, end_time, price_type) : -1
   end
       
-  def find_price(start_time, end_time)
-    toRtn = 0.0
-    self.price_intervals.each do |interval|
-      effectiveStartTime = [interval.start_time, start_time].max
-      effectiveEndTime = [interval.end_time, end_time].min
-      if (effectiveEndTime > effectiveStartTime)
-        toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600
+  def find_price(start_time, end_time, price_type)
+    if (price_type == "hourly")
+      toRtn = 0.0
+      self.price_intervals.each do |interval|
+        effectiveStartTime = [interval.start_time, start_time].max
+        effectiveEndTime = [interval.end_time, end_time].min
+        if (effectiveEndTime > effectiveStartTime)
+          toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600
+        end
       end
+    elsif (price_type == "flat_rate")
+      toRtn = -1
+      #self.price_intervals.each do |interval|
+      #  if (interval.start_time <= start_time &&
+      #      interval.end_time >= start_time)
+      #    return interval.flat_rate(end_time.to_f-start_time.to_f)
+      #  end
+      #end
+    else
+      return -1
     end
+
     return toRtn
   end
 

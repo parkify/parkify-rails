@@ -138,6 +138,12 @@ class Api::V2::AppTransactionsController < ApplicationController
       @acceptance.resource_offer_id = params["offer_ids"][0].to_i
     end
 
+    if (params["price_type"])
+      @acceptance.price_type = params["price_type"]
+    else
+      @acceptance.price_type = "hourly"
+    end
+
   end
 
   # PUT /transactions/1
