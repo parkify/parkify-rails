@@ -100,8 +100,8 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       "Game Day" => {:duration => 6.hours, :price => "#{hourly_price*5.5}"},
       "Christmas Day Parking" => {:duration => 12.hours, :price => "#{hourly_price*10}"},
       "Test of very very very long name" => {:duration => 18.hours, :price => "#{hourly_price*13.5}"},
-      "aaa aaa aaa" => {:duration => 24.hours, :price => "#{hourly_price*16}"}
-      "aaa bbb aaa" => {:duration => 25.hours, :price => "#{hourly_price*16}"}
+      "aaa aaa aaa" => {:duration => 24.hours, :price => "#{hourly_price*16}"},
+      "aaa bbb aaa" => {:duration => 25.hours, :price => "#{hourly_price*16}"},
       "aaa ccc aaa" => {:duration => 26.hours, :price => "#{hourly_price*16}"}
     }
   end
