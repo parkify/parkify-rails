@@ -97,7 +97,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
 # 24h -> 4/12 off
   def flat_prices(hourly_price)
     {
-      "6h" => {:duration => 6.hours, :price => "#{hourly_price*5.5}"},
+      "66h" => {:duration => 6.hours, :price => "#{hourly_price*5.5}"},
       "12h" => {:duration => 12.hours, :price => "#{hourly_price*10}"},
       "18h" => {:duration => 18.hours, :price => "#{hourly_price*13.5}"},
       "24h" => {:duration => 24.hours, :price => "#{hourly_price*16}"}
