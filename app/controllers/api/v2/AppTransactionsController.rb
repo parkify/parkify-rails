@@ -143,7 +143,7 @@ class Api::V2::AppTransactionsController < ApplicationController
     else
       @acceptance.price_type = "hourly"
     end
-    p ["SUPERTEST", params, self]
+    p ["SUPERTEST", params, @acceptance]
   end
 
   # PUT /transactions/1

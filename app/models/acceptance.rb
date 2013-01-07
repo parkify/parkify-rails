@@ -171,9 +171,9 @@ def validate_and_charge()
     
     #grab correct price
     if(resource_offer_handler)
-      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
+      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
     else
-      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time)
+      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
     end
 
     if (price < 0)
