@@ -1,0 +1,17 @@
+%h1 Listing offer_schedule_flat_rate_prices
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @offer_schedule_flat_rate_prices.each do |offer_schedule_flat_rate_price|
+    %tr
+      %td= link_to 'Show', offer_schedule_flat_rate_price
+      %td= link_to 'Edit', edit_offer_schedule_flat_rate_price_path(offer_schedule_flat_rate_price)
+      %td= link_to 'Destroy', offer_schedule_flat_rate_price, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Offer schedule flat rate price', new_offer_schedule_flat_rate_price_path

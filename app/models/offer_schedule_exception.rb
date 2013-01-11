@@ -8,6 +8,10 @@ class OfferScheduleException < ActiveRecord::Base
   after_save :update_handler
   after_destroy :update_handler
 
+
+  has_many :offer_schedule_flat_rate_prices, :as => :offer_schedule_flat_rate_priceable
+  has_many :flat_rate_prices, :through => :offer_schedule_flat_rate_prices
+
   def generate_working_schedule(start_time_in, end_time_in)
     toRtn = {:capacity_intervals => [], :price_intervals => []}
    

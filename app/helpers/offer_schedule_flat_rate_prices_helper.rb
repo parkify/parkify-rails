@@ -1,0 +1,2 @@
+module OfferScheduleFlatRatePricesHelper
+end

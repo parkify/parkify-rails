@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Duration:
+  = @flat_rate_price.duration
+%p
+  %b Price:
+  = @flat_rate_price.price
+%p
+  %b Name:
+  = @flat_rate_price.name
+
+= link_to 'Edit', edit_flat_rate_price_path(@flat_rate_price)
+\|
+= link_to 'Back', flat_rate_prices_path

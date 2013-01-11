@@ -1,0 +1,19 @@
+= form_for @flat_rate_price do |f|
+  - if @flat_rate_price.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@flat_rate_price.errors.count, "error")} prohibited this flat_rate_price from being saved:"
+      %ul
+        - @flat_rate_price.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :duration
+    = f.text_field :duration
+  .field
+    = f.label :price
+    = f.text_field :price
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'

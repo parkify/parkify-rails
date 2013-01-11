@@ -1,0 +1,10 @@
+= form_for @offer_schedule_flat_rate_price do |f|
+  - if @offer_schedule_flat_rate_price.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@offer_schedule_flat_rate_price.errors.count, "error")} prohibited this offer_schedule_flat_rate_price from being saved:"
+      %ul
+        - @offer_schedule_flat_rate_price.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

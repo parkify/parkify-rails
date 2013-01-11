@@ -1,0 +1,23 @@
+%h1 Listing flat_rate_prices
+
+%table
+  %tr
+    %th Duration
+    %th Price
+    %th Name
+    %th
+    %th
+    %th
+
+  - @flat_rate_prices.each do |flat_rate_price|
+    %tr
+      %td= flat_rate_price.duration
+      %td= flat_rate_price.price
+      %td= flat_rate_price.name
+      %td= link_to 'Show', flat_rate_price
+      %td= link_to 'Edit', edit_flat_rate_price_path(flat_rate_price)
+      %td= link_to 'Destroy', flat_rate_price, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Flat rate price', new_flat_rate_price_path

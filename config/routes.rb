@@ -1,4 +1,8 @@
 ParkifyRails::Application.routes.draw do
+  resources :offer_schedule_flat_rate_prices
+
+  resources :flat_rate_prices
+
   resources :complaints
 
   resources :cards
