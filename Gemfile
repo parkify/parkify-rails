@@ -45,8 +45,6 @@ gem 'pg', '0.12.2'
 
 gem 'nokogiri'
 
-gem 'hijack', '~> 0.2.1'
-
 group :production do
   #gem 'pg', '0.12.2'
   gem "rmagick", "2.12.0", :require => 'RMagick'
