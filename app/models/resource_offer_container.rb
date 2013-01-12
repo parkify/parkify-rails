@@ -39,7 +39,6 @@ class ResourceOfferContainer
       end_time = start_time + RESOURCE_OFFER_HANDLER_WINDOW_WIDTH
     end
     
-
     # Add stuff from the schedule relation 
     @resource.offer_schedules.each do |os|
       toAdd = os.generate_working_schedule(start_time, end_time)
@@ -168,7 +167,7 @@ class ResourceOfferContainer
     return validate_reservation(start_time, end_time) ? find_price(start_time, end_time, price_type) : -1
   end
       
-  def find_price(start_time, end_time, price_type)
+  def find_price(start_time, end_time, price_type, price_name)
     if (price_type == "hourly")
       toRtn = 0.0
       self.price_intervals.each do |interval|
@@ -179,13 +178,12 @@ class ResourceOfferContainer
         end
       end
     elsif (price_type == "flat_rate")
-      toRtn = -1
-      #self.price_intervals.each do |interval|
-      #  if (interval.start_time <= start_time &&
-      #      interval.end_time >= start_time)
-      #    return interval.flat_rate(end_time.to_f-start_time.to_f)
-      #  end
-      #end
+      self.price_intervals.each do |interval|
+        if (interval.start_time <= start_time &&
+          interval.end_time >= start_time)
+          return interval.flat_rate_prices[price_name][:price]
+        end
+      end
     else
       return -1
     end
@@ -226,8 +224,6 @@ class ResourceOfferContainer
     if h["totalcapacity_interval"]
       toRtn.totalcapacity_interval = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
     end
-
-    
 
     return toRtn
   end

@@ -27,6 +27,8 @@ class ValuedInterval
     return (self.end_time - x.start_time) * (x.end_time - self.start_time) > 0
   end
 
+
+  #TODO: make more general, ex: make "overwrite" and "update" forcing.
   def self.force_intervals(intervals_forcing, intervals_onto_in)
     intervals_onto = intervals_onto_in.dup
     intervals_forcing.each do |vi_forcing|

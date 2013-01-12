@@ -87,7 +87,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
       :start_time => "#{p.start_time.to_f}",
       :end_time => "#{p.end_time.to_f}",
       :price_per_hour => p.price,
-      :flat_prices => self.flat_prices(p.price)              
+      :flat_prices => p.flat_rate_prices             
     }
   end
 
