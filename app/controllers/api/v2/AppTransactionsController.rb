@@ -70,7 +70,7 @@ class Api::V2::AppTransactionsController < ApplicationController
     build_no_db(params[:transaction])
     p @acceptance
     thisaccept = nil
-    if(options[:extend])
+    if(params[:extend])
       userid = current_user.id
       acceptanceid = options[:acceptanceid]
       thisaccept=Acceptance.find(acceptanceid)
