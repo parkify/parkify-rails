@@ -88,7 +88,9 @@ class Api::V2::AppTransactionsController < ApplicationController
 
     respond_to do |format|
       if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge() and @acceptance.save
+        p thisaccept
         if(thisaccept)
+          p "changing status to extended"
           thisaccept.status = "extended"
           thisaccept.save
         end
