@@ -1,5 +1,5 @@
 class Acceptance < ActiveRecord::Base
-  attr_accessible :user_id, :count, :end_time, :start_time, :status, :card_id, :card
+  attr_accessible :user_id, :count, :end_time, :start_time, :status, :card_id, :card, :price_type, :price_name
 
   belongs_to :user
   
@@ -100,7 +100,7 @@ def validate_and_charge()
     end
 
     #TODO: serialize or transactionalize
-    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
+    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
     if (price < 0)    
       self.status = "scheduling failed"
       self.errors.add(:transaction, "failed")
@@ -171,9 +171,9 @@ def validate_and_charge()
     
     #grab correct price
     if(resource_offer_handler)
-      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
+      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
     else
-      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type)
+      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
     end
 
     if (price < 0)

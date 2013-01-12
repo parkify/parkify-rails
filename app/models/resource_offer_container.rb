@@ -163,8 +163,8 @@ class ResourceOfferContainer
     return valid
   end
 
-  def validate_reservation_and_find_price(start_time, end_time, price_type)
-    return validate_reservation(start_time, end_time) ? find_price(start_time, end_time, price_type) : -1
+  def validate_reservation_and_find_price(start_time, end_time, price_type, price_name)
+    return validate_reservation(start_time, end_time) ? find_price(start_time, end_time, price_type, price_name) : -1
   end
       
   def find_price(start_time, end_time, price_type, price_name)

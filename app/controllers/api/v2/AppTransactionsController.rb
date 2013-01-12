@@ -140,6 +140,9 @@ class Api::V2::AppTransactionsController < ApplicationController
 
     if (params["price_type"])
       @acceptance.price_type = params["price_type"]
+      if(params["price_type"] == "flat_rate")
+        @acceptance.price_name = params["flat_rate_name"]
+      end
     else
       @acceptance.price_type = "hourly"
     end
