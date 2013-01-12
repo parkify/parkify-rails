@@ -72,7 +72,7 @@ class Api::V2::AppTransactionsController < ApplicationController
     thisaccept = nil
     if(params[:extend])
       userid = current_user.id
-      acceptanceid = options[:acceptanceid]
+      acceptanceid = params[:acceptanceid]
       thisaccept=Acceptance.find(acceptanceid)
       p "checking an extend"
       if(thisaccept == nil || thisaccept.user_id!=userid)
