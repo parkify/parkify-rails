@@ -69,24 +69,29 @@ class Api::V2::AppTransactionsController < ApplicationController
   def create(options={})
     build_no_db(params[:transaction])
     p @acceptance
+    thisaccept = nil
     if(options[:extend])
       userid = current_user.id
       acceptanceid = options[:acceptanceid]
       thisaccept=Acceptance.find(acceptanceid)
       p "checking an extend"
-      if(thisaccept != nil || thisaccept.user_id!=userid)
+      if(thisaccept == nil || thisaccept.user_id!=userid)
             @acceptance.errors.add(:spot, "not available at this time")
             @acceptance.status = "failed"
       end 
-    end
-    
-    if(!ApplicationController::resource_offer_handler.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
+    end    
+
+    if(@acceptance.status == "failed" || !ApplicationController::resource_offer_handler.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
       @acceptance.errors.add(:spot, "not available at this time")
       @acceptance.status = "failed"
     end
 
     respond_to do |format|
       if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge() and @acceptance.save
+        if(thisaccept)
+          thisaccept.status = "extended"
+          thisaccept.save
+        end
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
         format.json { render json: {:acceptance => @acceptance.as_json({:only => [:id, :details]}), :success=>true}, status: :created, location: @acceptance, }
       else
