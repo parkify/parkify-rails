@@ -77,10 +77,10 @@ class ResourceOfferContainer
     x.start_time <= y
   end
 
-  def start_time(time=Time.now(), total=false)
+  def start_time(time=Time.now(), total=true)
     #toRtn = Time.now
     thisarray = @capacity_intervals
-    if(!total)
+    if(total)
       thisarray = @totalcapacity_interval
     end
     capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
@@ -110,10 +110,9 @@ class ResourceOfferContainer
     return earliest_time
   end
 
-  def end_time(time=Time.now(), total=false)
+  def end_time(time=Time.now(), total=true)
+    thisarray = @capacity_intervals
     if(total)
-      thisarray = @capacity_intervals
-    else
       thisarray = @totalcapacity_interval
     end
     #toRtn = Time.now

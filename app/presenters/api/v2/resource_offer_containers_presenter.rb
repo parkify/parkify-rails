@@ -5,7 +5,11 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
     # Check Availability
     start_time = roc.start_time(Time.now(), true)
     end_time = roc.end_time(Time.now(), true)
-    available = ( roc.resource.active && (end_time - start_time) >= 2.hours )
+
+    start_time_with_acc = roc.start_time(Time.now(), false)
+    end_time_with_acc = roc.end_time(Time.now(), false)
+
+    available = ( roc.resource.active && (end_time_with_acc - start_time_with_acc) >= 2.hours )
     result = {
       :signid => roc.resource.sign_id,
       :id => roc.resource.id, # id fix for this version
