@@ -20,9 +20,12 @@ class Api::V2::AppTransactionsController < ApplicationController
 #format.html # index.html.erb
 #@transactions = Transaction.all
 
+    presenter = Api::V2::AcceptancesPresenter.new
+    acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @acceptances.as_json() }
+      format.json { render json: acceptances_json }
     end
   end
 
@@ -94,8 +97,10 @@ class Api::V2::AppTransactionsController < ApplicationController
           thisaccept.status = "extended"
           thisaccept.save
         end
+        presenter = Api::V2::AcceptancesPresenter.new
+        acceptance_json = presenter.as_json(@acceptance)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
-        format.json { render json: {:acceptance => @acceptance.as_json({:only => [:id, :details]}), :success=>true}, status: :created, location: @acceptance, }
+        format.json { render json: {:acceptance => acceptance_json, :success=>true}, status: :created, location: @acceptance, }
       else
         format.html { render action: "new" }
         format.json { render json: {:success => false, :error=>@acceptance.errors}}
