@@ -8,7 +8,8 @@ class Api::V2::AcceptancesPresenter < Api::V2::ApplicationPresenter
       :end_time => acc.end_time.to_f,
       :status => acc.status,
       :details => acc.details,
-      :id => acc.id
+      :id => acc.id,
+      :active => (acc.status == "successfully paid" || acc.status == "payment_pending")
     }
   end
 
