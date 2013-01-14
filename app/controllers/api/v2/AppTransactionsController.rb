@@ -101,6 +101,9 @@ class Api::V2::AppTransactionsController < ApplicationController
           p "changing status to extended"
           thisaccept.status = "extended"
           thisaccept.save
+
+          @acceptance.start_time = thisaccept.start_time
+          @acceptance.save
         end
         presenter = Api::V2::AcceptancesPresenter.new
         acceptance_json = presenter.as_json(@acceptance)
