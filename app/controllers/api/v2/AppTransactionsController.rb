@@ -23,6 +23,8 @@ class Api::V2::AppTransactionsController < ApplicationController
     presenter = Api::V2::AcceptancesPresenter.new
     acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
 
+    p ["SENDING_JSON OF ACCEPTANCES", acceptances_json]
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: acceptances_json }
