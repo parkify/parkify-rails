@@ -53,7 +53,7 @@ class Image < ActiveRecord::Base
 
 
   def self.spot_images_are_viewable_test
-    problem_images = Hash.new([])
+    problem_images = Hash.new{|h,k| h[k] = []}
 
     Image.all.each do |img|
       ro = img.imageable
@@ -61,7 +61,7 @@ class Image < ActiveRecord::Base
         #TODO: make general.
         url = "parkify-rails-staging.herokuapp.com/images/#{img.id}?image_attachment=true&style=original"
         size = FastImage.size(url)
-        if !size or size[0] == 0 or size[1] == 0
+        if size.nil? or size[0] == 0 or size[1] == 0
           problem_images[ro.id] << img.id
         end
       end
