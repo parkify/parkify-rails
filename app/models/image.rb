@@ -60,9 +60,12 @@ class Image < ActiveRecord::Base
       if(img.imageable_type == "ResourceOffer" and !ro.nil?)
         #TODO: make general.
         url = "parkify-rails-staging.herokuapp.com/images/#{img.id}?image_attachment=true&style=original"
-        size = FastImage.size(url)
-        if size.nil? or size[0] == 0 or size[1] == 0
-          problem_images[ro.id] << img.id
+
+
+        RestClient.get('http://my-rest-service.com/resource') do |response, request, result, &block|
+          if response.code != 200
+            problem_images[ro.id] << img.id
+          end
         end
       end
     end
