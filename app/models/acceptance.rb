@@ -77,6 +77,7 @@ class Acceptance < ActiveRecord::Base
     else
       self.status = self.status_codes()["1"] 
       UserMailer.payment_succeeded_email(self.user, self).deliver
+      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id @ self.location_address}<br/>User: #{self.first_name} #{self.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}")
       return true
     end
   end
@@ -122,6 +123,7 @@ def validate_and_charge()
       self.status = "successfully paid"
       self.save
       UserMailer.payment_succeeded_email(self.user, self).deliver
+      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id @ self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}")
       return true
     end
   end
