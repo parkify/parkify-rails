@@ -4,7 +4,7 @@ HIPCHAT_API = HipChat::API.new(ENV['HIPCHAT_TOKEN'])
 
 
 if(ENV["STAGING_SERVER"] == "#{true}" || ENV['RAILS_ENV'] != 'production')
-  ENV['HIPCHAT_ROOM'] = 'Parkify Pulse Dev'
+  ENV['HIPCHAT_ROOM'] = 'Parkify-Dev Pulse'
 else
   ENV['HIPCHAT_ROOM'] = 'Parkify Pulse'
 end
