@@ -80,8 +80,8 @@ class User < ActiveRecord::Base
       self.cards.create(:customer_id => customer.id, :active_customer => true, :last4 => customer.active_card.last4)
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
-      send_welcome_email
-      HipchatMailer::post("New User: #{self.first_name} #{self.last_name}!")
+      #send_welcome_email
+      #HipchatMailer::post("New User: #{self.first_name} #{self.last_name}!")
       
     else
       self.errors.add(:card, "Invalid Card")
