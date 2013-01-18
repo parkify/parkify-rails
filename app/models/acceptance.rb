@@ -77,7 +77,7 @@ class Acceptance < ActiveRecord::Base
     else
       self.status = self.status_codes()["1"] 
       UserMailer.payment_succeeded_email(self.user, self).deliver
-      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}")
+      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}<br/>Total: #{sprintf('$%0.2f',self.amountToCharge/100.0)}")
       return true
     end
   end
@@ -85,7 +85,11 @@ class Acceptance < ActiveRecord::Base
   def self.status_codes()
     return Hash["1"=>"successfully paid", "2"=>"not successfully paid", "3"=>"invalid user", "4"=>"invalid spot", "5"=>"scheduling failed", "6"=>"payment pending", "7"=>"not successfully paid"]
   end
-def validate_and_charge()
+
+
+
+
+  def validate_and_charge()
     
     if(!self.user)
       self.status = "invalid user"
@@ -123,7 +127,7 @@ def validate_and_charge()
       self.status = "successfully paid"
       self.save
       UserMailer.payment_succeeded_email(self.user, self).deliver
-      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}")
+      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}<br/>Total: #{sprintf('$%0.2f',self.amountToCharge/100.0)}")
       return true
     end
   end

@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
       #send_welcome_email
-      #HipchatMailer::post("New User: #{self.first_name} #{self.last_name}!")
+      HipchatMailer::post("<b>New User</b>: #{self.first_name} #{self.last_name}!")
       
     else
       self.errors.add(:card, "Invalid Card")
