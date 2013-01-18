@@ -68,7 +68,7 @@ class Image < ActiveRecord::Base
     end
 
 
-    if problem_spots.size == 0
+    if problem_images.size == 0
       print "All spot images are viewable"
     else
       p "Problem with spot images: "
