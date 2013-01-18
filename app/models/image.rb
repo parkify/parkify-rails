@@ -61,8 +61,7 @@ class Image < ActiveRecord::Base
         #TODO: make general.
         url = "parkify-rails-staging.herokuapp.com/images/#{img.id}?image_attachment=true&style=original"
 
-
-        RestClient.get('http://my-rest-service.com/resource') do |response, request, result, &block|
+        RestClient.get(url) do |response, request, result, &block|
           if response.code != 200
             problem_images[ro.id] << img.id
           end
