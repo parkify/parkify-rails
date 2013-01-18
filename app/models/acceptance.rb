@@ -77,7 +77,7 @@ class Acceptance < ActiveRecord::Base
     else
       self.status = self.status_codes()["1"] 
       UserMailer.payment_succeeded_email(self.user, self).deliver
-      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}<br/>Total: $#{sprintf('%0.2f',amountToCharge/100.0)}")
+      HipchatMailer::post("<b>Reservation made for spot!</b> <br/>Spot: #{self.resource_offer.sign_id} @ #{self.resource_offer.location_address} <br/>User: #{self.user.first_name} #{self.user.last_name} <br/>Time: #{self.start_time} TO #{self.end_time} <br/>Total: $#{sprintf('%0.2f',amountToCharge/100.0)}")
       return true
     end
   end
@@ -127,7 +127,7 @@ class Acceptance < ActiveRecord::Base
       self.status = "successfully paid"
       self.save
       UserMailer.payment_succeeded_email(self.user, self).deliver
-      HipchatMailer::post("Reservation made for spot!<br/>Spot: #{self.resource_offer.sign_id} @ {self.resource_offer.location_address}<br/>User: #{self.user.first_name} #{self.user.last_name}<br/>Time: #{self.start_time} TO #{self.end_time}<br/>Total: $#{sprintf('%0.2f',amountToCharge/100.0)}")
+      HipchatMailer::post("<b>Reservation made for spot!</b> <br/>Spot: #{self.resource_offer.sign_id} @ #{self.resource_offer.location_address} <br/>User: #{self.user.first_name} #{self.user.last_name} <br/>Time: #{self.start_time} TO #{self.end_time} <br/>Total: $#{sprintf('%0.2f',amountToCharge/100.0)}")
       return true
     end
   end
