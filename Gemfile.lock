@@ -76,6 +76,7 @@ GEM
     factory_girl_rails (4.1.0)
       factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
+    fastimage (1.2.13)
     ffi (1.1.5)
     ffi (1.1.5-x86-mingw32)
     font-awesome-sass-rails (2.0.0.0)
@@ -262,6 +263,7 @@ DEPENDENCIES
   coffee-rails (= 3.2.2)
   devise
   factory_girl_rails (~> 4.0)
+  fastimage
   haml
   haml-rails
   heroku_san
