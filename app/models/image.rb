@@ -56,8 +56,8 @@ class Image < ActiveRecord::Base
     problem_images = Hash.new([])
 
     Image.all.each do |img|
-      ro = img.resource_offer
-      if(ro)
+      ro = img.imageable
+      if(img.imageable_type == "ResourceOffer" and !ro.nil?)
         #TODO: make general.
         url = "parkify-rails-staging.herokuapp.com/images/#{img.id}?image_attachment=true&style=original"
         size = FastImage.size(url)
