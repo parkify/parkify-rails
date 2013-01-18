@@ -6,6 +6,7 @@ gem 'rails', '3.2.7rc1'
 gem 'rest-client', "~>1.6.7"
 
 gem 'fastimage'
+gem 'hipchat-api'
 
 group :development, :test do
   #gem 'sqlite3', '1.3.5'
