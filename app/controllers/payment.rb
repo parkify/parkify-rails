@@ -41,7 +41,7 @@ class Payment
     partialamount_chargedFromCredit = 0
     if(user.credit > 0)
       if(user.credit >= amountToCharge)
-        paymentInfo.details = "$#{sprintf('$%0.2f',amountToCharge/100.0)} was deducted from account credits" + discountedString
+        paymentInfo.details = "$#{sprintf('%0.2f',amountToCharge/100.0)} was deducted from account credits" + discountedString
         user.credit -= amountToCharge
         user.save
         Payment::payment_succeeded(user, paymentInfo, reason)
@@ -52,7 +52,7 @@ class Payment
         user.credit = 0.0
         user.save
         
-        paymentInfo.details = "$#{sprintf('$%0.2f',partialamount_chargedFromCredit/100.0)} was deducted from account credits and "
+        paymentInfo.details = "$#{sprintf('%0.2f',partialamount_chargedFromCredit/100.0)} was deducted from account credits and "
       end
     end
     
@@ -87,7 +87,7 @@ class Payment
       if(charge.failure_message.nil?)
         Payment::payment_succeeded(user, paymentInfo, reason)
         paymentInfo.stripe_charge_id = charge["id"]
-        paymentInfo.details += "$#{sprintf('$%0.2f',amountToCharge/100.0)} was charged to card *#{charge.card.last4}" + discountedString
+        paymentInfo.details += "$#{sprintf('%0.2f',amountToCharge/100.0)} was charged to card *#{charge.card.last4}" + discountedString
         return paymentInfo
       else
         #give back credit.
@@ -101,7 +101,7 @@ class Payment
     else
       #for now, just give it to them for free.
       Payment::payment_succeeded(user, paymentInfo, reason)
-      paymentInfo.details += "$#{sprintf('$%0.2f',amountToCharge/100.0)} was charged to credit card" + discountedString
+      paymentInfo.details += "$#{sprintf('%0.2f',amountToCharge/100.0)} was charged to credit card" + discountedString
       return paymentInfo
     end
     
@@ -152,11 +152,11 @@ class Payment
     toRtn = ""
     if(user.credit > 0)
       if(user.credit >= amountToCharge)
-        return "$#{sprintf('$%0.2f',(amountToCharge/100.0))} will be deducted from account credits" + discountedString
+        return "$#{sprintf('%0.2f',(amountToCharge/100.0))} will be deducted from account credits" + discountedString
       else
         partialamount_chargedFromCredit = user.credit
         amountToCharge -= partialamount_chargedFromCredit
-        toRtn = "$#{sprintf('$%0.2f',(partialamount_chargedFromCredit/100.0))} will be deducted from account credits and "
+        toRtn = "$#{sprintf('%0.2f',(partialamount_chargedFromCredit/100.0))} will be deducted from account credits and "
       end
     end
     
@@ -170,10 +170,10 @@ class Payment
     card = Stripe::Customer.retrieve(customer.customer_id).active_card
     
     if(amountToCharge >= 50)
-      return toRtn + "$#{sprintf('$%0.2f',(amountToCharge/100.0))} will be charged to card *#{card.last4}" + discountedString
+      return toRtn + "$#{sprintf('%0.2f',(amountToCharge/100.0))} will be charged to card *#{card.last4}" + discountedString
     else
         #for now, just give it to them.
-        return toRtn + "$#{sprintf('$%0.2f',(amountToCharge/100.0))} will be charged to card *#{card.last4}" + discountedString
+        return toRtn + "$#{sprintf('%0.2f',(amountToCharge/100.0))} will be charged to card *#{card.last4}" + discountedString
         
         #return "Error"
     end
