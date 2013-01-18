@@ -1,6 +1,6 @@
 
 
-class ImageTest
+class ImageTestOld
   def self.spot_images_are_viewable_test
     problem_spots = []
     problem_images = []

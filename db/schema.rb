@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217193044) do
+ActiveRecord::Schema.define(:version => 20130110021625) do
 
   create_table "acceptances", :force => true do |t|
     t.datetime "start_time"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20121217193044) do
     t.float    "amount_charged"
     t.string   "stripe_charge_id"
     t.string   "details",           :default => "",            :null => false
+    t.string   "price_type",        :default => "",            :null => false
+    t.string   "price_name",        :default => "",            :null => false
   end
 
   create_table "agreements", :force => true do |t|
@@ -107,6 +109,14 @@ ActiveRecord::Schema.define(:version => 20121217193044) do
     t.boolean  "reservationused", :default => false
   end
 
+  create_table "flat_rate_prices", :force => true do |t|
+    t.float    "duration",   :default => 0.0, :null => false
+    t.float    "price",      :default => 0.0, :null => false
+    t.string   "name",       :default => "",  :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
   create_table "images", :force => true do |t|
     t.string   "name",                          :default => "", :null => false
     t.string   "path",                          :default => "", :null => false
@@ -143,6 +153,14 @@ ActiveRecord::Schema.define(:version => 20121217193044) do
     t.float    "capacity",          :default => 1.0,      :null => false
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
+  end
+
+  create_table "offer_schedule_flat_rate_prices", :force => true do |t|
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "offer_schedule_flat_rate_priceable_id"
+    t.string   "offer_schedule_flat_rate_priceable_type"
+    t.integer  "flat_rate_price_id"
   end
 
   create_table "offer_schedules", :force => true do |t|
