@@ -41,6 +41,7 @@ class Api::V2::ComplaintsController < ApplicationController
   # POST /complaints.json
   def create
     #client-size naming fix (description"s")
+    p params[:complaint]
     if(params[:complaint][:descriptions])
       params[:complaint][:description] = params[:complaint][:descriptions]
     end
