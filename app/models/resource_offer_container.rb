@@ -152,12 +152,12 @@ class ResourceOfferContainer
   end
 
   def validate_reservation(start_time, end_time)
-    valid = self.start_time(start_time) <= start_time
-    valid = valid && (self.end_time(start_time) >= end_time)
+    valid = self.start_time(start_time, false) <= start_time
+    valid = valid && (self.end_time(start_time, false) >= end_time)
     #DEBUG: start
-    if(!valid)
-      p [["invalid time in ResourceOfferContainer::validate_reservation", "t_in:", start_time, end_time, "t_my:", self.start_time(start_time), self.end_time(start_time)], self]
-    end
+    #if(!valid)
+    #  p [["invalid time in ResourceOfferContainer::validate_reservation", "t_in:", start_time, end_time, "t_my:", self.start_time(start_time), self.end_time(start_time)], self]
+    #end
     #DEBUG: end
     return valid
   end
