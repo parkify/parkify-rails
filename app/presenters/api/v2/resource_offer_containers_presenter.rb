@@ -11,7 +11,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
 
     available = ( roc.resource.active && (end_time_with_acc - start_time_with_acc) >= 2.hours )
     result = {
-      :id => roc.resource.id + 90000, # id fix for this version
+      :id => roc.resource.sign_id - 10000, # id fix for this version
       :title => roc.resource.title,
       :free => available.to_s,
       :available => available,
