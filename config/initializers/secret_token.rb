@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-ParkifyRails::Application.config.secret_token = 'ce2f10a94140615bd62427c21d47c17026c62dc83c9715cda7f4f7f5da21f257a0c4d903fcc1b5a33e5a0a927aaabe277a7fe002e26b816f9c63d63dcf14e1b6'
+ParkifyRails::Application.config.secret_token = 752773d4982b014f667e1854af41815cae56850cb0a019b374486954569235fd25527b39c0002cc6bf5d576f0c953b9b63b425bf3e49551b1077dda2b2fdd46d
