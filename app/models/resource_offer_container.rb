@@ -66,7 +66,6 @@ class ResourceOfferContainer
       toAdd = acc.generate_working_schedule(start_time, end_time)
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
     end
-    p ["ResourceOfferContainer::update_availability", self.resource.id, start_time, end_time, no_update_info, @capacity_intervals.size, @totalcapacity_interval.size]
     #TODO: I need to remember to re-update every so often to advance this window.
   end
   
@@ -192,14 +191,14 @@ class ResourceOfferContainer
 
   def self.from_hash(h)
     if(! h["resource"])
-      p h
+      #p h
     end
     resource = ResourceOffer.new(h["resource"])
 
     resource.id = h["resource"]["id"]
     
     if (resource.id == nil)
-      puts ["bad hash in ResourceOfferContainer::from_hash", h]
+      #puts ["bad hash in ResourceOfferContainer::from_hash", h]
     end
 
     toRtn = ResourceOfferContainer.new(resource, {:no_update => true})
