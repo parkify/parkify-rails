@@ -132,6 +132,29 @@ ParkifyRails::Application.routes.draw do
         end
       end
 
+      namespace :v3 do
+        devise_for :users
+        resource :device_users
+        resource :complaints
+        resources :resources, :controller => "parking_spots", :only => [:index, :show]
+        resource :app_transactions
+        resources :acceptances, :controller => "app_transactions", :only => [:create] do
+          post 'preview', :on => :collection
+        end
+        resource :devices
+        
+        resource :account, :controller => "account" do
+          post 'add_card', :on => :collection
+          post 'add_car', :on => :collection
+          post 'activate_card', :on => :collection
+          post 'update_cars', :on => :collection
+          post 'add_promo', :on => :collection
+          post 'update_password', :on => :collection
+          post 'reset_password', :on => :collection
+          post 'problem_spot', :on => :collection
+        end
+      end
+
   end
 
   
