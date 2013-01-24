@@ -158,8 +158,9 @@ class ResourceOfferHandler < Ohm::Model
 
   def self.validate_reservation_and_find_price(resource_offer_id, start_time, end_time, price_type, price_name)
     fresh_container = ResourceOfferContainer.new(ResourceOffer.find_by_id(resource_offer_id), {:start_time=>start_time, :end_time=>end_time, :no_update_info=>true})
+    p ["testing ResourceOfferHandler::validate_reservation_and_find_price", fresh_container]
     return fresh_container.validate_reservation_and_find_price(start_time, end_time, price_type, price_name)
-  end
+  end 
 
   def self.validate_reservation(resource_offer_id, start_time, end_time)
     fresh_container = ResourceOfferContainer.new(ResourceOffer.find_by_id(resource_offer_id), {:start_time=>start_time, :end_time=>end_time, :no_update_info=>true})
