@@ -1,4 +1,4 @@
-class Api::V2::AccountController < ApplicationController
+class Api::V3::AccountController < ApplicationController
   # GET /users
   # GET /users.json
   
@@ -20,7 +20,7 @@ class Api::V2::AccountController < ApplicationController
     
     respond_to do |format|
       #format.html # show.html.erb
-        format.json { render json: {:user=>Api::V2::UsersPresenter.new().as_json(@user), :success=>true } }
+        format.json { render json: {:user=>Api::V3::UsersPresenter.new().as_json(@user), :success=>true } }
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V2::AccountController < ApplicationController
 
     respond_to do |format|
       #format.html # new.html.erb
-      format.json { render json: Api::V2::UsersPresenter.new().as_json(@user) }
+      format.json { render json: Api::V3::UsersPresenter.new().as_json(@user) }
     end
   end
 
@@ -48,7 +48,7 @@ class Api::V2::AccountController < ApplicationController
     respond_to do |format|
       if @user.save
         #format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render json: Api::V2::UsersPresenter.new().as_json(@user), status: :created, location: @user }
+          format.json { render json: Api::V3::UsersPresenter.new().as_json(@user), status: :created, location: @user }
       else
         #format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -65,7 +65,7 @@ class Api::V2::AccountController < ApplicationController
       if @user.update_attributes(JSON.parse(params[:user]))
         puts "2"  
         #format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render json: {:user=>Api::V2::UsersPresenter.new().as_json(@user), :success=>true}, location: @user }
+        format.json { render json: {:user=>Api::V3::UsersPresenter.new().as_json(@user), :success=>true}, location: @user }
       else
         puts "3"
         #format.html { render action: "edit" }
@@ -171,7 +171,7 @@ class Api::V2::AccountController < ApplicationController
       if @user.update_attributes(JSON.parse(params[:user]))
         # Sign in the user by passing validation in case his password changed
         sign_in @user, :bypass => true
-        format.json { render json: {:user=>Api::V2::UsersPresenter.new().as_json(@user), :auth_token=>@user.authentication_token, :success=>true}, location: @user }
+        format.json { render json: {:user=>Api::V3::UsersPresenter.new().as_json(@user), :auth_token=>@user.authentication_token, :success=>true}, location: @user }
       else
         p @user.errors
           format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }

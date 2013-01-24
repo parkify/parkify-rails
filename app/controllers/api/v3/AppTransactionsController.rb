@@ -1,4 +1,4 @@
-class Api::V2::AppTransactionsController < ApplicationController
+class Api::V3::AppTransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   
@@ -20,7 +20,7 @@ class Api::V2::AppTransactionsController < ApplicationController
 #format.html # index.html.erb
 #@transactions = Transaction.all
 
-    presenter = Api::V2::AcceptancesPresenter.new
+    presenter = Api::V3::AcceptancesPresenter.new
     acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
 
     p ["SENDING_JSON OF ACCEPTANCES", acceptances_json]
@@ -47,7 +47,7 @@ class Api::V2::AppTransactionsController < ApplicationController
     p "acceptances are "
     p @acceptances.as_json()
 
-    presenter = Api::V2::AcceptancesPresenter.new
+    presenter = Api::V3::AcceptancesPresenter.new
     acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
 
     respond_to do |format|
@@ -106,7 +106,7 @@ class Api::V2::AppTransactionsController < ApplicationController
           @acceptance.start_time = thisaccept.start_time
           @acceptance.save
         end
-        presenter = Api::V2::AcceptancesPresenter.new
+        presenter = Api::V3::AcceptancesPresenter.new
         acceptance_json = presenter.as_json(@acceptance)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
         format.json { render json: {:acceptance => acceptance_json, :success=>true}, status: :created, location: @acceptance, }

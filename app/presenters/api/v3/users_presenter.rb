@@ -1,4 +1,4 @@
-class Api::V2::UsersPresenter < Api::V2::ApplicationPresenter
+class Api::V3::UsersPresenter < Api::V3::ApplicationPresenter
   
   def as_json(user, options={})
     #result = user.as_json(:only => [:id, :first_name, :last_name, :email, :phone_number, :credit])

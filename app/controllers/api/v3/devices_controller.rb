@@ -1,4 +1,4 @@
-class Api::V2::DevicesController < ApplicationController
+class Api::V3::DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index

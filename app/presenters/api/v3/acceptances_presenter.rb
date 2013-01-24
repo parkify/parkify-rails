@@ -1,4 +1,4 @@
-class Api::V2::AcceptancesPresenter < Api::V2::ApplicationPresenter
+class Api::V3::AcceptancesPresenter < Api::V3::ApplicationPresenter
   
   def as_json(acc, options={})
     {

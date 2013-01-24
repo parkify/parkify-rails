@@ -1,7 +1,6 @@
-class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
+class Api::V3::ResourceOfferContainersPresenter < Api::V3::ApplicationPresenter
   
   def as_json(roc, options={})
-    p "Api::V2::ResourceOfferContainersPresenter::as_json"
     # Check Availability
     start_time = roc.start_time(Time.now(), true)
     end_time = roc.end_time(Time.now(), true)
@@ -11,8 +10,7 @@ class Api::V2::ResourceOfferContainersPresenter < Api::V2::ApplicationPresenter
 
     available = ( roc.resource.active && (end_time_with_acc - start_time_with_acc) >= 2.hours )
     result = {
-      :signid => roc.resource.sign_id,
-      :id => roc.resource.id, # id fix for this version
+      :id => roc.resource.sign_id - 10000, # id fix for this version
       :title => roc.resource.title,
       :free => available.to_s,
       :available => available,
