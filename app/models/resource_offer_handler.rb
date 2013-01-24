@@ -61,7 +61,7 @@ class ResourceOfferHandler < Ohm::Model
 
     theSingleton.save!
 
-    p [[["THE SINGLTON in ResourceOfferHandler::make_singleton", theSingleton.debug_string]]]
+    p ["THE SINGLTON in ResourceOfferHandler::make_singleton"]
 
     theSingleton
   end
@@ -74,7 +74,6 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_info()
       end
     end
-    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_info", self.debug_string]]]
     self.save!
   end
 
@@ -86,13 +85,11 @@ class ResourceOfferHandler < Ohm::Model
         @resources[ro].update_availability()
       end
     end
-    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_resource_availability", self.debug_string]]]
     self.save!
   end
 
   def update_from_redis()
     dstring = ""
-    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis", self.debug_string]]]
     from_redis = ResourceOfferHandler.find(:is_singleton => "true").first
     if from_redis && self.updated_at < from_redis.updated_at
       dstring += "1 "
@@ -112,8 +109,6 @@ class ResourceOfferHandler < Ohm::Model
       end
       dstring += toAdd
     end
-    p [[["RESOURCE_OFFER_HANDLER WAS UPDATED in update_from_redis", self.debug_string]]]
-    p [[[dstring]]]
   end
   
   def retrieve_spots(options={})
