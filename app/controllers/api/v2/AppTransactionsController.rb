@@ -44,11 +44,13 @@ class Api::V2::AppTransactionsController < ApplicationController
         @acceptances = Acceptance.where("user_id=? and (status=? or status = ?) and end_time> ?", current_user.id, "successfully paid", "payment pending", Time.now())
       end
     end
-    p "acceptances are "
-    p @acceptances.as_json()
+    
 
     presenter = Api::V2::AcceptancesPresenter.new
     acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
+
+    p "acceptances are "
+    p acceptances_json
 
     respond_to do |format|
       format.html # show.html.erb
