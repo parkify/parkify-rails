@@ -31,7 +31,7 @@ end
 
 #Temporarily  removed while rubygems.coms Dependency API is down.
 #gem 'jquery-rails', '2.0.0'
-
+gem 'newrelic_rpm'
 gem 'devise'
 gem 'cancan'
 gem 'haml'

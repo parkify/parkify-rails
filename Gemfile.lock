@@ -124,6 +124,7 @@ GEM
     nest (1.1.2)
       redis
     nested_form (0.2.3)
+    newrelic_rpm (3.5.6.46)
     nokogiri (1.5.5)
     nokogiri (1.5.5-x86-mingw32)
     ohm (1.2.0)
@@ -271,6 +272,7 @@ DEPENDENCIES
   heroku_san
   hipchat-api
   hpricot
+  newrelic_rpm
   nokogiri
   ohm
   paperclip (~> 3.0)
