@@ -117,13 +117,13 @@ class ResourceOfferContainer
     #toRtn = Time.now
     capIntervals = thisarray.select{|x| x.end_time >= time}.sort{|x,y| x.start_time <=> y.start_time}
     if(capIntervals.size == 0)
-      return Time.at(0)
+      return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
-      return Time.at(0)
+      return Time.at(2)
     end
     if(capIntervals.first.start_time > time)
-      return Time.at(0)
+      return Time.at(3)
     end
 
     latest_cap = capIntervals.first
