@@ -120,6 +120,7 @@ class ResourceOfferContainer
       return Time.at(1)
     end
     if(capIntervals.first.capacity < 1)
+      p ["capintervals in end_time", capIntervals]
       return Time.at(2)
     end
     if(capIntervals.first.start_time > time)
