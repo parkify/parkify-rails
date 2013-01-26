@@ -116,27 +116,31 @@ class ResourceOfferContainer
     end
     #toRtn = Time.now
     capIntervals = thisarray.select{|x| x.end_time >= time}.sort{|x,y| x.start_time <=> y.start_time}
-    if(capIntervals.size == 0)
-      return Time.at(1)
-    end
-    if(capIntervals.first.capacity < 1)
-      p ["capintervals in end_time", capIntervals]
-      return Time.at(2)
-    end
-    if(capIntervals.first.start_time > time)
-      return Time.at(3)
-    end
-
-    latest_cap = capIntervals.first
-    latest_time = latest_cap.end_time
-
-    capIntervals[1..-1].each do |capIter|
-      if(capIter.start_time != latest_time || capIter.capacity < 1)
+    
+    #find a starting point
+    i = 0
+    capIntervals[0..-1].each do |capIter|
+      if (capIter.start_time <= time) and (capIter.end_time >= time) and (capIter.capacity >= 1)
         break;
       end
+      i += 1
+    end
 
-      latest_cap = capIter
-      latest_time = capIter.end_time
+    if (i == capIntervals.count)
+      return Time.at(0)
+    end
+
+    latest_cap = capIntervals[i]
+    latest_time = latest_cap.end_time
+    if (i+1 < capIntervals.count)
+      capIntervals[i+1..-1].each do |capIter|
+        if(capIter.start_time != latest_time || capIter.capacity < 1)
+          break;
+        end
+
+        latest_cap = capIter
+        latest_time = capIter.end_time
+      end
     end
 
     return latest_time
