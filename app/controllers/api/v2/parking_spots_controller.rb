@@ -34,8 +34,8 @@ class Api::V2::ParkingSpotsController < ApplicationController
   def show
     #Fix id_numbering for (< v1.2)
     params[:id] = Integer(params[:id]) + 10000
-    ro = ResourceOffer.find_by_sign_id(params[:id])
-
+    #ro = ResourceOffer.find_by_sign_id(params[:id])
+    ro = ResourceOffer.find(Integer(params[:id]))
     #end fix
 
     @parking_spot = ApplicationController::resource_offer_handler.retrieve_spots({:only=>[ro.id]}).first
