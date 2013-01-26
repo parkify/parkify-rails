@@ -152,7 +152,7 @@ class Api::V3::AppTransactionsController < ApplicationController
     if (params["end_time"] < params["start_time"] )
       @acceptance.errors.add(:reservation, "has invalid time")
       @acceptance.status = "failed"
-    elsif (params["offer_ids"].length != 1)
+    elsif (params["offer_ids"].length < 1)
       @acceptance.errors.add(:spot, "not available at this time")
       @acceptance.status = "failed"
     else
