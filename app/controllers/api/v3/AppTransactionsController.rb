@@ -45,10 +45,10 @@ class Api::V3::AppTransactionsController < ApplicationController
       end
     end
     p "acceptances are "
-    p @acceptances.as_json()
-
+   
     presenter = Api::V3::AcceptancesPresenter.new
     acceptances_json = @acceptances.map{|x| presenter.as_json(x)}
+    p acceptances_json
 
     respond_to do |format|
       format.html # show.html.erb
