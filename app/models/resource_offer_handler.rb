@@ -89,37 +89,35 @@ class ResourceOfferHandler < Ohm::Model
   end
 
   def update_from_redis()
-    dstring = ""
+    
     from_redis = ResourceOfferHandler.find(:is_singleton => "true").first
     if from_redis && self.updated_at < from_redis.updated_at
-      dstring += "1 "
-      toAdd = ""
+ 
+      
       self.load!
       self.resources = {}
       ActiveSupport::JSON.decode(self.resources_ohm).each do |k,v|
-        toAdd = "[#{v}]"
+        
         self.resources[k.to_i] = ResourceOfferContainer.from_hash(v) 
       end
-      dstring += toAdd
-      toAdd = ""
+      
+      
       self.activeresources = {}
       ActiveSupport::JSON.decode(self.activeresources_ohm).each do |k,v|
-        toAdd = "3 "
+        
         self.activeresources[k.to_i] = ResourceOfferContainer.from_hash(v) if v and !v.empty?
       end
-      dstring += toAdd
+      
     end
   end
   
   def retrieve_spots(options={})
     update_from_redis
 
-    self.debug_check_1
-    
     if options[:all]
       return @resources.values
     elsif options[:active]
-      return @activeresources
+      return @resources.reject{|k,v| !v.resource.active}
     elsif options[:only]
       p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval.size]}]
       return options[:only].map{|x| @resources[x]}

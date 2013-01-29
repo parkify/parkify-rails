@@ -2,15 +2,13 @@ class ResourceOfferContainer
   attr_accessor :resource
   attr_accessor :price_intervals
   attr_accessor :capacity_intervals
-  attr_accessor :totalprice_interval
-  attr_accessor :totalcapacity_interval
+  attr_accessor :capacity_interval_without_acceptances
 
   def initialize(resource=nil, options={})
     @resource = resource
     @price_intervals = []
     @capacity_intervals = []
-    @totalprice_interval =[]
-    @totalcapacity_interval=[]
+    @capacity_intervals_without_acceptances=[]
     update_availability(options[:start_time], options[:end_time], options[:no_update_info]) unless options[:no_update]
     self
   end
@@ -30,8 +28,7 @@ class ResourceOfferContainer
 
     @capacity_intervals = []
     @price_intervals = []
-    @totalprice_interval =[]
-    @totalcapacity_interval=[]
+    @capacity_intervals_without_acceptances=[]
 
     # I specify a window with which to generate a working schedule.
     if(start_time == nil || end_time == nil)
@@ -45,9 +42,8 @@ class ResourceOfferContainer
 
       #TODO: replace the += operator with an "interval merge" operator (to be defined)
       @capacity_intervals += toAdd[:capacity_intervals]
-      @totalcapacity_interval += toAdd[:capacity_intervals]
+      @capacity_intervals_without_acceptances += toAdd[:capacity_intervals]
       @price_intervals += toAdd[:price_intervals]
-      @totalprice_interval += toAdd[:price_intervals]
     end
 
     # Look through the exception relation and force each change onto the working schedule
@@ -55,8 +51,7 @@ class ResourceOfferContainer
       toAdd = ose.generate_working_schedule(start_time, end_time)
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
       @price_intervals = ValuedInterval::force_intervals(toAdd[:price_intervals], @price_intervals)
-      @totalcapacity_interval = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @totalcapacity_interval)
-      @totalprice_interval = ValuedInterval::force_intervals(toAdd[:price_intervals], @totalprice_interval)
+      @capacity_intervals_without_acceptances = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals_without_acceptances)
     end
 
     # Look through all acceptances and force_interval 
@@ -76,11 +71,11 @@ class ResourceOfferContainer
     x.start_time <= y
   end
 
-  def start_time(time=Time.now(), total=true)
+  def start_time(time=Time.now(), wo_acceptances=true)
     #toRtn = Time.now
     thisarray = @capacity_intervals
-    if(total)
-      thisarray = @totalcapacity_interval
+    if(wo_acceptances)
+      thisarray = @capacity_intervals_without_acceptances
     end
     capIntervals = thisarray.select{|x| x.start_time <= time}.sort{|x,y| y.start_time <=> x.start_time}
     if(capIntervals.size == 0)
@@ -109,10 +104,10 @@ class ResourceOfferContainer
     return earliest_time
   end
 
-  def end_time(time=Time.now(), total=true)
+  def end_time(time=Time.now(), wo_acceptances=true)
     thisarray = @capacity_intervals
-    if(total)
-      thisarray = @totalcapacity_interval
+    if(wo_acceptances)
+      thisarray = @capacity_intervals_without_acceptances
     end
     #toRtn = Time.now
     capIntervals = thisarray.select{|x| x.end_time >= time}.sort{|x,y| x.start_time <=> y.start_time}
@@ -218,14 +213,10 @@ class ResourceOfferContainer
       toRtn.capacity_intervals = h["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
-    toRtn.totalprice_interval = []
-    if h["totalprice_interval"]
-      toRtn.totalprice_interval = h["totalprice_interval"].map{|interval| PriceInterval.from_hash(interval)}
-    end
 
-    toRtn.totalcapacity_interval = []
-    if h["totalcapacity_interval"]
-      toRtn.totalcapacity_interval = h["totalcapacity_interval"].map{|interval| CapacityInterval.from_hash(interval)}
+    toRtn.capacity_intervals_without_acceptances = []
+    if h["capacity_intervals_without_acceptances"]
+      toRtn.capacity_intervals_without_acceptances = h["capacity_intervals_without_acceptances"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
     return toRtn
