@@ -47,7 +47,7 @@ class ResourceOfferContainer < Ohm::Model
       :resource => self.resource,
       :price_intervals => self.price_intervals,
       :capacity_intervals => self.capacity_intervals,
-      :capacity_intervals_without_acceptances => self.capacity_intervals_without_acceptances
+      :capacity_intervals_without_acceptances => self.capacity_intervals_without_acceptances,
       :images => self.images
     })
     super
