@@ -68,10 +68,10 @@ class ResourceOfferHandler < Ohm::Model
 
   def self.validate_reservation_and_find_price(resource_offer_id, acceptance, use_cache=true)
     fresh_container = ResourceOfferContainer.find_or_create(resource_offer_id)
-    if(resource_offer_container == nil)
+    if(fresh_container == nil)
       return -1
     end
-    if(!resource_offer_container.updated_from_sql && !use_cache)
+    if(!fresh_container.updated_from_sql && !use_cache)
       fresh_container.update_from_sql(start_time, end_time)
     end
     return fresh_container.validate_reservation_and_find_price(acceptance)
@@ -79,10 +79,10 @@ class ResourceOfferHandler < Ohm::Model
 
   def self.validate_reservation_from_sql(resource_offer_id, acceptance, use_cache=true)
     fresh_container = ResourceOfferContainer.find_or_create(resource_offer_id)
-    if(resource_offer_container == nil)
+    if(fresh_container == nil)
       return -1
     end
-    if(!resource_offer_container.updated_from_sql && !use_cache)
+    if(!fresh_container.updated_from_sql && !use_cache)
       fresh_container.update_from_sql(start_time, end_time)
     end
     return fresh_container.validate_reservation(acceptance)
