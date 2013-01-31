@@ -14,7 +14,7 @@ class Image < ActiveRecord::Base
   validates_attachment_content_type :image_attachment, :content_type => ['image/jpeg', 'image/png']
   
   attr_accessor :copy_of
-  attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
+  #attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
   
   after_save :update_handler
   after_destroy :update_handler
