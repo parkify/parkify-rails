@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20130110021625) do
     t.integer  "user_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.boolean  "active_car"
+    t.boolean  "active_car",                           :null => false
   end
 
   create_table "codes", :force => true do |t|
@@ -100,13 +100,12 @@ ActiveRecord::Schema.define(:version => 20130110021625) do
   end
 
   create_table "devices", :force => true do |t|
-    t.string   "device_uid",      :default => "",    :null => false
-    t.string   "push_token_id",   :default => "",    :null => false
-    t.string   "device_type",     :default => "",    :null => false
-    t.datetime "last_used_at",                       :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "reservationused", :default => false
+    t.string   "device_uid",    :default => "", :null => false
+    t.string   "push_token_id", :default => "", :null => false
+    t.string   "device_type",   :default => "", :null => false
+    t.datetime "last_used_at",                  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "flat_rate_prices", :force => true do |t|

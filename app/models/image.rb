@@ -82,8 +82,8 @@ class Image < ActiveRecord::Base
 
 
   def update_handler
-    if self.imageable_type == "ResourceOffer"
-      if(ResourceOffer.exists(self.imageable_id)
+    if (self.imageable_type == "ResourceOffer")
+      if (ResourceOffer.exists?(self.imageable_id))
         ResourceOfferContainer::update_spot(self.imageable_id, false)
       end
     end
