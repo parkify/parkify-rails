@@ -12,6 +12,7 @@ class ResourceOfferContainer < Ohm::Model
 #OK, so we need: thaw (essentially update_from_redis), save (updating the redis serialization), update_from_sql (to do reservations, and to update availability, etc). 
 
   def self.update_all_spots()
+    p "ResourceOfferContainer::update_all_spots"
     #ResourceOfferContainer.all.each do |roc|
     #  roc.delete
     #end
@@ -40,6 +41,7 @@ class ResourceOfferContainer < Ohm::Model
   end
 
   def save!
+    p "ResourceOfferContainer::save!"
     self.ohm_ization = ActiveSupport::JSON.encode({
       :resource => self.resource,
       :price_intervals => self.price_intervals,
@@ -50,6 +52,7 @@ class ResourceOfferContainer < Ohm::Model
   end
 
   def self.find_or_create(resource_offer_id)
+    p "ResourceOfferContainer::find_or_create"
     toRtn = ResourceOfferContainer.with(:resource_offer_id, resource_offer_id)
     if(!toRtn)
       toRtn = ResourceOfferContainer.create ({:resource_offer_id => resource_offer_id})
@@ -77,6 +80,7 @@ class ResourceOfferContainer < Ohm::Model
   
 
   def update_info
+    p "ResourceOfferContainer::update_info"
     if !@resource
       @resource = ResourceOffer.find(self.resource_offer_id)
     else
@@ -86,6 +90,7 @@ class ResourceOfferContainer < Ohm::Model
 
   # update both price and capacity intervals
   def update_from_sql(start_time=nil, end_time=nil)
+    p "ResourceOfferContainer::update_from_sql"
     update_info 
     
     @capacity_intervals = []
