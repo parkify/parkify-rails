@@ -2,7 +2,7 @@ class ResourceOfferContainer < Ohm::Model
   attr_accessor :resource
   attr_accessor :price_intervals
   attr_accessor :capacity_intervals
-  attr_accessor :capacity_interval_without_acceptances
+  attr_accessor :capacity_intervals_without_acceptances
   attr_accessor :updated_from_sql
 
   attribute :ohm_ization
