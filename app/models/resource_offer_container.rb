@@ -246,7 +246,7 @@ class ResourceOfferContainer < Ohm::Model
               toRtn = flat_price["price"]
             end
             if (!flat_price[:price].nil?)
-              toRtn = flat_price["price"]
+              toRtn = flat_price[:price]
             end
           end
         end
