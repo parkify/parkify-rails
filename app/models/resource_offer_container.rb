@@ -238,7 +238,7 @@ class ResourceOfferContainer < Ohm::Model
       self.price_intervals.each do |interval|
         if (interval.start_time <= acceptance.start_time &&
           interval.end_time >= acceptance.start_time)
-          flat_price = interval.flat_rate_prices[price_name]
+          flat_price = interval.flat_rate_prices[acceptance.price_name]
           if(flat_price)
             toRtn = flat_price[:price]
           end
