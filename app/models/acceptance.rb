@@ -212,7 +212,7 @@ class Acceptance < ActiveRecord::Base
 
 
   def update_handler
-    if(ResourceOffer.exists(self.resource_offer_id))
+    if(ResourceOffer.exists?(self.resource_offer_id))
       ResourceOfferContainer::update_spot(self.resource_offer_id, false)
     end
   end
