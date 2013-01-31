@@ -51,7 +51,7 @@ class ResourceOfferContainer < Ohm::Model
   def self.find_or_create(resource_offer_id)
     toRtn = ResourceOfferContainer.with(:resource_offer_id, resource_offer_id)
     if(!toRtn)
-      toRtn = ResourceOfferContainer.create (:resource_offer_id => resource_offer_id)
+      toRtn = ResourceOfferContainer.create ({:resource_offer_id => resource_offer_id})
       toRtn.update_from_sql
       toRtn.save!
       toRtn.updated_from_sql = true
