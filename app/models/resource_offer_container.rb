@@ -6,6 +6,7 @@ class ResourceOfferContainer < Ohm::Model
   attr_accessor :updated_from_sql
 
   attribute :ohm_ization
+  attribute :resource_offer_id
   unique :resource_offer_id
 
 #OK, so we need: thaw (essentially update_from_redis), save (updating the redis serialization), update_from_sql (to do reservations, and to update availability, etc). 
