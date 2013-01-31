@@ -1,5 +1,5 @@
 class QuickProperty < ActiveRecord::Base
-  #attr_accessible :key, :value, :resource_id
+  attr_accessible :key, :value, :resource_id, :resource_offer_id, :created_at, :updated_at, :id, :key, :value
   belongs_to :resource_offer
 
   after_save :update_handler
