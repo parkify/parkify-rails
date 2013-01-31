@@ -57,7 +57,7 @@ class ResourceOfferHandler < Ohm::Model
       toRtn = Hash[*(ResourceOfferContainer.all.map{|x| [x.resource_offer_id, x.thaw]}.flatten)]
       return toRtn.reject{|k,v| !v.resource.active}
     elsif options[:only]
-      p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval.size]}]
+      #p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval.size]}]
       return options[:only].map{|x| ResourceOfferContainer.find_or_create(x)}
     else
       p ["EXPECTED DIFFERENT OPTIONS", options]
