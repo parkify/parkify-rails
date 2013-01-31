@@ -253,18 +253,18 @@ class ResourceOfferContainer < Ohm::Model
     
     self.price_intervals = []
     if thawed_hash["price_intervals"]
-      toRtn.price_intervals = thawed_hash["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
+      self.price_intervals = thawed_hash["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
     end
 
     self.capacity_intervals = []
     if thawed_hash["capacity_intervals"]
-      toRtn.capacity_intervals = thawed_hash["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
+      self.capacity_intervals = thawed_hash["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
 
     self.capacity_intervals_without_acceptances = []
     if thawed_hash["capacity_intervals_without_acceptances"]
-      toRtn.capacity_intervals_without_acceptances = thawed_hash["capacity_intervals_without_acceptances"].map{|interval| CapacityInterval.from_hash(interval)}
+      self.capacity_intervals_without_acceptances = thawed_hash["capacity_intervals_without_acceptances"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
     return self
