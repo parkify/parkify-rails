@@ -248,7 +248,6 @@ class ResourceOfferContainer < Ohm::Model
   end
 
   def thaw
-    p "ResourceOfferContainer::thaw"
     thawed_hash = ActiveSupport::JSON.decode(self.ohm_ization)
     if(!thawed_hash)
       return #TODO: throw exception
