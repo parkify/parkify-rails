@@ -240,6 +240,7 @@ class ResourceOfferContainer < Ohm::Model
           interval.end_time >= acceptance.start_time)
           flat_price = interval.flat_rate_prices[acceptance.price_name]
           if(flat_price)
+            p flat_price
             if (!flat_price["price"].nil?)
               toRtn = flat_price["price"]
             end
