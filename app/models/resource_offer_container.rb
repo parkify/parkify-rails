@@ -235,6 +235,7 @@ class ResourceOfferContainer < Ohm::Model
         end
       end
     elsif (acceptance.price_type == "flat_rate")
+      
       self.price_intervals.each do |interval|
         if (interval.start_time <= acceptance.start_time &&
           interval.end_time >= acceptance.start_time)
@@ -248,7 +249,7 @@ class ResourceOfferContainer < Ohm::Model
         end
       end
     end
-
+    p ["toRtn", toRtn]
     return toRtn
   end
 
