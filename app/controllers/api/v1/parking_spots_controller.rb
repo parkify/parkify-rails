@@ -5,7 +5,8 @@ class Api::V1::ParkingSpotsController < ApplicationController
   #before_filter :authenticate_user!
   
   def index
-    @parking_spots = ApplicationController::resource_offer_handler.retrieve_spots({:active=>true})
+    handler = ResourceOfferHandler.new
+    @parking_spots = handler.retrieve_spots({:active=>true})
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
    
@@ -25,7 +26,8 @@ class Api::V1::ParkingSpotsController < ApplicationController
 #params[:id] = Integer(params[:id]) - 90000
     #end fix
 
-    @parking_spot = ApplicationController::resource_offer_handler.retrieve_spots({:only=>[params[:id]]}).first
+    handler = ResourceOfferHandler.new
+    @parking_spot = handler.retrieve_spots({:only=>[params[:id]]}).first
     presenter = Api::V1::ResourceOfferContainersPresenter.new
     
     spot_json = presenter.as_json(@parking_spot, {:level_of_detail => params[:level_of_detail]})

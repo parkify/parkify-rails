@@ -107,10 +107,12 @@ class OfferSchedule < ActiveRecord::Base
     end
   end
 
-private
-    def update_handler
-      ApplicationController::update_resource_availability([self.resource_offer_id])
+
+  def update_handler
+    if(ResourceOffer.exists?(self.resource_offer_id))
+      ResourceOfferContainer::update_spot(self.resource_offer_id, false)
     end
+  end
 
 end
 

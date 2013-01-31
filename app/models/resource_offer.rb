@@ -217,7 +217,7 @@ class ResourceOffer < ActiveRecord::Base
 
   private
     def update_handler
-      ApplicationController::update_resource_info([self.id])
+      ResourceOfferContainer::update_spot(self.id, true)
     end
 
 end

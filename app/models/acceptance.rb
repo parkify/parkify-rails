@@ -105,7 +105,7 @@ class Acceptance < ActiveRecord::Base
     end
 
     #TODO: serialize or transactionalize
-    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
+    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self, false)
     if (price < 0)    
       self.status = "scheduling failed"
       self.errors.add(:transaction, "failed")
@@ -164,7 +164,7 @@ class Acceptance < ActiveRecord::Base
   end
   
   # Check the price without making the purchase.
-  def check_price(resource_offer_handler=nil)
+  def check_price(use_cache)
     
     toRtn = {}
     toRtn[:price_string] = ""
@@ -175,12 +175,7 @@ class Acceptance < ActiveRecord::Base
       return toRtn
     end
     
-    #grab correct price
-    if(resource_offer_handler)
-      price = resource_offer_handler.validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
-    else
-      price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self.start_time, self.end_time, self.price_type, self.price_name)
-    end
+    price = ResourceOfferHandler::validate_reservation_and_find_price(self.resource_offer_id, self, use_cache)
 
     if (price < 0)
       toRtn[:price_string] = "spot not available at this time"
@@ -215,9 +210,11 @@ class Acceptance < ActiveRecord::Base
     return ch.card
   end
 
- private
-    def update_handler
-      ApplicationController::update_resource_availability([self.resource_offer_id])
+
+  def update_handler
+    if(ResourceOffer.exists(self.resource_offer_id))
+      ResourceOfferContainer::update_spot(self.resource_offer_id, false)
     end
+  end
 
 end

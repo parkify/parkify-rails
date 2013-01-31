@@ -77,7 +77,7 @@ class Api::V3::AppTransactionsController < ApplicationController
   # POST /transactions.json
   def create(options={})
     build_no_db(params[:transaction])
-    p @acceptance
+
     thisaccept = nil
     if(params[:extend])
       userid = current_user.id
@@ -88,24 +88,25 @@ class Api::V3::AppTransactionsController < ApplicationController
             @acceptance.errors.add(:spot, "not available at this time")
             @acceptance.status = "failed"
       end 
-    end    
-
-    if(@acceptance.status == "failed" || !ApplicationController::resource_offer_handler.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
-      @acceptance.errors.add(:spot, "not available at this time")
-      @acceptance.status = "failed"
     end
 
+    # Check cache first
+    #if(@acceptance.status == "failed" || !ResourceOfferHanlder.validate_reservation(@acceptance.resource_offer_id, @acceptance, true))
+    #  @acceptance.errors.add(:spot, "not available at this time")
+    #  @acceptance.status = "failed"
+    #end
+
+    
     respond_to do |format|
-      if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge() and @acceptance.save
+      if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge()
         p thisaccept
         if(thisaccept)
           p "changing status to extended"
           thisaccept.status = "extended"
           thisaccept.save
-
           @acceptance.start_time = thisaccept.start_time
-          @acceptance.save
         end
+        @acceptance.save
         presenter = Api::V3::AcceptancesPresenter.new
         acceptance_json = presenter.as_json(@acceptance)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
@@ -125,7 +126,7 @@ class Api::V3::AppTransactionsController < ApplicationController
     if(@acceptance.status == "failed")
       toSend = {:success => false, :price_string => @acceptance.errors.full_messages().first}
     else
-      toSend = @acceptance.check_price(ApplicationController::resource_offer_handler)
+      toSend = @acceptance.check_price(true)
     end
 
     respond_to do |format|

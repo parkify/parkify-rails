@@ -1,34 +1,95 @@
-class ResourceOfferContainer 
+class ResourceOfferContainer < Ohm::Model
   attr_accessor :resource
   attr_accessor :price_intervals
   attr_accessor :capacity_intervals
   attr_accessor :capacity_interval_without_acceptances
+  attr_accessor :updated_from_sql
 
-  def initialize(resource=nil, options={})
-    @resource = resource
-    @price_intervals = []
-    @capacity_intervals = []
-    @capacity_intervals_without_acceptances=[]
-    update_availability(options[:start_time], options[:end_time], options[:no_update_info]) unless options[:no_update]
-    self
+  attribute :ohm_ization
+  unique :resource_offer_id
+
+#OK, so we need: thaw (essentially update_from_redis), save (updating the redis serialization), update_from_sql (to do reservations, and to update availability, etc). 
+
+  def self.update_all_spots()
+    #ResourceOfferContainer.all.each do |roc|
+    #  roc.delete
+    #end
+    ResourceOffer.all.pluck(:id).each do |ro|
+      ResourceOfferContainer::update_spot(ro)
+    end
   end
 
+  def self.update_spot(resource_offer_id, create_if_not_exists=true)
+    p "*** ^S#{resource_offer_id} ***"
+    if(create_if_not_exists)
+      toUpdate = ResourceOfferContainer.find_or_create(resource_offer_id)
+    else
+      toUpdate =  ResourceOfferContainer.with(:resource_offer_id, resource_offer_id)
+    end
+
+    if(!toUpdate)
+      return
+    end
+
+    if(!toUpdate.updated_from_sql)
+      toUpdate.update_from_sql
+    end
+
+    toUpdate.save!
+  end
+
+  def save!
+    self.ohm_ization = ActiveSupport::JSON.encode({
+      :resource => self.resource,
+      :price_intervals => self.price_intervals,
+      :capacity_intervals => self.capacity_intervals,
+      :capacity_intervals_without_acceptances => self.capacity_intervals_without_acceptances
+    })
+    super
+  end
+
+  def self.find_or_create(resource_offer_id)
+    toRtn = ResourceOfferContainer.with(:resource_offer_id, resource_offer_id)
+    if(!toRtn)
+      toRtn = ResourceOfferContainer.create (:resource_offer_id => resource_offer_id)
+      toRtn.update_from_sql
+      toRtn.save!
+      toRtn.updated_from_sql = true
+    else
+      toRtn.thaw
+      toRtn.updated_from_sql = false
+    end
+    return toRtn
+  end
+
+
+
+  #def initialize(resource=nil, options={})
+  #  @resource = resource
+  #  @price_intervals = []
+  #  @capacity_intervals = []
+  #  @capacity_intervals_without_acceptances=[]
+  #  update_availability(options[:start_time], options[:end_time], options[:no_update_info]) unless options[:no_update]
+  #  self
+  #end
+
+  
+
   def update_info
-    @resource.reload
+    if !@resource
+      @resource = ResourceOffer.find(self.resource_offer_id)
+    else
+      @resource.reload
+    end
   end
 
   # update both price and capacity intervals
-  def update_availability(start_time=nil, end_time=nil, no_update_info=nil)
+  def update_from_sql(start_time=nil, end_time=nil)
+    update_info 
     
-    #Quick fix so we can access correct schedule info.
-    #TODO: replace accessing of schedule info with a direct sql query.
-    if !no_update_info
-      update_info 
-    end
-
     @capacity_intervals = []
     @price_intervals = []
-    @capacity_intervals_without_acceptances=[]
+    @capacity_intervals_without_acceptances= []
 
     # I specify a window with which to generate a working schedule.
     if(start_time == nil || end_time == nil)
@@ -62,15 +123,11 @@ class ResourceOfferContainer
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
     end
     #TODO: I need to remember to re-update every so often to advance this window.
+    self.updated_from_sql = true
+
+    return self
   end
   
-  def debug_temp(x,y)
-    if(!x)
-      p self
-    end
-    x.start_time <= y
-  end
-
   def start_time(time=Time.now(), wo_acceptances=true)
     #toRtn = Time.now
     thisarray = @capacity_intervals
@@ -141,85 +198,75 @@ class ResourceOfferContainer
     return latest_time
   end
 
-  def dp(type=:c)
-    if(type == :c)
-      @capacity_intervals.sort{|x,y| x.start_time <=> y.start_time}.each do |c|
-        c.dp
-      end
-    end
-    nil
-  end
 
-  def validate_reservation(start_time, end_time)
-    valid = self.start_time(start_time, false) <= start_time
-    valid = valid && (self.end_time(start_time, false) >= end_time)
-    #DEBUG: start
-    if(!valid)
-      p [["invalid time in ResourceOfferContainer::validate_reservation", "t_in:", start_time, end_time, "t_my:", self.start_time(start_time, false), self.end_time(start_time, false)]]
+  def validate_reservation(acceptance)
+    if(!acceptance)
+      return false
     end
-    #DEBUG: end
+    valid = self.start_time(acceptance.start_time, false) <= acceptance.start_time
+    valid = valid && (self.end_time(acceptance.start_time, false) >= acceptance.end_time)
     return valid
   end
 
-  def validate_reservation_and_find_price(start_time, end_time, price_type, price_name)
-    return validate_reservation(start_time, end_time) ? find_price(start_time, end_time, price_type, price_name) : -1
+  def validate_reservation_and_find_price(acceptance)
+    return validate_reservation(acceptance) ? find_price(acceptance) : -1
   end
       
-  def find_price(start_time, end_time, price_type, price_name)
-    if (price_type == "hourly")
+  def find_price(acceptance)
+    toRtn = -1
+    if(!acceptance)
+      return -1
+    end
+    if (acceptance.price_type == "hourly")
       toRtn = 0.0
       self.price_intervals.each do |interval|
-        effectiveStartTime = [interval.start_time, start_time].max
-        effectiveEndTime = [interval.end_time, end_time].min
+        effectiveStartTime = [interval.start_time, acceptance.start_time].max
+        effectiveEndTime = [interval.end_time, acceptance.end_time].min
         if (effectiveEndTime > effectiveStartTime)
           toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600
         end
       end
-    elsif (price_type == "flat_rate")
+    elsif (acceptance.price_type == "flat_rate")
       self.price_intervals.each do |interval|
-        if (interval.start_time <= start_time &&
-          interval.end_time >= start_time)
-          return interval.flat_rate_prices[price_name][:price]
+        if (interval.start_time <= acceptance.start_time &&
+          interval.end_time >= acceptance.start_time)
+          flat_price = interval.flat_rate_prices[price_name]
+          if(flat_price)
+            toRtn = flat_price[:price]
+          end
         end
       end
-    else
-      return -1
     end
 
     return toRtn
   end
 
-  def self.from_hash(h)
-    if(! h["resource"])
-      #p h
+  def thaw
+    thawed_hash = ActiveRecord::JSON.decode(self.ohm_ization)
+    if(!thawed_hash)
+      return #TODO: throw exception
     end
-    resource = ResourceOffer.new(h["resource"])
 
-    resource.id = h["resource"]["id"]
+    self.resource = ResourceOffer.new(thawed_hash["resource"])
+    self.resource.id = thawed_hash["resource"]["id"]
     
-    if (resource.id == nil)
-      #puts ["bad hash in ResourceOfferContainer::from_hash", h]
+    self.price_intervals = []
+    if thawed_hash["price_intervals"]
+      toRtn.price_intervals = thawed_hash["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
     end
 
-    toRtn = ResourceOfferContainer.new(resource, {:no_update => true})
-    
-    toRtn.price_intervals = []
-    if h["price_intervals"]
-      toRtn.price_intervals = h["price_intervals"].map{|interval| PriceInterval.from_hash(interval)}
-    end
-
-    toRtn.capacity_intervals = []
-    if h["capacity_intervals"]
-      toRtn.capacity_intervals = h["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
+    self.capacity_intervals = []
+    if thawed_hash["capacity_intervals"]
+      toRtn.capacity_intervals = thawed_hash["capacity_intervals"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
 
-    toRtn.capacity_intervals_without_acceptances = []
-    if h["capacity_intervals_without_acceptances"]
-      toRtn.capacity_intervals_without_acceptances = h["capacity_intervals_without_acceptances"].map{|interval| CapacityInterval.from_hash(interval)}
+    self.capacity_intervals_without_acceptances = []
+    if thawed_hash["capacity_intervals_without_acceptances"]
+      toRtn.capacity_intervals_without_acceptances = thawed_hash["capacity_intervals_without_acceptances"].map{|interval| CapacityInterval.from_hash(interval)}
     end
 
-    return toRtn
+    return self
   end
 
   #include PresentationMethods

@@ -67,27 +67,40 @@ class Api::V1::AppTransactionsController < ApplicationController
   # POST /transactions.json
   def create(options={})
     build_no_db(params[:transaction])
-    p @acceptance
-    if(options[:extend])
+
+    thisaccept = nil
+    if(params[:extend])
       userid = current_user.id
-      acceptanceid = options[:acceptanceid]
+      acceptanceid = params[:acceptanceid]
       thisaccept=Acceptance.find(acceptanceid)
       p "checking an extend"
-      if(thisaccept != nil || thisaccept.user_id!=userid)
+      if(thisaccept == nil || thisaccept.user_id!=userid)
             @acceptance.errors.add(:spot, "not available at this time")
             @acceptance.status = "failed"
       end 
     end
-    
-    if(!ApplicationController::resource_offer_handler.validate_reservation(@acceptance.resource_offer_id, @acceptance.start_time, @acceptance.end_time))
-      @acceptance.errors.add(:spot, "not available at this time")
-      @acceptance.status = "failed"
-    end
 
+    # Check cache first
+    #if(@acceptance.status == "failed" || !ResourceOfferHanlder.validate_reservation(@acceptance.resource_offer_id, @acceptance, true))
+    #  @acceptance.errors.add(:spot, "not available at this time")
+    #  @acceptance.status = "failed"
+    #end
+
+    
     respond_to do |format|
-      if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge() and @acceptance.save
+      if @acceptance.status != "failed" and @acceptance.save and @acceptance.validate_and_charge()
+        p thisaccept
+        if(thisaccept)
+          p "changing status to extended"
+          thisaccept.status = "extended"
+          thisaccept.save
+          @acceptance.start_time = thisaccept.start_time
+        end
+        @acceptance.save
+        presenter = Api::V1::AcceptancesPresenter.new
+        acceptance_json = presenter.as_json(@acceptance)
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
-        format.json { render json: {:acceptance => @acceptance.as_json({:only => [:id, :details]}), :success=>true}, status: :created, location: @acceptance, }
+        format.json { render json: {:acceptance => acceptance_json, :success=>true}, status: :created, location: @acceptance, }
       else
         format.html { render action: "new" }
         format.json { render json: {:success => false, :error=>@acceptance.errors}}
@@ -103,7 +116,7 @@ class Api::V1::AppTransactionsController < ApplicationController
     if(@acceptance.status == "failed")
       toSend = {:success => false, :price_string => @acceptance.errors.full_messages().first}
     else
-      toSend = @acceptance.check_price(ApplicationController::resource_offer_handler)
+      toSend = @acceptance.check_price(true)
     end
 
     respond_to do |format|

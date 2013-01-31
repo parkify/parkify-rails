@@ -17,6 +17,7 @@ class Image < ActiveRecord::Base
   attr_accessible :description, :name, :path, :image_attachment, :imageable, :copy_of
   
   after_save :update_handler
+  after_destroy :update_handler
 
   # Deprecated
   def image_attachment_url
@@ -79,10 +80,13 @@ class Image < ActiveRecord::Base
   end
 
 
-  private
-    def update_handler
-      if self.imageable_type == "ResourceOffer"
-        ApplicationController::update_resource_info([self.imageable_id])
+
+  def update_handler
+    if self.imageable_type == "ResourceOffer"
+      if(ResourceOffer.exists(self.imageable_id)
+        ResourceOfferContainer::update_spot(self.imageable_id, false)
       end
     end
+  end
+
 end
