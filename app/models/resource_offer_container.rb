@@ -85,11 +85,7 @@ class ResourceOfferContainer < Ohm::Model
 
   def update_info
     p "ResourceOfferContainer::update_info"
-    if !@resource
-      @resource = ResourceOffer.find(self.resource_offer_id)
-    else
-      @resource.reload
-    end
+    @resource = ResourceOffer.find(self.resource_offer_id)
     @images = @resource.images.all
     @quick_properties = @resource.quick_properties.all
   end
