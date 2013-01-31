@@ -54,7 +54,7 @@ class ResourceOfferHandler < Ohm::Model
   
   def retrieve_spots(options={})
     if options[:active]
-      toRtn = Hash[*(ResourceOfferContainer.all.map{|x| [x.resource_offer_id, x]}.flatten)]
+      toRtn = Hash[*(ResourceOfferContainer.all.map{|x| [x.resource_offer_id, x.thaw]}.flatten)]
       return toRtn.reject{|k,v| !v.resource.active}
     elsif options[:only]
       p ["ResourceOfferHandler::retrieve_spots", options[:only].map{|x| [@resources[x].resource.id, @resources[x].totalcapacity_interval.size]}]
