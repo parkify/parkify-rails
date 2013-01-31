@@ -243,7 +243,11 @@ class ResourceOfferContainer < Ohm::Model
           if(flat_price)
             p flat_price
             if (!flat_price["price"].nil?)
+              p "Got here"
               toRtn = flat_price["price"]
+            end
+            if (!flat_price[:price].nil?)
+               p "Got here2"
             end
           end
         end
