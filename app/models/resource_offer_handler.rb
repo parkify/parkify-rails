@@ -72,7 +72,7 @@ class ResourceOfferHandler < Ohm::Model
       return -1
     end
     if(!fresh_container.updated_from_sql && !use_cache)
-      fresh_container.update_from_sql(start_time, end_time)
+      fresh_container.update_from_sql(acceptance.start_time, acceptance.end_time)
     end
     return fresh_container.validate_reservation_and_find_price(acceptance)
   end 
@@ -83,7 +83,7 @@ class ResourceOfferHandler < Ohm::Model
       return -1
     end
     if(!fresh_container.updated_from_sql && !use_cache)
-      fresh_container.update_from_sql(start_time, end_time)
+      fresh_container.update_from_sql(acceptance.start_time, acceptance.end_time)
     end
     return fresh_container.validate_reservation(acceptance)
   end
