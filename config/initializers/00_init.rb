@@ -4,5 +4,5 @@ if pending_migrations.any?
 end
 
 
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+#ActiveRecord::Base.logger = Logger.new(STDOUT)
 
