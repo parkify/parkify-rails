@@ -5,6 +5,7 @@ class ResourceOfferContainer < Ohm::Model
   attr_accessor :capacity_intervals_without_acceptances
   attr_accessor :updated_from_sql
   attr_accessor :images
+  attr_accessor :quick_properties
 
   attribute :ohm_ization
   attribute :resource_offer_id
@@ -48,7 +49,8 @@ class ResourceOfferContainer < Ohm::Model
       :price_intervals => self.price_intervals,
       :capacity_intervals => self.capacity_intervals,
       :capacity_intervals_without_acceptances => self.capacity_intervals_without_acceptances,
-      :images => self.images
+      :images => self.images,
+      :quick_properties => self.quick_properties
     })
     super
   end
@@ -89,6 +91,7 @@ class ResourceOfferContainer < Ohm::Model
       @resource.reload
     end
     @images = @resource.images.all
+    @quick_properties = @resource.quick_properties.all
   end
 
   # update both price and capacity intervals
@@ -261,6 +264,10 @@ class ResourceOfferContainer < Ohm::Model
 
     if thawed_hash["images"]
       self.images = thawed_hash["images"].map{|x| Image.new(x)}
+    end
+
+    if thawed_hash["quick_properties"]
+      self.quick_properties = thawed_hash["quick_properties"].map{|x| QuickProperty.new(x)}
     end
 
     self.price_intervals = []
