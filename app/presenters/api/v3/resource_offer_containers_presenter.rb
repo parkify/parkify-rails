@@ -29,7 +29,7 @@ class Api::V3::ResourceOfferContainersPresenter < Api::V3::ApplicationPresenter
       landscape_for_spot_info_page_ids = []
       landscape_for_spot_conf_page_ids = []
       standard_for_instructions_ids = {}
-      roc.resource.images.each do |i|
+      roc.images.each do |i|
         imageIDs << i.id
         if i.landscape_for_spot_info_page
           landscape_for_spot_info_page_ids << i.id
