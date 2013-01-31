@@ -14,7 +14,7 @@ class ResourceOfferContainer < Ohm::Model
     #ResourceOfferContainer.all.each do |roc|
     #  roc.delete
     #end
-    ResourceOffer.all.pluck(:id).each do |ro|
+    ResourceOffer.pluck(:id).each do |ro|
       ResourceOfferContainer::update_spot(ro)
     end
   end
