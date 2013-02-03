@@ -70,7 +70,7 @@ class Api::V3::DevicesController < ApplicationController
         if(@device.has_trial_account)
           format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), :auth_token=>@device.users.first.authentication_token}, status: :created}
         else
-          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), status: :created}
+          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json()}, status: :created}
         end
 #format.json { render json: @device, status: :created, isNew: isNew, location: @device }
       else
