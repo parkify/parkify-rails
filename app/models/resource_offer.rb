@@ -227,10 +227,10 @@ class ResourceOffer < ActiveRecord::Base
 
     instructions.each do |inst|
       toRtn += "<Direction>"
-      if(inst["cond"][0]["text"])
+      if(inst["conds"][0]["text"])
         toRtn += "<Text>#{inst["cond"][0]["text"]}</Text>"
       end
-      if(inst["cond"][0]["image"])
+      if(inst["conds"][0]["image"])
         toRtn += "<Image name='#{inst["cond"][0]["image"]}'/>"
       end
       toRtn += "</Direction>"
