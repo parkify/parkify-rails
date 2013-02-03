@@ -55,10 +55,10 @@ class Api::V3::DevicesController < ApplicationController
       else
         @device.reload!
         if(@device.users.count == 0)
-          new_device = true
-          p 'new trial account?'
-          trialUser = User.create_trial_account
-          device_user = @device.device_users.create(:user_id => trialUser.id, :last_used_at => Time.now)
+          #new_device = true
+          #p 'new trial account?'
+          #trialUser = User.create_trial_account
+          #device_user = @device.device_users.create(:user_id => trialUser.id, :last_used_at => Time.now)
         end
       end
     else

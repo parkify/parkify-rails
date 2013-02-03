@@ -5,11 +5,13 @@ class Device < ActiveRecord::Base
   has_many :users, :through => :device_users
 
   def has_trial_account
-    if(self.users.count != 1)
-      return false
-    end
-    user = self.users.first
-    return (user.nil?) ? false : (user.trial?)
+    return false
+
+    #if(self.users.count != 1)
+    #  return false
+    #end
+    #user = self.users.first
+    #return (user.nil?) ? false : (user.trial?)
   end
   
 
