@@ -271,20 +271,19 @@ class ResourceOffer < ActiveRecord::Base
 
   def default_parking_directions
     return "{
-  sources: [
+  \"sources\": [
     [
       {
-        location:{lat:#{self.latitude}, long:#{self.longitude}},
-        heading:1.571,
-        conds: [
+        \"location\":{\"lat\":#{self.latitude}, \"long\":#{self.longitude}},
+        \"heading\":1.571,
+        \"conds\": [
           {
-            text:\"Sorry, couldn't find parking directions.\"
+            \"text\":\"Sorry, couldn't find parking directions.\"
           }
         ]
       }
     ]
-  ]
-}"
+  ]"
   end
 
   def safe_directions
