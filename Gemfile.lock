@@ -121,6 +121,9 @@ GEM
     mime-types (1.19)
     multi_json (1.5.0)
     multi_xml (0.5.1)
+    namey (0.0.8)
+      sequel
+      sqlite3
     nest (1.1.2)
       redis
     nested_form (0.2.3)
@@ -224,6 +227,7 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sequel (3.43.0)
     sexp_processor (4.1.2)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
@@ -233,6 +237,8 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.7)
+    sqlite3 (1.3.7-x86-mingw32)
     stripe (1.7.6)
       multi_json (~> 1.1)
       rest-client (~> 1.4)
@@ -272,6 +278,7 @@ DEPENDENCIES
   heroku_san
   hipchat-api
   hpricot
+  namey
   newrelic_rpm
   nokogiri
   ohm

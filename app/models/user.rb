@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   before_save :ensure_authentication_token
+  after_initialize :after_initialize_callback
+
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit, :devices, :device_users
@@ -81,7 +83,7 @@ class User < ActiveRecord::Base
       self.cars.create(:license_plate_number => license_plate, :active_car => true)
       
       #send_welcome_email
-      HipchatMailer::post("<b>New User</b>: #{self.first_name} #{self.last_name}!")
+      HipchatMailer::post("<b>New User</b>: UserID(#{self.id}) !")
       
     else
       self.errors.add(:card, "Invalid Card")
@@ -217,7 +219,25 @@ class User < ActiveRecord::Base
     super # You *must* call super if you don't handle the
                 # method, otherwise you'll mess up Ruby's method
                 # lookup.s
-    
+  end
+
+  def trial?
+    return self.account_type == "trial"
+  end
+
+  def self.create_trial_account
+    trial_account = User.new()
+    trial_account.account_type == "trial"
+    trial_account.credit += 500
+    trial_account.save
+    return trial_account
+  end
+
+  def after_initialize_callback
+    #if (self.fake_name.nil? || self.fake_name == "")
+    #  self.fake_name = Namey::Generator.new ().name
+    #  self.save
+    #end
   end
   
   #def as_json(options={})

@@ -59,7 +59,7 @@ class Api::V2::ComplaintsController < ApplicationController
             resource.active=false
           end
           UserMailer.trouble_with_spot_email(resource, @complaint, current_user, params[:shouldCancel]).deliver
-          HipchatMailer::post("<b>User had a problem!</b><br/>Spot: #{@complaint.resource_offer.sign_id} @ #{@complaint.resource_offer.location_address}<br/>User: #{@complaint.user.first_name} #{@complaint.user.last_name}<br/>Problem: #{@complaint.description}")
+          HipchatMailer::post("<b>User had a problem!</b><br/>Spot: #{@complaint.resource_offer.sign_id} @ #{@complaint.resource_offer.location_address}<br/>User: UserID(#{@complaint.user.id}) <br/>Problem: #{@complaint.description}")
           resource.save
         end
         acceptancetorefund = Acceptance.find(acceptid)

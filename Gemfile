@@ -47,6 +47,7 @@ gem 'ohm'
 gem 'pg', '0.12.2'
 
 gem 'nokogiri'
+gem 'namey'
 
 group :production do
   #gem 'pg', '0.12.2'

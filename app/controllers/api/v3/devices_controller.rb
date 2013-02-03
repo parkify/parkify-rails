@@ -40,33 +40,38 @@ class Api::V3::DevicesController < ApplicationController
   # POST /devices
   # POST /devices.json
   def create(options={})
-    isNew=false
-    @device = Device.where("device_uid=?", params[:device_uid]).first
-    if (!@device)
-      isNew=true
-      @device = Device.new(:device_uid=>params[:device_uid], :push_token_id=> params[:push_token_id], :last_used_at =>Time.now(), :created=>Time.now(), :updated_at=>Time.now())
-    end
+    new_device = false
+    @device = Device.find_or_initialize_by_device_uid(params[:device_uid], :last_used_at => Time.now)
     @device.push_token_id = params[:push_token_id]
     @device.device_type = params[:devicetype]
-    if (current_user)
-      userid = current_user.id
-      p 'user logged in'
-      device_user = DeviceUser.where("user_id=?", userid).first
-      if(!device_user)
-        device_user = DeviceUser.new(:device_id=>@device.id, :user_id=>userid, :last_used_at =>Time.now(), :created_at=>Time.now(), :updated_at=>Time.now())
-      end
-      if (device_user.device_id != @device.id)
-        device_user.device_id = @device.id
+    @device.last_used_at = Time.now
+
+    if(@device.save)
+      if (current_user)
+        p 'user logged in'
+        device_user = @device.device_users.find_or_initialize_by_user_id(current_user.id, :last_used_at => Time.now)
         device_user.last_used_at = Time.now()
-        device_user.updated_at = Time.now()
+        device_user.save
+      else
+        @device.reload!
+        if(@device.users.count == 0)
+          new_device = true
+          p 'new trial account?'
+          trialUser = User.create_trial_account
+          device_user = @device.device_users.create(:user_id => trialUser.id, :last_used_at => Time.now)
+        end
       end
-      p 'saving new user device record'
-      device_user.save()
+    else
+      
     end
     respond_to do |format|
       if @device.save
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
-        format.json {render json: {:isNew=>isNew, :success=>true, :device=>@device.as_json()}, status: :created}
+        if(@device.has_trial_account)
+          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), :auth_token=>@device.users.first.authentication_token}, status: :created}
+        else
+          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), status: :created}
+        end
 #format.json { render json: @device, status: :created, isNew: isNew, location: @device }
       else
         format.html { render action: "new" }
