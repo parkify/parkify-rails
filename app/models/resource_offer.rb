@@ -269,6 +269,32 @@ class ResourceOffer < ActiveRecord::Base
     return true
   end
 
+  def default_parking_directions
+    return "{
+  sources: [
+    [
+      {
+        location:{lat:#{self.latitude}, long:#{self.longitude}},
+        heading:1.571,
+        conds: [
+          {
+            text:\"Sorry, couldn't find parking directions.\"
+          }
+        ]
+      }
+    ]
+  ]
+}"
+  end
+
+  def safe_directions
+    if(self.validate_directions)
+      return self.directions
+    else
+      return self.default_parking_directions
+    end
+  end
+
 
   def update_handler
     ResourceOfferContainer::update_spot(self.id, true)
