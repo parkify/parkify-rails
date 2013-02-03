@@ -241,6 +241,34 @@ class ResourceOffer < ActiveRecord::Base
     return toRtn
   end
 
+  def validate_directions
+    begin
+      directions_hash = ActiveSupport::JSON.decode(self.directions)
+    rescue
+      return false
+    end
+
+    begin
+      instructions = directions_hash["sources"][0]
+    rescue
+      return false
+    end
+
+    instructions.each do |inst|
+      begin
+        inst["conds"][0]["text"]
+      rescue
+        return false
+      end
+
+      if(inst["conds"][0]["text"].nil?)
+        return false
+      end
+    end  
+
+    return true
+  end
+
 
   def update_handler
     ResourceOfferContainer::update_spot(self.id, true)
