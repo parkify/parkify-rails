@@ -11,6 +11,9 @@ class ResourceOfferContainer < Ohm::Model
   attribute :resource_offer_id
   unique :resource_offer_id
 
+
+
+
 #OK, so we need: thaw (essentially update_from_redis), save (updating the redis serialization), update_from_sql (to do reservations, and to update availability, etc). 
 
   def self.update_all_spots()
@@ -213,7 +216,7 @@ class ResourceOfferContainer < Ohm::Model
     end
     valid = self.start_time(acceptance.start_time, false) <= acceptance.start_time
     valid = valid && (self.end_time(acceptance.start_time, false) >= acceptance.end_time)
-    return valid
+    return valid && self.active
   end
 
   def validate_reservation_and_find_price(acceptance)
