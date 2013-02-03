@@ -110,6 +110,7 @@ class Acceptance < ActiveRecord::Base
       self.status = "scheduling failed"
       self.errors.add(:transaction, "failed")
       self.save
+      p ["errors", self.errors]
       return false
     end
 
