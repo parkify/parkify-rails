@@ -234,11 +234,11 @@ class ResourceOfferContainer < Ohm::Model
         effectiveStartTime = [interval.start_time, acceptance.start_time].max
         effectiveEndTime = [interval.end_time, acceptance.end_time].min
         if (effectiveEndTime > effectiveStartTime)
+          p ["-----------------", interval.price, toRtn]
           toRtn += (effectiveEndTime - effectiveStartTime).to_f() * interval.price/3600
         end
       end
     elsif (acceptance.price_type == "flat_rate")
-      
       self.price_intervals.each do |interval|
         if (interval.start_time <= acceptance.start_time &&
           interval.end_time >= acceptance.start_time)
@@ -255,7 +255,7 @@ class ResourceOfferContainer < Ohm::Model
         end
       end
     end
-    p ["toRtn", toRtn]
+    p ["-----------------toRtn", toRtn]
     return toRtn
   end
 
