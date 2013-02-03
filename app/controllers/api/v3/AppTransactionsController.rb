@@ -113,6 +113,7 @@ class Api::V3::AppTransactionsController < ApplicationController
         format.json { render json: {:acceptance => acceptance_json, :success=>true}, status: :created, location: @acceptance, }
       else
         #format.html { render action: "new" }
+        p ["errors", @acceptance.errors]
         format.json { render json: {:success => false, :error=>@acceptance.errors}}
       end
     end
