@@ -215,9 +215,35 @@ class ResourceOffer < ActiveRecord::Base
     return true
   end
 
-  private
-    def update_handler
-      ResourceOfferContainer::update_spot(self.id, true)
+  def xml_directions
+    begin
+      directions_hash = ActiveSupport::JSON.decode(self.directions)
+    rescue
+      return self.directions
     end
+
+    instructions = directions_hash["sources"][0]
+    toRtn = "<Directions>"
+
+    instructions.each do |inst|
+      toRtn += "<Direction>"
+      if(inst["cond"][0]["text"])
+        toRtn += "<Text>#{inst["cond"][0]["text"]}</Text>"
+      end
+      if(inst["cond"][0]["image"])
+        toRtn += "<Image name='#{inst["cond"][0]["image"]}'/>"
+      end
+      toRtn += "</Direction>"
+    end    
+
+    toRtn += "</Directions>"
+
+    return toRtn
+  end
+
+
+  def update_handler
+    ResourceOfferContainer::update_spot(self.id, true)
+  end
 
 end
