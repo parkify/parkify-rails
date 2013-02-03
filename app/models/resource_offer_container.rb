@@ -224,6 +224,7 @@ class ResourceOfferContainer < Ohm::Model
   end
       
   def find_price(acceptance)
+    p ["--------==========--------", self]
     toRtn = -1
     if(!acceptance)
       return -1
