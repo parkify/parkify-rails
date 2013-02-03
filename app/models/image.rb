@@ -33,15 +33,15 @@ class Image < ActiveRecord::Base
   
   
   def landscape_for_spot_info_page
-    return true
+    return self.name.include?("landscape")
   end
   
   def landscape_for_spot_conf_page
-    return true
+    return self.name.include?("landscape")
   end
   
   def standard_for_instructions
-    return true
+    return !(self.name.include?("landscape"))
   end
   
   def duplicate_and_attach_to(ids)
