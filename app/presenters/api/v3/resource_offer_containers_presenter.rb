@@ -45,7 +45,7 @@ class Api::V3::ResourceOfferContainersPresenter < Api::V3::ApplicationPresenter
       result.deep_merge!( {
         :description => roc.resource.description,
         :location => {
-          :directions => roc.resource.directions,
+          :directions => roc.resource.safe_directions,
           :location_address => roc.resource.location_address
         },
         :imageIDs => imageIDs.as_json,
