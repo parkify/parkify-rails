@@ -216,7 +216,7 @@ class ResourceOfferContainer < Ohm::Model
     end
     valid = self.start_time(acceptance.start_time, false) <= acceptance.start_time
     valid = valid && (self.end_time(acceptance.start_time, false) >= acceptance.end_time)
-    return valid && self.resource_offer.active
+    return valid && self.resource.active
   end
 
   def validate_reservation_and_find_price(acceptance)
