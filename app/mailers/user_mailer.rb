@@ -33,7 +33,7 @@ class UserMailer < ActionMailer::Base
     users.reject!{|x| x.trivial?}
     @user_promo_hash = {}
     users.each do |u|
-      @user_promo_hash[x.id] = ( (x.codes.count == 0)? nil : x.codes.first )
+      @user_promo_hash[u.id] = ( (u.codes.count == 0)? nil : u.codes.first )
     end
     #@user_promo_hash = Hash.new( *(users.map{|x| [x, (x.codes.count == 0)? nil : x.codes.first]}.flatten))
 
