@@ -221,6 +221,10 @@ class User < ActiveRecord::Base
                 # lookup.s
   end
 
+  def nontrivial?
+    return self.account_type != "internal" and self.account_type = != "test" and self.account_type != "deactivated"
+  end
+
   def trial?
     return self.account_type == "trial"
   end

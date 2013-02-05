@@ -1,4 +1,6 @@
 ParkifyRails::Application.routes.draw do
+  get "app_query/user_aquisition"
+
   resources :offer_schedule_flat_rate_prices
 
   resources :flat_rate_prices
@@ -38,6 +40,8 @@ ParkifyRails::Application.routes.draw do
   match "/tos" => "home#tos"
   match "/privacy" => "home#privacy"
   match "/extend" => "home#extend"
+
+  match "/query/user_aquisition" => "app_query#user_aquisition"
   
   #fix for first iphone release
   match "/users/sign_in" => redirect("http://parkify-rails.herokuapp.com/my/users/sign_in")

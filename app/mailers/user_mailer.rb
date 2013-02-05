@@ -21,7 +21,20 @@ class UserMailer < ActionMailer::Base
     @spot = spot
     @complaint = complaint
     @shouldCancel = shouldCancel
-    mail(:to =>"gnamit@gmail.com",  :subject=>"Problem with spot")
+    mail(:to =>"dylan.r.jackson@parify.me",  :subject=>"Problem with spot")
 
   end
+
+  def user_aquisition_query_email(start_time,end_time, who_asked)
+    @start_time = start_time
+    @end_time = end_time
+
+    users = User.where("created_at >= ? and created_at <= ?", start_time,end_time)
+    users.reject!{|x| x.nontrivial?}
+    @user_promo = Hash( *users.map{|x| [x, (x.codes.count == 0)? nil : x.codes.first]}.flatten)
+
+    mail(:to =>who_asked,  :subject=>"User Aquisition Query")
+
+  end
+
 end
