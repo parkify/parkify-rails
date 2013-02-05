@@ -2,7 +2,7 @@
 <html>
   <head>
     <!--<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />-->
-    <title>Trouble Spot</title>
+    <title>Query Response</title>
     
     <style>
       .body {
@@ -25,12 +25,7 @@
     <p>New Users: <%= @users.count %></p>
     <p>New Users from coupon codes: <%= @users.reject{|k,v| v.nil?}.count %></p>
     <br/>
-    <%= @users.each do |u, p| %>
-    <br/>
-    <p>
-      New user <%= u.id %> - code: <%= (p.nil?) ? "N/A" : p.code_text %>
-    </p>
-    <%= end %>
+    
     <hr/>
     
   </body>
