@@ -1,5 +1,7 @@
 ParkifyRails::Application.routes.draw do
-  get "app_query/user_aquisition"
+  get "app_query/user_aquisition_new"
+
+  post "app_query/user_aquisition_create"
 
   resources :offer_schedule_flat_rate_prices
 

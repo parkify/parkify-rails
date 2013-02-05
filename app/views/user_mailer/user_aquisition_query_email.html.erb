@@ -20,19 +20,17 @@
     </style>
   </head>
   <body>
-    <h1>User Aquisition Query Results</h1><br/>
-    <p><%= @start_time %>  to  <%= @end_time %></p><br/>
-    <p>New Users: <%= @user_promo_hash.count %></p>
-    <p>New Users from coupon codes: <%= @user_promo_hash.reject{|k,v| v.nil?}.count %></p>
+    <h1><b>User Aquisition Query Results</b></h1><br/>
+    <p><%= @start_time.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d %Y (%l:%M %p)") %>  to  <%= @end_time.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d %Y (%l:%M %p)") %></p><br/>
+    <p><b>New Users:</b> <%= @user_promo_hash.count %></p>
+    <p><b>New Users from coupon codes:</b> <%= @user_promo_hash.reject{|k,v| v.nil?}.count %></p>
     <br/>
 
+    <p>
     <% @user_promo_hash.each do |u, p| %>
-      <br/>
-      <p>
-        New user <%= u %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %>
-      </p>
+        <b>New user</b> <%= u %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %> <br/>
     <% end %>
-
+    </p>
     <hr/>
     
   </body>

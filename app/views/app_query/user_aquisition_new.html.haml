@@ -1,0 +1,20 @@
+%h1 AppQuery#user_aquisition_new
+
+=form_tag({:controller => "app_query", :action => "user_aquisition_create", :method => "post") do
+  
+  ="TIME ZONE "
+  =time_zone_select( :request, :time_zone, nil, :default => "Pacific Time (US & Canada)" )
+  %br
+  
+  ="Start Time "
+  =datetime_select(:request, :start_time, :ampm => true, :default => Time.now - 8.hours)
+  %br
+  
+  ="End Time "
+  =datetime_select(:request, :end_time, :ampm => true, :default => Time.now - 8.hours)
+  %br
+  
+  ="Send To Email: "
+  =email_field(:request, :email)
+
+  = submit_tag( 'Submit' )
