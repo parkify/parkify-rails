@@ -25,7 +25,7 @@ class AppQueryController < ApplicationController
     start_time = Time.new(*start_time_parts)
     end_time = Time.new(*end_time_parts)
 
-    if(@request)
+    if(request[:email])
       UserMailer.user_aquisition_query_email(start_time, end_time, request[:email]).deliver
     end
   end
