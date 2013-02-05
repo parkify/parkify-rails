@@ -30,7 +30,7 @@ class UserMailer < ActionMailer::Base
     @end_time = end_time
 
     users = User.where("created_at >= ? and created_at <= ?", start_time,end_time)
-    users.reject!{|x| x.nontrivial?}
+    users.reject!{|x| !x.nontrivial?}
     @user_promo_hash = Hash.new( *users.map{|x| [x, (x.codes.count == 0)? nil : x.codes.first]}.flatten)
 
     mail(:to =>who_asked,  :subject=>"User Aquisition Query")
