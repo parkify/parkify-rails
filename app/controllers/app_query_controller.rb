@@ -19,7 +19,7 @@ class AppQueryController < ApplicationController
     end_time_parts << 0
     #add time zone
     utc_offset =  ActiveSupport::TimeZone.new(request[:time_zone]).utc_offset
-    start_time_parts << utc_offest
+    start_time_parts << utc_offset
     end_time_parts << utc_offset
 
     start_time = Time.new(*start_time_parts)
