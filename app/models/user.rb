@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
   end
 
   def nontrivial?
-    return self.account_type != "internal" and self.account_type != "test" and self.account_type != "deactivated"
+    return self.account_type != "internal" && self.account_type != "test" && self.account_type != "deactivated"
   end
 
   def trial?
