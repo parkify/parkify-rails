@@ -14,7 +14,10 @@ class AppQueryController < ApplicationController
       start_time_parts << request["start_time(#{i}i)"].to_i
       end_time_parts << request["end_time(#{i}i)"].to_i
     end
-    
+    #add seconds
+    start_time_parts << 0
+    end_time_parts << 0
+    #add time zone
     start_time_parts << request["time_zone"]
     end_time_parts << request["time_zone"]
 
