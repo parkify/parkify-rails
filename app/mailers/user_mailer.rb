@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     users = User.where("created_at >= ? and created_at <= ?", start_time,end_time)
     users.reject!{|x| x.trivial?}
     @user_promo_hash = {}
-    users.each dp |u|
+    users.each do |u|
       @user_promo_hash[x.id] = ( (x.codes.count == 0)? nil : x.codes.first )
     end
     #@user_promo_hash = Hash.new( *(users.map{|x| [x, (x.codes.count == 0)? nil : x.codes.first]}.flatten))
