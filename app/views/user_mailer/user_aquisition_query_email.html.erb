@@ -29,7 +29,7 @@
     <% @user_promo_hash.each do |u, p| %>
       <br/>
       <p>
-        New user <%= u.id %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %>
+        New user <%= u %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %>
       </p>
     <% end %>
 
