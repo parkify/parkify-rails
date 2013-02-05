@@ -37,4 +37,8 @@ class UserMailer < ActionMailer::Base
 
   end
 
+  def test
+    UserMailer.user_aquisition_query_email(Time.now-1.month, Time.now, "dylan.r.jackson@parkify.me").deliver
+  end
+
 end
