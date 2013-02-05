@@ -27,7 +27,7 @@
     <br/>
 
     <p>
-    <% @user_promo_hash.each do |u, p| %>
+    <% @user_promo_hash.sort.each do |u, p| %>
         <b>New user</b> <%= u %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %> <br/>
     <% end %>
     </p>
