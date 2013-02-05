@@ -22,11 +22,11 @@
   <body>
     <h1>User Aquisition Query Results</h1><br/>
     <p><%= @start_time %>  to  <%= @end_time %></p><br/>
-    <p>New Users: <%= @users.count %></p>
-    <p>New Users from coupon codes: <%= @users.reject{|k,v| v.nil?}.count %></p>
+    <p>New Users: <%= @user_promo_hash.count %></p>
+    <p>New Users from coupon codes: <%= @user_promo_hash.reject{|k,v| v.nil?}.count %></p>
     <br/>
 
-    <% @users.each do |u, p| %>
+    <% @user_promo_hash.each do |u, p| %>
       <br/>
       <p>
         New user <%= u.id %> - code: <%= ( (p.nil?) ? "N/A" : p.code_text) %>
