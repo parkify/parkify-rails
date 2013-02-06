@@ -6,6 +6,7 @@ class Api::V3::RegistrationsController < ApplicationController
   def create
 
     if(params[:trial])
+      p ["GOT HERE"]
       @user = User.build_trial_account
       @user.email = "trial#{User.order(:id).last.id+1}@parkify.me"
       @user.password = Devise.friendly_token.first(12)
