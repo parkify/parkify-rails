@@ -224,5 +224,24 @@ class Api::V3::AccountController < ApplicationController
     end
   end
   
+  def check_code_text
+    @code = Code.find_by_code_text(params[:code_text])
+    if(!@code || !@code.promo)
+      respond_to do |format|
+        format.json { render json: {:success=>false}, status: :unprocessable_entity }
+      end
+    else
+      @promo = @code.promo
+      respond_to do |format|
+        if(@promo.active?)
+          format.json { render json: {:success=>true, :display_string => @promo.short_description} }
+        else
+          format.json { render json: {:success=>false}, status: :unprocessable_entity }
+        end
+      end
+      
+    end
+
+  end
   
 end

@@ -159,6 +159,7 @@ ParkifyRails::Application.routes.draw do
           post 'reset_password', :on => :collection
           post 'problem_spot', :on => :collection
           post 'fill_trial_account', :on => :collection
+          post 'check_code_text', :on => :collection
         end
       end
 
