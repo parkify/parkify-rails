@@ -239,7 +239,7 @@ class User < ActiveRecord::Base
     trial_account.password = Devise.friendly_token.first(12)
     trial_account.account_type = "trial"
     trial_account.first_name = "trial"
-    trial_account.last_name = "#{trial.email}
+    trial_account.last_name = "#{trial.email}"
     return trial_account
   end
 
