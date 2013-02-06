@@ -235,10 +235,11 @@ class User < ActiveRecord::Base
 
   def self.build_trial_account
     trial_account = User.new()
-    trial_account.
+    trial_account.email = "trial#{User.order(:id).last.id+1}@parkify.me"
+    trial_account.password = Devise.friendly_token.first(12)
     trial_account.account_type = "trial"
     trial_account.first_name = "trial"
-    trial_account.last_name = "#{trial.email}"
+    trial_account.last_name = "#{trial.email}
     return trial_account
   end
 

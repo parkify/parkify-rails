@@ -5,11 +5,10 @@ class Api::V3::RegistrationsController < ApplicationController
   #create a new user through json (with credit card info)s
   def create
 
+    p ["params, params[:trial], params[\"trial\"]", params, params[:trial], params["trial"]]
     if(params["trial"]	)
       p ["GOT HERE"]
       @user = User.build_trial_account
-      @user.email = "trial#{User.order(:id).last.id+1}@parkify.me"
-      @user.password = Devise.friendly_token.first(12)
       @user.phone_number = JSON.parse(params[:user])[:phone_number]	
 
       if(params["code_text"])
