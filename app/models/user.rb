@@ -233,11 +233,12 @@ class User < ActiveRecord::Base
     return self.account_type == "trial"
   end
 
-  def self.create_trial_account
+  def self.build_trial_account
     trial_account = User.new()
-    trial_account.account_type == "trial"
-    trial_account.credit += 500
-    trial_account.save
+    trial_account.
+    trial_account.account_type = "trial"
+    trial_account.first_name = "trial"
+    trial_account.last_name = "#{trial.email}"
     return trial_account
   end
 

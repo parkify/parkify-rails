@@ -39,6 +39,7 @@ class Api::V3::DevicesController < ApplicationController
 
   # POST /devices
   # POST /devices.json
+  # Update/Add device record. Check whether or not a trial account is needed to be generated.
   def create(options={})
     new_device = false
     @device = Device.find_or_initialize_by_device_uid(params[:device_uid], :last_used_at => Time.now)

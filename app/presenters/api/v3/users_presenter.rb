@@ -12,6 +12,7 @@ class Api::V3::UsersPresenter < Api::V3::ApplicationPresenter
     result["credit_cards"] = user.cards.as_json
     result["cars"] = user.cars.as_json
     result["promos"] = user.promo_users.as_json
+    result["account_type"] = user.account_type
     result
   end
   

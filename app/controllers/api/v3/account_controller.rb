@@ -192,6 +192,37 @@ class Api::V3::AccountController < ApplicationController
       end
     end
   end
+
+  def fill_trial_account
+    @user = current_user
+    
+    if(!@user || !@user.trial?)
+      respond_to do |format|
+        format.json { render json: {:success=>false}, status: :unprocessable_entity }
+      end
+    else
+      @promo_user = nil
+      if(params[:code_text])
+        @promo_user = @user.save_with_new_promo!(params[:code_text])
+        success = !(@promo_user.nil?)
+      else
+        @user.phone_number = params[:phone_number]
+        success = @user.save
+      end
+
+      respond_to do |format|
+        if (success)
+         format.json { render json: {:success=>false}, status: :unprocessable_entity }
+        end
+      end
+
+      if (success)
+        format.json { render json: {:promo=>@promo_user, :user=>Api::V3::UsersPresenter.new().as_json(@user), :success=>true}, location: @user }
+      else
+        format.json { render json: {:error=>@user.errors}, status: :unprocessable_entity }
+      end
+    end
+  end
   
   
 end
