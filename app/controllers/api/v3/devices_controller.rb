@@ -43,23 +43,22 @@ class Api::V3::DevicesController < ApplicationController
   def create(options={})
     new_device = false
     @device = Device.find_or_initialize_by_device_uid(params[:device_uid], :last_used_at => Time.now)
-    @device.push_token_id = params[:push_token_id]
+    if(params[:push_token_id])
+      @device.push_token_id = params[:push_token_id]
+    end
     @device.device_type = params[:devicetype]
     @device.last_used_at = Time.now
 
     if(@device.save)
-      if (current_user)
+      if (current_user)	
         p 'user logged in'
         device_user = @device.device_users.find_or_initialize_by_user_id(current_user.id, :last_used_at => Time.now)
         device_user.last_used_at = Time.now()
         device_user.save
       else
-        @device.reload!
+        @device.reload
         if(@device.users.count == 0)
-          #new_device = true
-          #p 'new trial account?'
-          #trialUser = User.create_trial_account
-          #device_user = @device.device_users.create(:user_id => trialUser.id, :last_used_at => Time.now)
+          new_device = true
         end
       end
     else
