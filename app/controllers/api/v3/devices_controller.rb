@@ -56,7 +56,7 @@ class Api::V3::DevicesController < ApplicationController
         device_user.last_used_at = Time.now()
         device_user.save
       else
-        #@device = Device.find(@device)
+        @device = Device.find(@device)
         if(@device.users.count == 0)
           new_device = true
         end
