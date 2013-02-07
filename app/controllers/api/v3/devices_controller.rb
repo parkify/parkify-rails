@@ -46,7 +46,7 @@ class Api::V3::DevicesController < ApplicationController
     if(params[:push_token_id])
       @device.push_token_id = params[:push_token_id]
     end
-    @device.device_type = params[:devicetype]
+    @device.device_type = params[:devicetype]  
     @device.last_used_at = Time.now
 
     if(@device.save)
