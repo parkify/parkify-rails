@@ -8,6 +8,8 @@ gem 'rest-client', "~>1.6.7"
 gem 'fastimage'
 gem 'hipchat-api'
 
+gem 'psych'
+
 group :development, :test do
   #gem 'sqlite3', '1.3.5'
   gem 'capybara'
