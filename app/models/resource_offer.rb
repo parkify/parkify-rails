@@ -241,16 +241,18 @@ class ResourceOffer < ActiveRecord::Base
     return toRtn
   end
 
-  def validate_directions
+  def validate_directions(printout=false)
     begin
       directions_hash = ActiveSupport::JSON.decode(self.directions)
     rescue
+      print "invalide JSON" if printout
       return false
     end
 
     begin
       instructions = directions_hash["sources"][0]
     rescue
+      print "can't find first source" if printout
       return false
     end
 
@@ -258,10 +260,12 @@ class ResourceOffer < ActiveRecord::Base
       begin
         inst["conds"][0]["text"]
       rescue
+        print "can't find text in inst #{inst}" if printout
         return false
       end
 
       if(inst["conds"][0]["text"].nil?)
+        print "can't find image in inst #{inst}" if printout
         return false
       end
     end  
