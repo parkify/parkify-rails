@@ -11,9 +11,9 @@ class Api::V3::RegistrationsController < ApplicationController
       @user = User.build_trial_account
       @user.phone_number = JSON.parse(params[:user])["phone_number"]	
 
-      if(params["code_text"])
+      if(JSON.parse(params[:user])["code_text"])
         p ["Got here"]
-        success = @user.save_with_new_promo!(params["code_text"])
+        success = @user.save_with_new_promo!(JSON.parse(params[:user])["code_text"])
       else
         @user.credit = 500
         success = @user.save
