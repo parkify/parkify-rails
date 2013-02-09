@@ -17,12 +17,30 @@ class Api::V3::AccountController < ApplicationController
   # GET /users/1.json
   def show
     @user = current_user
-    
     respond_to do |format|
       #format.html # show.html.erb
         format.json { render json: {:user=>Api::V3::UsersPresenter.new().as_json(@user), :success=>true } }
     end
   end
+
+  def show_trial
+    @device = Device.find_by_device_uid(params[:device_uid])
+    if(@device)
+      @user = @device.trial_account
+    end
+    respond_to do |format|
+      #format.html # show.html.erb
+      if(@user)
+        format.json { render json: {:user=>Api::V3::UsersPresenter.new().as_json(@user), :success=>true } }
+      else
+        format.json { render json: {:success=>false } }
+      end
+    end
+  end
+
+
+  #ok, ok, so I need to decide what to do if the user doesn't have the auth token. I suppose I give them that when they first open the app if they have a trial account? If they ONLY have a trial account tied to that device?
+
 
   # GET /users/new
   # GET /users/new.json

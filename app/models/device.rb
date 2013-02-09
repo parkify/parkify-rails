@@ -13,6 +13,10 @@ class Device < ActiveRecord::Base
     #user = self.users.first
     #return (user.nil?) ? false : (user.trial?)
   end
+
+  def trial_account
+    return = self.users.where("account_type = ?", "trial").first
+  end
   
 
 end

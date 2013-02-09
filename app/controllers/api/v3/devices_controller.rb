@@ -67,8 +67,9 @@ class Api::V3::DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
-        if(@device.has_trial_account)
-          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), :auth_token=>@device.users.first.authentication_token}, status: :created}
+        @user = @device.trial_account
+        if(@user)
+          format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json(), :auth_token=>@user.authentication_token}, status: :created}
         else
           format.json {render json: {:isNew=>new_device, :success=>true, :device=>@device.as_json()}, status: :created}
         end

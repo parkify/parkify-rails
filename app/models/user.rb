@@ -233,6 +233,12 @@ class User < ActiveRecord::Base
     return self.account_type == "trial"
   end
 
+  def needed_for_update
+    need_card = (self.cards.count == 0)
+    need_car = (self.cars.count == 0)
+    return {:need_card => need_card, :need_car => need_car}
+  end
+
   def self.build_trial_account
     trial_account = User.new()
     trial_account.email = "trial#{User.order(:id).last.id+1}@parkify.me"
