@@ -20,7 +20,7 @@ class Api::V3::UsersPresenter < Api::V3::ApplicationPresenter
   end
 
   def no_nil(input)
-    return input.nil? "" : input
+    return (input.nil?) ? "" : input
   end
   
 end
