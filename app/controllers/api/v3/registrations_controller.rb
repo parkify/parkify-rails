@@ -13,7 +13,7 @@ class Api::V3::RegistrationsController < ApplicationController
 
       if(params["code_text"])
         p ["Got here"]
-        success = @user.save_with_new_promo!(params["code_text]")
+        success = @user.save_with_new_promo!(params["code_text"])
       else
         @user.credit = 500
         success = @user.save
