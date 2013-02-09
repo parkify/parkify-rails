@@ -160,7 +160,7 @@ ParkifyRails::Application.routes.draw do
           post 'problem_spot', :on => :collection
           post 'fill_trial_account', :on => :collection
           post 'check_code_text', :on => :collection
-          post 'account', :on => :collection
+          put 'account', :on => :collection
         end
       end
 
