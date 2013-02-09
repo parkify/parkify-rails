@@ -74,6 +74,10 @@ class Api::V3::AccountController < ApplicationController
     end
   end
 
+  def account
+    self.update
+  end
+
   # PUT /users/1
   # PUT /users/1.json
   def update
