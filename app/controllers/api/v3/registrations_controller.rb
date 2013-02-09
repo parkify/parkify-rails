@@ -4,8 +4,6 @@ class Api::V3::RegistrationsController < ApplicationController
   
   #create a new user through json (with credit card info)s
   def create
-
-    p ["params, params[:trial], params[\"trial\"]", params, params[:trial], params["trial"]]
     if(params["trial"]	)
       p ["GOT HERE"]
       @user = User.build_trial_account
@@ -30,14 +28,23 @@ class Api::V3::RegistrationsController < ApplicationController
 
       end
     else
+      @user = current_user
+      if(@user)
+        #Promote account
+        @user.assign_attributes(JSON.parse(params[:user]))
+        @user.account_type = "standard"
+      else
+        @user = User.new(JSON.parse(params[:user]))
+      end
 
-      @user = User.new(JSON.parse(params[:user]))
-
-
-
-      logger.info "Beginning registration..."
+      success = false
+      if @user.cars.count > 0
+        success = @user.save_with_new_card!(params[:stripe_token_id])
+      else
+        success = @user.save_with_card_and_car!(params[:stripe_token_id], params[:license_plate_number])
+      end
       
-      if @user.save_with_card_and_car!(params[:stripe_token_id], params[:license_plate_number])
+      if success
         logger.info "err1..."
         #Return the results
         lpn = @user.cars.first.license_plate_number
@@ -46,9 +53,6 @@ class Api::V3::RegistrationsController < ApplicationController
         #render :json=>{:success=>true, :auth_token=>@user.authentication_token, :user=>@user.email}
         return
       else
-        if(@user.id)
-          @user.destroy
-        end
         logger.info "err2..."
         warden.custom_failure!
         render :json=>{:success=>false, :error=>@user.errors}, :status=>422
