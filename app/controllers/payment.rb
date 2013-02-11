@@ -61,11 +61,14 @@ class Payment
     customer = user.active_card
     if (!customer)
       if (user.trial?)
-        user.credit += partialamount_chargedFromCredit
-        user.save
-        paymentInfo.amount_charged = 0
-        Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
-        return nil
+        if (user.used_delayed_payment)
+          user.credit += partialamount_chargedFromCredit
+          user.save
+          paymentInfo.amount_charged = 0
+          Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
+          return nil
+        end
+      end
       else
         user.credit += partialamount_chargedFromCredit
         user.save
@@ -164,7 +167,7 @@ class Payment
       else
         partialamount_chargedFromCredit = user.credit
         amountToCharge -= partialamount_chargedFromCredit
-        toRtn = "$#{sprintf('%0.2f',(partialamount_chargedFromCredit/100.0))} will be deducted from account credits and "
+        toRtn = "$#{sprintf('%0.2f',(partialamount_chargedFromCredit/100.0))} will be deducted from account credits. "
       end
     end
     
@@ -172,7 +175,33 @@ class Payment
     #verify that the user has a valid card and grab that card.
     customer = user.active_card
     if (!customer)
-      return "Error: You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance."
+      if (user.trial?)
+        if (user.used_delayed_payment)
+          user.credit += partialamount_chargedFromCredit
+          user.save
+          paymentInfo.amount_charged = 0
+          Payment::payment_failed(user, paymentInfo, reason, "You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations.")
+          return nil
+        end
+        else
+          x = 4.minutes
+          x = x /60
+          return toRtn + "\n\n You will have #{x} minutes to park and finish paying."
+        end
+      end
+      else
+        user.credit += partialamount_chargedFromCredit
+        user.save
+        paymentInfo.amount_charged = 0
+        Payment::payment_failed(user, paymentInfo, reason, "You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance.")
+        return nil
+      end
+    end
+
+
+    customer = user.active_card
+    if (!customer)
+      return "Error: "
     end
     
     card = Stripe::Customer.retrieve(customer.customer_id).active_card

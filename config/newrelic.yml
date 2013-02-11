@@ -96,29 +96,29 @@ common: &default_settings
   # your users' browsers to download and render your web pages by injecting a small amount
   # of JavaScript code into the header and footer of each page. 
   browser_monitoring:
-      # By default the agent automatically injects the monitoring JavaScript 
-      # into web pages. Set this attribute to false to turn off this behavior.
-      auto_instrument: true
+    # By default the agent automatically injects the monitoring JavaScript 
+    # into web pages. Set this attribute to false to turn off this behavior.
+    auto_instrument: true
 
-  # Proxy settings for connecting to the service.
-  #
-  # If a proxy is used, the host setting is required.  Other settings
-  # are optional.  Default port is 8080.
-  #
-  # proxy_host: hostname
-  # proxy_port: 8080
-  # proxy_user:
-  # proxy_pass:
+    # Proxy settings for connecting to the service.
+    #
+    # If a proxy is used, the host setting is required.  Other settings
+    # are optional.  Default port is 8080.
+    #
+    # proxy_host: hostname
+    # proxy_port: 8080
+    # proxy_user:
+    # proxy_pass:
 
-  
-  # Tells transaction tracer and error collector (when enabled)
-  # whether or not to capture HTTP params.  When true, frameworks can
-  # exclude HTTP parameters from being captured.
-  # Rails: the RoR filter_parameter_logging excludes parameters
-  # Java: create a config setting called "ignored_params" and set it to
-  #     a comma separated list of HTTP parameter names.
-  #     ex: ignored_params: credit_card, ssn, password 
-  capture_params: false
+    
+    # Tells transaction tracer and error collector (when enabled)
+    # whether or not to capture HTTP params.  When true, frameworks can
+    # exclude HTTP parameters from being captured.
+    # Rails: the RoR filter_parameter_logging excludes parameters
+    # Java: create a config setting called "ignored_params" and set it to
+    #     a comma separated list of HTTP parameter names.
+    #     ex: ignored_params: credit_card, ssn, password 
+    capture_params: false
 
 
   # Transaction tracer captures deep information about slow

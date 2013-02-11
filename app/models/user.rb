@@ -239,6 +239,10 @@ class User < ActiveRecord::Base
     return {:need_card => need_card, :need_car => need_car}
   end
 
+  def used_delayed_payment
+    return true
+  end
+
   def self.build_trial_account
     trial_account = User.new()
     trial_account.email = "trial#{User.order(:id).last.id+1}@parkify.me"
