@@ -68,7 +68,6 @@ class Payment
           Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
           return nil
         end
-      end
       else
         user.credit += partialamount_chargedFromCredit
         user.save
@@ -188,7 +187,6 @@ class Payment
           x = x /60
           return toRtn + "\n\n You will have #{x} minutes to park and finish paying."
         end
-      end
       else
         user.credit += partialamount_chargedFromCredit
         user.save
