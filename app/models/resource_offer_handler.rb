@@ -1,4 +1,4 @@
-RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 2.days
+RESOURCE_OFFER_HANDLER_WINDOW_WIDTH = 2.weeks
 
 # Not an ActiveRecord model. Builds and updates an in-memory schedule for spots.
 # Updates from a json serialization in redis to maintain state across multiple
@@ -72,7 +72,9 @@ class ResourceOfferHandler < Ohm::Model
     end
     if(!fresh_container.updated_from_sql && !use_cache)
       #fresh_container.update_from_sql(acceptance.start_time, acceptance.end_time)
-      fresh_container.update_from_sql()
+      if(!fresh_container.update_from_sql())
+        return -1
+      end
     end
     return fresh_container.validate_reservation_and_find_price(acceptance)
   end 
@@ -84,7 +86,9 @@ class ResourceOfferHandler < Ohm::Model
     end
     if(!fresh_container.updated_from_sql && !use_cache)
       #fresh_container.update_from_sql(acceptance.start_time, acceptance.end_time)
-      fresh_container.update_from_sql()
+      if(!fresh_container.update_from_sql())
+        return -1
+      end
     end
     return fresh_container.validate_reservation(acceptance)
   end

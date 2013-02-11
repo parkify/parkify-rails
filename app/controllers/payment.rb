@@ -60,11 +60,19 @@ class Payment
     #verify that the user has a valid card and grab that card.
     customer = user.active_card
     if (!customer)
-      user.credit += partialamount_chargedFromCredit
-      user.save
-      paymentInfo.amount_charged = 0
-      Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
-      return nil
+      if (user.trial?)
+        user.credit += partialamount_chargedFromCredit
+        user.save
+        paymentInfo.amount_charged = 0
+        Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
+        return nil
+      else
+        user.credit += partialamount_chargedFromCredit
+        user.save
+        paymentInfo.amount_charged = 0
+        Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
+        return nil
+      end
     end
     
     paymentInfo.card_id = customer.id

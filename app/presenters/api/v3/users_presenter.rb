@@ -14,6 +14,7 @@ class Api::V3::UsersPresenter < Api::V3::ApplicationPresenter
     result["promos"] = user.promo_users.as_json
     result["account_type"] = self.no_nil(user.account_type)
     if(user.trial?)
+      result["email"] = ""
       result["needed_for_update"] = user.needed_for_update
     end
     result

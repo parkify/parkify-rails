@@ -10,7 +10,7 @@ class ResourceOfferContainer < Ohm::Model
   attribute :ohm_ization
   attribute :resource_offer_id
   unique :resource_offer_id
-
+  attr_accessor :error
 
 
 
@@ -39,10 +39,15 @@ class ResourceOfferContainer < Ohm::Model
     end
 
     if(!toUpdate.updated_from_sql)
-      toUpdate.update_from_sql
+      if(!toUpdate.update_from_sql)
+        return nil
+      end
     end
 
-    toUpdate.save!
+    if(!toUpdate.save!)
+      return nil
+    end
+    return toUpdate
   end
 
   def save!
@@ -63,7 +68,9 @@ class ResourceOfferContainer < Ohm::Model
     toRtn = ResourceOfferContainer.with(:resource_offer_id, resource_offer_id)
     if(!toRtn)
       toRtn = ResourceOfferContainer.create ({:resource_offer_id => resource_offer_id})
-      toRtn.update_from_sql
+      if(!toRtn.update_from_sql)
+        return nil
+      end
       toRtn.save!
       toRtn.updated_from_sql = true
     else
@@ -89,14 +96,20 @@ class ResourceOfferContainer < Ohm::Model
   def update_info
     p "ResourceOfferContainer::update_info"
     @resource = ResourceOffer.find(self.resource_offer_id)
+    if (!@resource)
+      return nil
+    end
     @images = @resource.images.all
     @quick_properties = @resource.quick_properties.all
+    return self
   end
 
   # update both price and capacity intervals
   def update_from_sql(start_time=nil, end_time=nil)
     p "ResourceOfferContainer::update_from_sql"
-    update_info 
+    if (!update_info)
+      return nil
+    end
     
     @capacity_intervals = []
     @price_intervals = []

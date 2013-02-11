@@ -299,6 +299,32 @@ class ResourceOffer < ActiveRecord::Base
     end
   end
 
+  def generate_default_directions(id)
+    ro = ResourceOffer.find(id)
+	  e_lat = ro.latitude
+    e_long = ro.longitude
+
+    qp_lat = ro.quick_properties.find_by_key("e_lat")
+    qp_long = ro.quick_properties.find_by_key("e_long")
+
+    if(qp_lat && qp_long)
+	    e_lat = qp_lat.value
+	    e_long = qp_long.value
+    end
+
+    e_text = "Enter from street"
+
+    qp_access_text = ro.quick_properties.find_by_key("access_text")
+    if(qp_access_text)
+	    e_text = qp_access_text.value
+    end
+
+    directions = {"sources"=>[[{"location"=>{"lat"=>e_lat, "long"=>e_long},"heading"=>1.571,"conds"=> [{"text"=>e_text,"image"=>"street_entrance"}]},{"location"=>{"lat"=>ro.latitude, "long"=>ro.longitude},"heading"=>1.571,"conds"=> [{"text"=>"","image"=>"spot"}]},{"location"=>{"lat"=>ro.latitude, "long"=>ro.longitude},"heading"=>1.571,"conds"=> [{"text"=>"Park in spot ##{ro.sign_id}","image"=>"sign"}]}]]}
+
+    ro.directions = ActiveSupport::JSON.encode(directions)
+    ro.save
+end
+
 
   def update_handler
     ResourceOfferContainer::update_spot(self.id, true)
