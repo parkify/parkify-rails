@@ -181,7 +181,6 @@ class Payment
           paymentInfo.amount_charged = 0
           Payment::payment_failed(user, paymentInfo, reason, "You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations.")
           return nil
-        end
         else
           x = 4.minutes
           x = x /60
