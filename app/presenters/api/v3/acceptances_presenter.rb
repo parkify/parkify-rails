@@ -15,7 +15,7 @@ class Api::V3::AcceptancesPresenter < Api::V3::ApplicationPresenter
         toRtn[:needs_payment] = acc.needs_payment
         toRtn[:pay_by] = acc.pay_by
     end
-
+    return toRtn
   end
 
 
