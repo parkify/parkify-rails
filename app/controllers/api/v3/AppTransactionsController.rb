@@ -131,13 +131,14 @@ class Api::V3::AppTransactionsController < ApplicationController
     end
 
     respond_to do |format|
+      p ["Preview Transaction", toSend, toSend["success"], toSend[:success]]
       if(toSend && toSend[:success])
         format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
           format.json { render json: {:success => true, :message=>toSend}, status: :created, location: @acceptance, }
       else
         @acceptance.errors.add("", toSend[:price_string])
         format.html { render action: "new" }
-        format.json { render json: {:success => false, :message=>toSend}, status: :unprocessable_entity }
+        format.json { render json: {:success => false, :error=>@acceptance.errors}, status: :unprocessable_entity }
       end
     end
   end

@@ -187,7 +187,7 @@ class Acceptance < ActiveRecord::Base
     amountToCharge = (price * 100).floor #need value in cents
     toRtn[:price_string] = Payment::charge_string(user, amountToCharge, "Spot Reservation")
 
-    toRtn[:success] = !toRtn[:price_string].downcase.include?("uh oh")
+    toRtn[:success] = !(toRtn[:price_string].downcase.include?("uh oh"))
     return toRtn
   end
 
