@@ -172,13 +172,22 @@ class Payment
     
     
     #verify that the user has a valid card and grab that card.
-
-
     customer = user.active_card
     if (!customer)
-      return "Error: "
+      if (user.trial?)
+        if (user.used_delayed_payment)
+          return "Uh oh. You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations.")
+        else
+          x = 4.minutes
+          x = x /60
+          return toRtn + "\n\n You will have #{x} minutes to park and finish paying."
+        end
+      else
+        return "Uh oh. You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance.")
+      end
     end
-    
+
+
     card = Stripe::Customer.retrieve(customer.customer_id).active_card
     
     if(amountToCharge >= 50)
