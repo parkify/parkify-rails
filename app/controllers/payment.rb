@@ -172,28 +172,6 @@ class Payment
     
     
     #verify that the user has a valid card and grab that card.
-    customer = user.active_card
-    if (!customer)
-      if (user.trial?)
-        if (user.used_delayed_payment)
-          user.credit += partialamount_chargedFromCredit
-          user.save
-          paymentInfo.amount_charged = 0
-          Payment::payment_failed(user, paymentInfo, reason, "You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations.")
-          return nil
-        else
-          x = 4.minutes
-          x = x /60
-          return toRtn + "\n\n You will have #{x} minutes to park and finish paying."
-        end
-      else
-        user.credit += partialamount_chargedFromCredit
-        user.save
-        paymentInfo.amount_charged = 0
-        Payment::payment_failed(user, paymentInfo, reason, "You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance.")
-        return nil
-      end
-    end
 
 
     customer = user.active_card
