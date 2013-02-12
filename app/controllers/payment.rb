@@ -180,7 +180,7 @@ class Payment
         else
           x = 4.minutes
           x = x /60
-          return toRtn + "\n\n You will have #{x} minutes to park and finish paying for the remaining $#{sprintf('%0.2f',(amountToCharge/100.0)) with a credit card}."
+          return toRtn + "\n\n You will have #{x} minutes to park and finish paying for the remaining $#{sprintf('%0.2f',(amountToCharge/100.0))} with a credit card."
         end
       else
         return "Uh oh. You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance."
