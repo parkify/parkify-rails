@@ -142,13 +142,13 @@ class ResourceOfferContainer < Ohm::Model
     # Look through all acceptances and force_interval 
     #TODO: redesign force_interval to allow and "adjustment" of the value 
     #      (as opposed to an "overwriting" of value)
-    @resource.acceptances.where("status = ? OR status = ?", "successfully paid", "payment_pending").each do |acc|
+    #TODO: make this checking for active acceptances cleaner
+    @resource.acceptances.where("status = ? OR status = ? OR status = ?", "successfully paid", "payment pending", "delayed payment pending").each do |acc|
       toAdd = acc.generate_working_schedule(start_time, end_time)
       @capacity_intervals = ValuedInterval::force_intervals(toAdd[:capacity_intervals], @capacity_intervals)
     end
     #TODO: I need to remember to re-update every so often to advance this window.
     self.updated_from_sql = true
-
     return self
   end
   

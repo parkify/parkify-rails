@@ -12,7 +12,7 @@ class Api::V2::AcceptancesPresenter < Api::V2::ApplicationPresenter
       :status => acc.status,
       :details => acc.details,
       :id => acc.id,
-      :active => (acc.status == "successfully paid" || acc.status == "payment_pending")
+      :active => (acc.status == "successfully paid" || acc.status == "payment pending" || acc.status == "delayed payment pending")
     }
   end
 

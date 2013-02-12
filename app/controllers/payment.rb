@@ -52,7 +52,7 @@ class Payment
         user.credit = 0.0
         user.save
         
-        paymentInfo.details = "$#{sprintf('%0.2f',partialamount_chargedFromCredit/100.0)} was deducted from account credits and "
+        paymentInfo.details = "$#{sprintf('%0.2f',partialamount_chargedFromCredit/100.0)} was deducted from account credits. \n"
       end
     end
     
@@ -61,12 +61,21 @@ class Payment
     customer = user.active_card
     if (!customer)
       if (user.trial?)
-        if (user.used_delayed_payment)
+        if (user.delayed_payment_used)
           user.credit += partialamount_chargedFromCredit
           user.save
           paymentInfo.amount_charged = 0
           Payment::payment_failed(user, paymentInfo, reason, "User has no active cards")
           return nil
+        else
+          
+          x = 20.minutes
+          paymentInfo.payBy = (Time.now + x).to_f
+          minutes = x / 60
+          Payment::payment_succeeded(user, paymentInfo, reason)
+          paymentInfo.details += "You have #{minutes} minutes to park and pay for the remaining $#{sprintf('%0.2f',amountToCharge/100.0)}" + discountedString
+          paymentInfo.needs_payment = true
+          return paymentInfo
         end
       else
         user.credit += partialamount_chargedFromCredit
@@ -76,6 +85,23 @@ class Payment
         return nil
       end
     end
+
+customer = user.active_card
+    if (!customer)
+      if (user.trial?)
+        if (user.used_delayed_payment)
+          return "Uh oh. You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations."
+        else
+          x = 20.minutes
+          x = x / 60
+          return toRtn + "\n\n You will have #{x} minutes to park and finish paying for the remaining $#{sprintf('%0.2f',(amountToCharge/100.0))} with a credit card."
+        end
+      else
+        return "Uh oh. You don't have an active credit card! Add a card in account settings or call 1-855-Parkify for assistance."
+      end
+    end
+
+
     
     paymentInfo.card_id = customer.id
     
@@ -167,7 +193,7 @@ class Payment
         partialamount_chargedFromCredit = user.credit
         amountToCharge -= partialamount_chargedFromCredit
         toRtn = "$#{sprintf('%0.2f',(partialamount_chargedFromCredit/100.0))} will be deducted from account credits. "
-      end
+      end	
     end
     
     
@@ -175,11 +201,11 @@ class Payment
     customer = user.active_card
     if (!customer)
       if (user.trial?)
-        if (user.used_delayed_payment)
+        if (user.delayed_payment_used)
           return "Uh oh. You failed to add a credit card last time you made a reservation. \n\nPlease upgrade to a free standard account in the account settings menu to make any further reservations."
         else
-          x = 4.minutes
-          x = x /60
+          x = 20.minutes
+          x = x / 60
           return toRtn + "\n\n You will have #{x} minutes to park and finish paying for the remaining $#{sprintf('%0.2f',(amountToCharge/100.0))} with a credit card."
         end
       else
@@ -224,4 +250,6 @@ class PaymentInfo
   attr_accessor :stripe_charge_id
   attr_accessor :card_id
   attr_accessor :details
+  attr_accessor :needs_payment
+  attr_accessor :pay_by
 end

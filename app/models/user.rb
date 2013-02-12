@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit, :devices, :device_users
+  attr_accessible :email, :delayed_payment_used, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company_name, :billing_address, :company_phone_number, :zip_code, :phone_number, :credit, :devices, :device_users
   # attr_accessible :title, :body
   
   has_many :cars, :dependent => :destroy
@@ -237,10 +237,6 @@ class User < ActiveRecord::Base
     need_card = (self.cards.count == 0)
     need_car = (self.cars.count == 0)
     return {:need_card => need_card, :need_car => need_car}
-  end
-
-  def used_delayed_payment
-    return false
   end
 
   def self.build_trial_account

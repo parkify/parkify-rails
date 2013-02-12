@@ -83,7 +83,7 @@ class Acceptance < ActiveRecord::Base
   end
 
   def self.status_codes()
-    return Hash["1"=>"successfully paid", "2"=>"not successfully paid", "3"=>"invalid user", "4"=>"invalid spot", "5"=>"scheduling failed", "6"=>"payment pending", "7"=>"not successfully paid"]
+    return Hash["1"=>"successfully paid", "2"=>"not successfully paid", "3"=>"invalid user", "4"=>"invalid spot", "5"=>"scheduling failed", "6"=>"payment pending", "7"=>"not successfully paid", "8"=>"delayed payment pending"]
   end
 
 
@@ -125,6 +125,9 @@ class Acceptance < ActiveRecord::Base
     else
       self.set_payment_info(paymentInfo)
       self.status = "successfully paid"
+      if(self.pay_by && self.needs_payment)
+        self.status = "delayed payment pending"
+      end
       self.save
       UserMailer.payment_succeeded_email(self.user, self).deliver
       HipchatMailer::post("<b>Reservation made for spot!</b> <br/>Spot: #{self.resource_offer.sign_id} @ #{self.resource_offer.location_address} <br/>User: UserID(#{self.user.id}) <br/>Time: #{self.start_time} TO #{self.end_time} <br/>Total: $#{sprintf('%0.2f',amountToCharge/100.0)}")
@@ -138,6 +141,8 @@ class Acceptance < ActiveRecord::Base
       self.stripe_charge_id = paymentInfo.stripe_charge_id
       self.card_id = paymentInfo.card_id
       self.details = paymentInfo.details
+      self.needs_payment = paymentInfo.needs_payment
+      self.pay_by = paymentInfo.pay_by
     end
   end
   def refund_payment
