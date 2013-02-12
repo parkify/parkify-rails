@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
   end
 
   def used_delayed_payment
-    return true
+    return false
   end
 
   def self.build_trial_account
