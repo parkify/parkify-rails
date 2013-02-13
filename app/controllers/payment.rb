@@ -9,6 +9,8 @@ class Payment
     paymentInfo = PaymentInfo.new()
     paymentInfo.amount_charged = amountToCharge
     paymentInfo.details = ""
+    paymentInfo.pay_by = 0
+    paymentInfo.needs_payment = 0
     if(amountToCharge < 0) #TODO: Put in warning for charging very large amounts\
       Payment::payment_failed(user, paymentInfo, reason, "Charge amount was negative")
       return nil
