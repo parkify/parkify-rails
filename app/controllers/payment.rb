@@ -76,7 +76,7 @@ class Payment
           minutes = x / 60
           Payment::payment_succeeded(user, paymentInfo, reason)
           paymentInfo.details += "You have #{minutes} minutes to park and pay for the remaining $#{sprintf('%0.2f',amountToCharge/100.0)}" + discountedString
-          paymentInfo.needs_payment = true
+          paymentInfo.needs_payment = amountToCharge
           return paymentInfo
         end
       else
