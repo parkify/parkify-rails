@@ -110,6 +110,7 @@ class Api::V3::AppTransactionsController < ApplicationController
         presenter = Api::V3::AcceptancesPresenter.new
         acceptance_json = presenter.as_json(@acceptance)
         #format.html { redirect_to @acceptance, notice: 'acceptance was successfully created.' }
+        p acceptance_json
         format.json { render json: {:acceptance => acceptance_json, :success=>true}, status: :created, location: @acceptance }
       else
         #format.html { render action: "new" }
